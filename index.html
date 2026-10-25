@@ -397,9 +397,9 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-conten
 .fold-body{padding:0 14px 14px}
 .fold-in{background:var(--fill)}
 .pp-sheet{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center}
-.pp-card{background:var(--bg);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;text-align:center}
+.pp-card{background:var(--bg);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:18px calc(18px + var(--sar)) calc(18px + var(--sab)) calc(18px + var(--sal));display:flex;flex-direction:column;gap:12px;text-align:center}
 /* tryb gry */
-.stage{position:fixed;inset:0;z-index:80;background:var(--bg);display:flex;flex-direction:column;gap:8px;padding:calc(8px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));overflow-y:auto;overflow-x:hidden;animation:stgUp .22s ease}
+.stage{position:fixed;inset:0;z-index:80;background:var(--bg);display:flex;flex-direction:column;gap:8px;padding:calc(8px + var(--sat)) calc(12px + var(--sar)) calc(10px + var(--sab)) calc(12px + var(--sal));overflow-y:auto;overflow-x:hidden;animation:stgUp .22s ease}
 @keyframes stgUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
 body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .stg-top{display:flex;align-items:center;gap:8px}
@@ -438,7 +438,7 @@ body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .stg-clock{flex:1 1 100%}
 .stg-addrec{flex:1 1 100%}
 .yt-frame.docked{position:fixed;z-index:95;border-radius:14px;overflow:hidden;margin:0}
-.stg-wizard{position:absolute;left:0;right:0;bottom:0;z-index:96;background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.3);padding:18px 18px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;text-align:center}
+.stg-wizard{position:absolute;left:0;right:0;bottom:0;z-index:96;background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.3);padding:18px 18px calc(18px + var(--sab));display:flex;flex-direction:column;gap:10px;text-align:center}
 .stg-wizard[hidden]{display:none}
 .wz-step{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}.wz-t{font-size:21px}.stg-wizard p{margin:0}
 .wz-tap{min-height:110px;font-size:30px;--accent:var(--orange);background:var(--orange);color:#fff}
@@ -529,10 +529,35 @@ body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .th-trs{margin-bottom:10px}
 .th-cinfo{display:flex;flex-direction:column;gap:8px;background:var(--fill);box-shadow:none}
 .th-back{align-self:flex-start;padding-left:0}
+
+/* v2.1.1 — mobile: cele dotyku ≥44 px, brak opóźnienia 300 ms, pasek podstron */
+button,a,summary,input,select,textarea,label,[role=button],[role=tab]{touch-action:manipulation}
+.btn.sm,.btn.plain{min-height:44px;min-width:44px}
+.seg{min-height:48px}.seg button{min-height:44px}
+.pill{min-height:44px}
+summary{min-height:44px}
+.pt-practice summary{display:flex;align-items:center;padding:6px 0}
+.th-les summary{min-height:44px}
+input[type=range]{min-height:44px;touch-action:pan-y}
+.switch{box-sizing:content-box;border:7px solid transparent;background-clip:padding-box;margin:-7px;flex:0 0 51px;min-height:31px}
+.th-kc{grid-template-columns:repeat(4,1fr)}.th-kcb{min-height:48px}
+.dm-cell{height:44px;width:30px}
+.stg-close{min-width:48px;min-height:48px}
+.navbar .nav-back{position:absolute;left:calc(4px + var(--sal));top:var(--sat);min-height:44px;min-width:44px;padding:0 10px 0 8px;border:0;background:transparent;color:var(--blue);font:inherit;font-size:17px;display:none;align-items:center;gap:2px;max-width:40%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navbar .nav-back .chev{font-size:30px;line-height:1;margin-top:-4px;font-weight:300}
+.navbar #navtitle{max-width:52%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.sub .navbar{opacity:1;transform:none;pointer-events:auto;z-index:70;background:color-mix(in srgb,var(--bg) 88%,transparent)}
+body.sub .navbar .nav-back{display:inline-flex}
+body.sub .navbar #navtitle{opacity:0;transition:opacity .2s}
+body.sub .navbar.show #navtitle{opacity:1}
+body.sub .app{padding-top:calc(44px + var(--sat))}
+body.sub .large{padding-top:10px}
+body.sub .song-head{margin-top:8px}
+body.stage-open .navbar{display:none}
 </style>
 </head>
 <body>
-<div class="navbar" id="navbar"><b id="navtitle">Trener Gitara</b></div>
+<div class="navbar" id="navbar"><button class="nav-back" id="nav-back" type="button" aria-label="Wstecz"><span class="chev" aria-hidden="true">‹</span><span id="nav-back-lbl">Wstecz</span></button><b id="navtitle">Trener Gitara</b></div>
 <main class="app" id="app"></main>
 <nav class="tabbar" id="tabbar" aria-label="Zakładki"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -3141,6 +3166,7 @@ function songBpmLabel(k) { if (!k || k.indexOf("song:") !== 0) return null; cons
 function songStatusBadge(status) { return h("span", { class: "sbadge " + status }, SONG_STATUS[status]); }
 function readyBar(fr) { return h("div", { class: "ready", title: "Znane akordy: " + Math.round(fr * 100) + "%" }, h("i", { style: { width: Math.round(fr * 100) + "%" } })); }
 function openSong(id, secIdx) {
+  if (ui.tab === "utwory" && !ui.songId) rememberScroll();
   ui.tab = "utwory"; ui.songId = id; ui.songSec = secIdx == null ? -1 : secIdx; render(); window.scrollTo(0, 0);
 }
 function setSongStatus(id, status) {
@@ -3411,7 +3437,6 @@ function viewSong(song) {
   const st = S; const sp = songState(st, song.id); const secs = songSections(song); const unl = songUnlocked(song, st);
   let paBpm = songWorkBpm(song, sp); let paSecs = 0; const yt = ytGet(song.id);
   const kids = [];
-  kids.push(h("button", { class: "btn plain back", id: "song-back", onclick: () => { ui.songId = null; render(); window.scrollTo(0, 0); } }, "‹ Utwory"));
   kids.push(h("header", { class: "song-head" },
     h("h1", { class: "song-h1" }, song.title), h("div", { class: "song-artist" }, song.artist),
     h("div", { class: "song-facts" },
@@ -3679,15 +3704,16 @@ function stageEvents(seq, B) {
   const ev = []; seq.forEach((it, bi) => { const n = it.chords.length; it.chords.forEach((c, ci) => { const last = ev[ev.length - 1]; if (last && last.name === c) last.len += B / n; else ev.push({ bar: bi, ci, name: c, start: bi * B + ci * (B / n), len: B / n, sec: it.sec }); }); });
   return ev;
 }
-function closeStage() {
+function closeStage(fromPop) {
   if (!STAGE) return; const s = STAGE; STAGE = null;
+  if (fromPop !== true) { try { if (history.state && history.state.ov === "stage") { ignorePops++; history.back(); } } catch (e) { /* ignoruj */ } }
   try { s.cleanup(); } catch (e) { /* ignoruj */ }
   AUDIO.stopAll(); s.el.remove(); document.body.classList.remove("stage-open");
   try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) { /* ignoruj */ }
   if (s.after) s.after();
 }
 function openStage(song, pa, mode) {
-  closeStage();
+  closeStage(true);
   const B = pa.info().B; const secs = pa.info().secs;
   let seq = [], ev = [], cells = [];
   const yt = mode === "yt";
@@ -3812,6 +3838,7 @@ function openStage(song, pa, mode) {
   const el = h("div", { class: "stage" + (yt ? " yt" : ""), id: "stage", role: "dialog", "aria-label": "Tryb gry — " + song.title },
     top, h("div", { class: "stg-main" }, videoPh, h("div", { class: "stg-play-area" }, now, h("div", { class: "stg-timeline" }, dots, prog, strip, barInfo))), ctlRow, wiz);
   document.body.appendChild(el); document.body.classList.add("stage-open");
+  try { const hs = history.state || {}; if (hs.ov === "stage") history.replaceState(hs, ""); else history.pushState({ tg: hs.tg || null, ov: "stage" }, ""); } catch (e) { /* ignoruj */ } // gest wstecz zamyka tryb gry
   // --- dokowanie odtwarzacza YouTube nad sceną (bez przenoszenia iframe — nie przeładowuje się) ---
   let frameEl = null; let fold = null; let dockT = 0;
   function dock() {
@@ -4302,7 +4329,7 @@ function drumMachine() {
   const playBtn = h("button", { class: "btn primary", id: "dm-play", style: "min-width:120px", onclick: () => (on ? stop() : start()) }, "▶︎ Start");
   const range = h("input", { type: "range", min: 40, max: 240, value: P.bpm, "aria-label": "Tempo perkusji", oninput: (e) => setBpm(+e.target.value) });
   const swingVal = h("b", null, ""); const swingIn = h("input", { type: "range", min: 50, max: 75, value: P.swing, "aria-label": "Swing", id: "dm-swing", oninput: (e) => { P.swing = +e.target.value; drawMeta(); persist(); } });
-  const grid = h("div", { class: "dm-grid", id: "dm-grid" }); const listHolder = h("div"); const editBar = h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" });
+  const grid = h("div", { class: "dm-grid", id: "dm-grid", "data-dense": "1" }); const listHolder = h("div"); const editBar = h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" });
   let style = g.style || "Rock"; const styleBtn = h("button", { class: "btn sm tinted", onclick: () => setBpm(g.bpm) });
   function setBpm(v) { P.bpm = clamp(Math.round(v), 40, 240); dialN.textContent = String(P.bpm); range.value = String(P.bpm); persist(); }
   function drawMeta() {
@@ -4726,7 +4753,7 @@ function ptTest(key, o) {
       view.meter = mode === "mic" ? h("i") : null;
       view.ask = h("div", { class: "stack", style: "gap:8px" });
       kids.push(h("div", { class: "pt-stage" }, view.label, st.txt ? h("div", { class: "pt-txt" }, st.txt) : null, cells.el, view.dots, mode === "mic" ? h("div", { class: "pt-meter" }, view.meter) : null));
-      view.pad = mode === "tap" ? h("button", { class: "pt-pad", "aria-label": "Pole do stukania" }, running ? "STUKAJ TUTAJ" : "Tu będziesz stukać") : null;
+      view.pad = mode === "tap" ? h("button", { class: "pt-pad", "aria-label": "Pole do stukania", "aria-disabled": running ? null : "true" }, running ? "STUKAJ TUTAJ" : "Tu będziesz stukać") : null;
       if (view.pad) kids.push(view.pad);
       kids.push(view.ask);
       if (!running) kids.push(h("div", { class: "row", style: "gap:8px" }, h("button", { class: "btn primary grow pt-start", onclick: () => run() }, order.length ? "Dalej ▶" : "Start ▶"), order.length ? h("button", { class: "btn tinted pt-end", onclick: () => { done = result(); draw(); if (o.onResult) o.onResult(done); } }, "Zakończ") : null));
@@ -5067,14 +5094,14 @@ function thMarkRead(lid) { if (thState(S).read[lid]) return; const s = clone(S);
 function theoryCourse() {
   const t = thState(S); const done = THEORY_CH.filter((c) => (t.ch[c.id] || {}).passed).length; const cur = thCurrent(S);
   if (ui.thCh) { const c = TH_BY[ui.thCh]; const i = c.idx; const cs = t.ch[c.id] || {};
-    return [h("button", { class: "btn plain th-back", onclick: () => { ui.thCh = null; render(); } }, "‹ Wszystkie rozdziały"),
+    return [
       h("div", { class: "card stack th-chhead" }, h("div", { class: "row", style: "gap:10px" }, h("span", { style: "font-size:30px" }, c.ic), h("div", { class: "grow" }, h("div", { class: "small" }, "Rozdział " + (i + 1) + " z 14"), h("b", { style: "font-size:20px" }, c.t))), cs.best ? h("div", { class: "small" }, "Najlepszy wynik quizu: " + cs.best + "%" + (cs.passed ? " · zaliczony ✓" : "")) : null),
       ...c.lessons.map((l, j) => { const d = h("details", { class: "card th-les", open: !t.read[l.id] && c.lessons.findIndex((x) => !t.read[x.id]) === j ? "open" : null }, h("summary", null, h("span", { class: "th-num" + (t.read[l.id] ? " on" : "") }, t.read[l.id] ? "✓" : String(j + 1)), h("b", null, l.t)), thLessonView(l), h("button", { class: "btn tinted th-read", onclick: (e) => { thMarkRead(l.id); e.target.textContent = "✓ Przeczytane"; d.open = false; const n = d.querySelector(".th-num"); n.textContent = "✓"; n.classList.add("on"); } }, t.read[l.id] ? "✓ Przeczytane" : "Rozumiem ✓")); return d; }),
       h("div", { class: "card stack th-quizcard" }, h("b", null, "📝 Quiz rozdziału (zalicza 80%)"), h("div", { class: "th-quiz-host" }, h("button", { class: "btn primary th-start-quiz", onclick: (e) => { thRC(e.target.parentNode, thQuizView(c.id, (sc) => thSaveQuiz(c.id, sc))); } }, "Rozpocznij quiz")))];
   }
   return [h("div", { class: "card th-prog" }, h("div", { class: "row", style: "justify-content:space-between" }, h("b", null, "Kurs teorii"), h("span", { class: "chip tint", id: "th-done" }, done + "/14")), h("div", { class: "progress-line", style: "margin-top:8px" }, h("i", { style: "width:" + (done / 14 * 100) + "%" })), h("div", { class: "small", style: "margin-top:6px" }, "Teraz: " + cur.t + ". Codzienna lekcja ma blok teorii z tego rozdziału.")),
     h("div", { class: "list th-chs" }, THEORY_CH.map((c, i) => { const cs = t.ch[c.id] || {}; const open = thUnlocked(S, i); const nr = c.lessons.filter((l) => t.read[l.id]).length;
-      return h("button", { class: "li th-ch" + (open ? "" : " locked"), "data-ch": c.id, disabled: open ? null : true, onclick: () => { ui.thCh = c.id; render(); window.scrollTo(0, 0); } }, h("span", { class: "th-ic" }, open ? c.ic : "🔒"), h("span", { class: "grow" }, h("b", null, (i + 1) + ". " + c.t), h("div", { class: "small" }, cs.passed ? "Zaliczony ✓ " + cs.best + "%" : open ? nr + "/" + c.lessons.length + " lekcji" + (cs.best ? " · quiz " + cs.best + "%" : "") : "Zalicz poprzedni rozdział")), h("span", { class: "chev" }, open ? "›" : "")); }))];
+      return h("button", { class: "li th-ch" + (open ? "" : " locked"), "data-ch": c.id, disabled: open ? null : true, onclick: () => { rememberScroll(); ui.thCh = c.id; render(); window.scrollTo(0, 0); } }, h("span", { class: "th-ic" }, open ? c.ic : "🔒"), h("span", { class: "grow" }, h("b", null, (i + 1) + ". " + c.t), h("div", { class: "small" }, cs.passed ? "Zaliczony ✓ " + cs.best + "%" : open ? nr + "/" + c.lessons.length + " lekcji" + (cs.best ? " · quiz " + cs.best + "%" : "") : "Zalicz poprzedni rozdział")), h("span", { class: "chev" }, open ? "›" : "")); }))];
 }
 function viewTheory() {
   const trBox = h("div"); const tr = TH_TRAINERS.find((x) => x[0] === ui.thTr) || TH_TRAINERS[0];
@@ -5511,7 +5538,7 @@ function viewProgress(d) {
 }
 
 function viewProfile(d) {
-  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.1")])];
+  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.1.1")])];
   kids.push(h("section", { class: "section" }, h("div", { class: "level-card" },
     h("div", { class: "small", style: "font-weight:700;text-transform:uppercase;letter-spacing:.04em" }, "Twój poziom"),
     h("div", { class: "lv", id: "level-name" }, levelName(st.level)),
@@ -5542,7 +5569,7 @@ function viewProfile(d) {
     : [h("div", { style: "text-align:center;font-weight:600" }, "Na pewno? Tego nie da się cofnąć."), h("div", { style: "display:grid;grid-template-columns:1fr 1fr;gap:10px" }, h("button", { class: "btn danger primary", onclick: () => { ui.confirmReset = false; ui.tab = "dzis"; commit(null); } }, "Tak, usuń"), h("button", { class: "btn", onclick: () => { ui.confirmReset = false; drawReset(); } }, "Anuluj"))]));
   drawReset();
   kids.push(section("Zacznij od nowa", null, [resetBox], { delay: 120 }));
-  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.1 · działa offline · dane na Twoim urządzeniu"));
+  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.1.1 · działa offline · dane na Twoim urządzeniu"));
   return kids;
 }
 
@@ -5593,12 +5620,67 @@ function render() {
     const d = derive();
     kids = ui.tab === "dzis" ? viewToday(d) : ui.tab === "utwory" ? viewSongs(d) : ui.tab === "narzedzia" ? viewTools() : ui.tab === "akordy" ? viewKnow() : ui.tab === "postepy" ? viewProgress(d) : viewProfile(d);
     const openS = ui.tab === "utwory" && ui.songId ? songById(ui.songId) : null;
-    document.getElementById("navtitle").textContent = openS ? openS.title : TABS.find((t) => t.id === ui.tab).title;
+    const openCh = ui.tab === "akordy" && (ui.know || "teoria") === "teoria" && ui.thCh && typeof TH_BY !== "undefined" ? TH_BY[ui.thCh] : null;
+    document.getElementById("navtitle").textContent = openS ? openS.title : openCh ? openCh.t : TABS.find((t) => t.id === ui.tab).title;
   }
   app.replaceChildren(...kids);
   refreshTabbar();
+  syncNav();
   onScroll();
 }
+/* ---------- v2.1.1: podstrony — pasek „‹ Wstecz”, historia (gest wstecz iOS), przesunięcie od krawędzi ---------- */
+let navKey = null, ignorePops = 0, lastPop = 0; const navScroll = {};
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+function subPage() {
+  if (!S) return null;
+  if (ui.retest) return { key: "retest", back: () => { ui.retest = false; } };
+  if (ui.tab === "utwory" && ui.songId) return { key: "song:" + ui.songId, back: () => { ui.songId = null; } };
+  if (ui.tab === "akordy" && (ui.know || "teoria") === "teoria" && ui.thCh) return { key: "th:" + ui.thCh, back: () => { ui.thCh = null; } };
+  return null;
+}
+function syncNav() {
+  const sp = subPage(); const key = sp ? sp.key : null;
+  document.body.classList.toggle("sub", !!sp);
+  if (key === navKey) return;
+  const st = history.state || {};
+  try {
+    if (key) { if (st.tg) history.replaceState({ tg: key }, ""); else history.pushState({ tg: key }, ""); }
+    else if (st.tg) { ignorePops++; history.back(); }
+  } catch (e) { /* np. sandbox bez historii */ }
+  navKey = key;
+}
+function rememberScroll() { navScroll[ui.tab] = window.scrollY; }
+function leaveSub(sp) { sp.back(); render(); const y = navScroll[ui.tab]; window.scrollTo(0, y > 0 ? y : 0); }
+function navGoBack() {
+  const sp = subPage(); if (!sp) return;
+  const st = history.state || {};
+  if (st.tg === sp.key && !st.ov) { history.back(); return; } // popstate zamknie podstronę
+  if (st.tg) { ignorePops++; history.back(); navKey = null; }
+  leaveSub(sp);
+}
+window.addEventListener("popstate", (e) => {
+  lastPop = Date.now();
+  if (ignorePops > 0) { ignorePops--; return; }
+  const st = e.state || {}; const sheet = document.getElementById("post-play");
+  if (sheet || (typeof STAGE !== "undefined" && STAGE)) {
+    if (sheet) sheet.remove();
+    if (typeof STAGE !== "undefined" && STAGE) closeStage(true);
+    const sp = subPage(); if (sp && st.tg !== sp.key) { try { history.pushState({ tg: sp.key }, ""); } catch (er) { /* */ } }
+    return;
+  }
+  const sp = subPage();
+  if (sp && st.tg !== sp.key) { navKey = null; leaveSub(sp); }
+});
+document.getElementById("nav-back").addEventListener("click", navGoBack);
+(function edgeSwipe() {
+  let sx = -1, sy = 0, t0 = 0;
+  document.addEventListener("touchstart", (e) => { const t = e.touches[0]; sx = e.touches.length === 1 && t.clientX < 24 && subPage() && !document.body.classList.contains("stage-open") && !document.getElementById("post-play") ? t.clientX : -1; sy = t.clientY; t0 = Date.now(); }, { passive: true });
+  document.addEventListener("touchend", (e) => {
+    if (sx < 0) return; const t = e.changedTouches[0]; const dx = t.clientX - sx, dy = Math.abs(t.clientY - sy); sx = -1;
+    if (!(dx > 80 && dy < dx / 2 && Date.now() - t0 < 900)) return;
+    const start = t0; setTimeout(() => { if (lastPop < start) navGoBack(); }, 250); // Safari mógł już cofnąć sam
+  }, { passive: true });
+})();
 function onScroll() { document.getElementById("navbar").classList.toggle("show", window.scrollY > 48); }
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("storage", (e) => { if (e.key === STORE_KEY) { S = loadState(); render(); } });
