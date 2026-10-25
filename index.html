@@ -121,7 +121,7 @@ textarea.input{width:100%;font-family:var(--mono);font-size:11px;resize:vertical
 select.input{-webkit-appearance:none;appearance:none;padding-right:30px;background-image:linear-gradient(45deg,transparent 50%,var(--text2) 50%),linear-gradient(135deg,var(--text2) 50%,transparent 50%);background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px;background-repeat:no-repeat}
 input[type=range]{width:100%;accent-color:var(--accent);height:28px}
 /* pasek zakładek */
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(5,1fr);padding:6px calc(8px + var(--sar)) calc(6px + var(--sab)) calc(8px + var(--sal));
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(6,1fr);padding:6px calc(8px + var(--sar)) calc(6px + var(--sab)) calc(8px + var(--sal));
   background:color-mix(in srgb,var(--bg-elev) 72%,transparent);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);border-top:.5px solid var(--line)}
 .tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0 2px;color:var(--text3);font-size:10px;font-weight:600;letter-spacing:.01em;transition:color .2s}
 .tab svg{width:26px;height:26px;transition:transform .25s cubic-bezier(.3,.9,.3,1)}
@@ -259,6 +259,72 @@ pre.tab{font-family:var(--mono);font-size:12.5px;line-height:1.38;background:var
 .footer-note{text-align:center;font-size:12px;color:var(--text3);margin-top:28px}
 @media (min-width:700px){.large h1{font-size:40px;line-height:46px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Utwory ---------- */
+.song-hero{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background:linear-gradient(135deg,#30D158 0%,#00B3A4 45%,#0A84FF 100%);box-shadow:0 10px 30px rgba(10,132,255,.28)}
+.song-hero::after{content:"🎵";position:absolute;right:-6px;top:-10px;font-size:96px;opacity:.16;transform:rotate(12deg);pointer-events:none}
+.song-hero .eyebrow2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.9}
+.song-hero .hero-t{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:4px;line-height:1.15}
+.song-hero .hero-s{font-size:14px;opacity:.92}
+.hero-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.hero-chips span{font-family:var(--mono);font-weight:700;font-size:14px;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.22)}
+.btn.hero-btn{background:#fff;color:#0a7a5a;font-weight:700}
+.card.challenge{border-left:4px solid var(--c)}
+.song-ic{width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--c) 18%,transparent)}
+.song-t{font-weight:600;font-size:16px;line-height:1.25}
+.song-row .small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-row.cur{background:color-mix(in srgb,var(--blue) 6%,transparent)}
+.song-row.locked{opacity:.55}
+.song-r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}
+.sbadge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.sbadge.todo{background:var(--fill);color:var(--text2)}
+.sbadge.wip{background:color-mix(in srgb,var(--orange) 18%,transparent);color:var(--orange)}
+.sbadge.done{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}
+.ready{height:4px;border-radius:2px;background:var(--fill2);overflow:hidden;margin-top:6px;max-width:180px}
+.ready i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--teal))}
+.btn.back{padding:6px 2px;margin:4px 0 -6px;font-size:17px;color:var(--blue)}
+.song-stats{justify-content:space-around;text-align:center}
+.song-stats > div{display:flex;flex-direction:column;align-items:center;gap:2px}
+.song-stats b{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.chord.is-new{box-shadow:0 0 0 2px var(--orange)}
+.chord.is-new .nm::after{content:" • nowy";color:var(--orange);font-size:11px}
+.song-sec{display:flex;flex-direction:column;gap:8px}
+.song-sec + .song-sec{border-top:.5px solid var(--line);padding-top:12px}
+.yt-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+.yt-frame iframe,.yt-frame #yt-host{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-frame.off{background:var(--fill, rgba(120,120,128,.12));aspect-ratio:auto}
+.yt-fallback{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px;text-align:center}
+.yt-box{padding:12px;border-radius:14px;background:color-mix(in srgb,var(--text) 5%,transparent);gap:10px}
+.yt-links .yt-red{--accent:#ff3b30;color:#ff3b30}
+.yt-links .yt-music{--accent:#ff2d55;color:#ff2d55}
+a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.input.bad{box-shadow:0 0 0 2px #ff3b30 inset}
+#yt-url{min-width:0}
+.barrow{display:flex;flex-wrap:wrap;gap:6px}
+.barrow span{font-family:var(--mono);font-size:14px;font-weight:600;padding:6px 10px;min-width:44px;text-align:center;border-radius:10px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+.ly{display:flex;flex-direction:column;gap:2px;margin-top:2px}
+.ly-line{display:flex;flex-wrap:wrap;align-items:flex-end}
+.ly-seg{display:inline-flex;flex-direction:column;white-space:pre}
+.ly-seg b{color:var(--accent);font-family:var(--mono);font-size:13px;font-weight:700;min-height:17px;padding-right:6px}
+.ly-seg span{font-size:16px;line-height:1.3}
+.pa-now{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-radius:18px;background:var(--fill)}
+.pa-now .cur{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1;font-family:var(--mono)}
+.pa-now .nx{text-align:right;font-size:22px;color:var(--text2)}
+.pa-now .nx b{font-family:var(--mono)}
+.pa-chart{position:relative;max-height:236px;overflow-y:auto;border-radius:16px;background:var(--fill);padding:4px 10px 10px;-webkit-overflow-scrolling:touch}
+.pa-chart.compact{max-height:170px}
+.pa-sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);margin:10px 2px 6px}
+.pa-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pa-cell{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border-radius:11px;background:var(--card-strong);font-family:var(--mono);font-weight:700;font-size:16px;transition:background .15s,color .15s,transform .15s,opacity .2s}
+.pa-cell.multi{font-size:13px}
+.pa-cell.on{background:var(--accent);color:#fff;transform:scale(1.05);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 45%,transparent)}
+.pa-cell.past{opacity:.5}
+.pa-play{width:100%}
+.pa-play.on{--accent:var(--red)}
+.pa-bpm{font-size:28px;font-weight:800;letter-spacing:-.02em}
+.pa-secs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+.pa-secs .pill{flex:0 0 auto}
+.pa-opt{font-size:15px}
 </style>
 </head>
 <body>
@@ -302,9 +368,23 @@ const CHORDS = [
     { name: "G5", frets: [3, 5, 5, -1, -1, -1], fingers: [1, 3, 4, 0, 0, 0], cat: "Power chordy", lv: 2 },
     { name: "C5", frets: [-1, 3, 5, 5, -1, -1], fingers: [0, 1, 3, 4, 0, 0], cat: "Power chordy", lv: 2 },
     { name: "D5", frets: [-1, 5, 7, 7, -1, -1], fingers: [0, 1, 3, 4, 0, 0], cat: "Power chordy", lv: 2 },
+    { name: "Asus2", frets: [-1, 0, 2, 2, 0, 0], fingers: [0, 0, 1, 2, 0, 0], cat: "Sus i add", lv: 1 },
+    { name: "Asus4", frets: [-1, 0, 2, 2, 3, 0], fingers: [0, 0, 1, 2, 3, 0], cat: "Sus i add", lv: 1 },
+    { name: "Dsus2", frets: [-1, -1, 0, 2, 3, 0], fingers: [0, 0, 0, 1, 3, 0], cat: "Sus i add", lv: 1 },
+    { name: "Dsus4", frets: [-1, -1, 0, 2, 3, 3], fingers: [0, 0, 0, 1, 2, 3], cat: "Sus i add", lv: 2 },
+    { name: "Esus4", frets: [0, 2, 2, 2, 0, 0], fingers: [0, 2, 3, 4, 0, 0], cat: "Sus i add", lv: 2 },
+    { name: "A7sus4", frets: [-1, 0, 2, 0, 3, 3], fingers: [0, 0, 1, 0, 3, 4], cat: "Sus i add", lv: 2 },
+    { name: "Gmaj7", frets: [3, 2, 0, 0, 0, 2], fingers: [3, 2, 0, 0, 0, 1], cat: "Septymowe", lv: 2 },
+    { name: "Dmaj7", frets: [-1, -1, 0, 2, 2, 2], fingers: [0, 0, 0, 1, 1, 1], barre: { fret: 2, from: 3, to: 5 }, cat: "Septymowe", lv: 2 },
+    { name: "Hm7", frets: [-1, 2, 4, 2, 3, 2], fingers: [0, 1, 3, 1, 2, 1], barre: { fret: 2, from: 1, to: 5 }, cat: "Barré", lv: 2 },
+    { name: "Fism", frets: [2, 4, 4, 2, 2, 2], fingers: [1, 3, 4, 1, 1, 1], barre: { fret: 2, from: 0, to: 5 }, cat: "Barré", lv: 2 },
+    { name: "Fis", frets: [2, 4, 4, 3, 2, 2], fingers: [1, 3, 4, 2, 1, 1], barre: { fret: 2, from: 0, to: 5 }, cat: "Barré", lv: 3 },
+    { name: "Fism7b5", frets: [2, -1, 2, 2, 1, -1], fingers: [2, 0, 3, 4, 1, 0], cat: "Septymowe", lv: 3 },
+    { name: "Hm7b5", frets: [-1, 2, 3, 2, 3, -1], fingers: [0, 1, 3, 2, 4, 0], cat: "Septymowe", lv: 3 },
+    { name: "E9", frets: [-1, 7, 6, 7, 7, 7], fingers: [0, 2, 1, 3, 3, 3], barre: { fret: 7, from: 3, to: 5 }, cat: "Septymowe", lv: 3 },
 ];
 function ch(name) { return CHORDS.find((c) => c.name === name) || CHORDS[0]; }
-const BARRE_NAMES = ["F", "Fm", "Hm", "H", "Gm", "Cm"];
+const BARRE_NAMES = ["F", "Fm", "Hm", "H", "Gm", "Cm", "Hm7", "Fism", "Fis"];
 /* ============================== DANE: TABULATURY ============================== */
 const STR_LABELS = ["E", "A", "D", "G", "H", "e"];
 function tab(notes) {
@@ -333,7 +413,7 @@ const SKILLS = [
     { key: "technika", label: "Technika palców" }, { key: "skale", label: "Skale i solówki" }, { key: "teoria", label: "Teoria" },
     { key: "barre", label: "Barré" },
 ];
-const CAT_LABEL = { warm: "Rozgrzewka", tech: "Technika", chords: "Zmiany akordów", rhythm: "Rytm", theory: "Teoria i skale", song: "Granie progresji", cool: "Wyciszenie" };
+const CAT_LABEL = { warm: "Rozgrzewka", tech: "Technika", chords: "Zmiany akordów", rhythm: "Rytm", theory: "Teoria i skale", song: "Utwór", cool: "Wyciszenie" };
 const CAT_MIN = { warm: 3, tech: 4, chords: 4, rhythm: 4, theory: 4, song: 4, cool: 2 };
 const EX = [
     { id: "w_open", cat: "warm", title: "Puste struny i postawa", lv: [0, 0], skill: "technika", metric: "bpm", bpmKey: "open",
@@ -394,8 +474,8 @@ const EX = [
     { id: "th_caged", cat: "theory", title: "Pentatonika: wszystkie 5 pozycji", lv: [3, 3], skill: "skale", metric: "bpm", bpmKey: "penta",
         desc: ["Pozycje a-moll zaczynają się na strunie E od progów: 5, 8, 10, 12 i 15 (oraz 3 w niskiej pozycji).", "Graj jedną frazę w każdej pozycji, przechodząc ślizgiem między nimi.", "Cel: płynna improwizacja przez cały gryf bez zatrzymywania się."],
         tab: tab([...PENTA1, ...PENTA2]) },
-    { id: "s_prog", cat: "song", title: "Progresja dnia", lv: [0, 3], skill: "akordy", metric: "bpm", bpmKey: "strum",
-        desc: ["Graj progresję w pętli z dzisiejszym wzorem bicia, po 1 takcie na akord.", "Jeśli nie zdążasz ze zmianą — zagraj ostatnią ósemkę przed zmianą na pustych strunach. To normalna technika!", "Spróbuj nucić lub śpiewać — na takich progresjach opierają się setki znanych piosenek."] },
+    { id: "s_prog", cat: "song", title: "Utwór dnia", lv: [0, 3], skill: "akordy", metric: "bpm",
+        desc: ["Zagraj wybraną część utworu w trybie play-along: akordy przewijają się same w rytm metronomu.", "Zacznij od tempa startowego. Gdy przejdziesz fragment bez zatrzymania — dodaj 4–6 BPM.", "Jeśli nie zdążasz ze zmianą — zagraj ostatnią ósemkę przed zmianą na pustych strunach. To normalna technika!"] },
     { id: "cool", cat: "cool", title: "Swobodne granie i rozciąganie", lv: [0, 3], skill: "technika", metric: "none",
         desc: ["Zagraj cokolwiek sprawia Ci frajdę z dzisiejszej lekcji — bez metronomu.", "Rozciągnij palce i nadgarstki (po 15 s na każdą stronę).", "Zanotuj w głowie jedną rzecz, która dziś poszła lepiej niż wczoraj."] },
 ];
@@ -464,7 +544,7 @@ function planState(st, date) {
     const sn = st.today && st.today.date === date ? st.today.snap : undefined;
     return sn ? { ...st, ...sn } : st;
 }
-function makeSnap(s) { return { adj: { ...s.adj }, changes: { ...s.changes }, skills: { ...s.skills }, levelSessions: s.levelSessions, level: s.level, goal: s.goal }; }
+function makeSnap(s) { return { songs: JSON.parse(JSON.stringify(s.songs || {})), adj: { ...s.adj }, changes: { ...s.changes }, skills: { ...s.skills }, levelSessions: s.levelSessions, level: s.level, goal: s.goal }; }
 function buildLesson(st, date) {
     const rnd = rngFrom(date + "|" + st.level + "|" + st.levelSessions);
     function pick(arr) { return arr[Math.floor(rnd() * arr.length) % arr.length]; }
@@ -490,12 +570,20 @@ function buildLesson(st, date) {
             let pairs = PAIRS[L];
             if (st.skills.barre < 40 && L >= 2)
                 pairs = pairs.filter((p) => p.some((n) => BARRE_NAMES.includes(n))).concat(pairs);
-            const scored = pairs.map((p) => { var _a; return ({ p, v: (_a = st.changes[p.join("–")]) !== null && _a !== void 0 ? _a : -1, r: rnd() }); }).sort((a, c) => a.v - c.v || a.r - c.r);
+            const scored = pairs.map((p) => ({ p, v: st.changes[p.join("–")] ?? -1, r: rnd() })).sort((a, c) => a.v - c.v || a.r - c.r);
             b.pair = scored[0].p;
         }
         if (cat === "rhythm" || cat === "song") {
             b.pattern = pattern;
             b.prog = prog;
+        }
+        if (cat === "song") {
+            const ls = lessonSong(st, date);
+            if (ls) {
+                b.song = ls.id;
+                b.section = ls.section;
+                b.bpm = ls.bpm;
+            }
         }
         return b;
     });
@@ -662,11 +750,780 @@ function newState(a) {
     return {
         v: 1, created: d, level: L, skills: p.skills,
         bpm: { open: 60, alt: 60 + L * 10, chrom: p.spiderBpm, spider: p.spiderBpm, legato: 50 + L * 10, skip: 60 + L * 10, sweep: 50, penta: 50 + L * 15, scale: 60 + L * 10, strum: 60 + L * 10 },
-        adj: {}, changes: {}, changeLog: [], bpmLog: [], days: {}, sessions: [], lastTest: d, goal: 25, today: null, levelSessions: 0, known: a.known,
+        adj: {}, changes: {}, changeLog: [], bpmLog: [], days: {}, sessions: [], lastTest: d, goal: 25, today: null, levelSessions: 0, known: a.known, songs: {}, yt: {},
     };
 }
 const RATING_LABEL = { easy: "Za łatwe", ok: "W sam raz", hard: "Za trudne" };
 const BPM_LABEL = { open: "Puste struny", alt: "Kostkowanie", chrom: "Chromatyka", spider: "Pająk", legato: "Legato", skip: "String skipping", sweep: "Sweep", penta: "Pentatonika", scale: "Skala C-dur", strum: "Bicie" };
+
+/* ============================== UTWORY: DANE ==============================
+   Zasady: utwory z domeny publicznej / tradycyjne mają tekst z akordami (pd: true).
+   Utwory chronione prawem autorskim: tylko tonacja, akordy, układ sekcji, bicie, tempo i wskazówki — bez tekstu i tabulatur.
+   Riffy/tabulatury wyłącznie dla domeny publicznej lub autorskich ćwiczeń Trenera. Notacja polska: H = B, B = B♭. */
+const SONG_PAT = {
+  q2: { id: "q2", name: "Na „raz” i „dwa”", slots: ["D", "", "D", ""], note: "Metrum 2/4: dwa równe uderzenia w dół na takt." },
+  waltz: { id: "waltz", name: "Walc: D – D G – D G", slots: ["D", "", "D", "G", "D", "G"], note: "Metrum 3/4. Mocne „raz” (najlepiej sam bas akordu), lżejsze „dwa i trzy i”." },
+  louie: { id: "louie", name: "Rytm 1-2-3 / 1-2", slots: ["D", "", "D", "", "D", "G", "", "G"], note: "Trzy uderzenia na pierwszy akord, dwa (synkopowane) na drugi — tak „kołysze” ten motyw." },
+  pick68: { id: "pick68", pick: true, name: "Arpeggio 6/8: B – 3 – 2 – 1 – 2 – 3", slots: ["B", "3", "2", "1", "2", "3"], counts: ["1", "2", "3", "4", "5", "6"], note: "B = bas akordu (najniższa grana struna), 3 / 2 / 1 = struny G, H, e. Jedna nuta na ósemkę, akcent na basie. Kciuk gra bas, palce i-m-a struny 3-2-1." },
+  pick34: { id: "pick34", pick: true, name: "Arpeggio 3/4: B – 3 – 2 – 1 – 2 – 3", slots: ["B", "3", "2", "1", "2", "3"], counts: ["1", "i", "2", "i", "3", "i"], note: "Metrum 3/4, ósemkami. Kciuk na basie akordu, palce i-m-a na strunach G-H-e. Pozwól strunom wybrzmiewać." },
+  pick8: { id: "pick8", pick: true, name: "Arpeggio ósemkami: B – 3 – 2 – 1 – B – 3 – 2 – 1", slots: ["B", "3", "2", "1", "B", "3", "2", "1"], counts: ["1", "i", "2", "i", "3", "i", "4", "i"], note: "Kciuk na „raz” i „trzy” (bas akordu, przy dwóch akordach w takcie — bas nowego akordu). Palce i-m-a na strunach G-H-e." },
+  travis: { id: "travis", pick: true, name: "Travis picking (kciuk naprzemiennie)", slots: ["B", "1", "B'", "2", "B", "1", "B'", "2"], counts: ["1", "i", "2", "i", "3", "i", "4", "i"], note: "B = bas główny, B' = drugi bas (struna wyżej). Kciuk gra równe ćwierćnuty jak metronom, palce wypełniają „i” na strunach e (1) i H (2)." },
+  wonder: { id: "wonder", name: "Synkopowane szesnastki (przybliżony wzór)", slots: ["D", "", "D", "", "D", "", "", "G", "", "G", "D", "", "D", "G", "D", "G"], note: "Ręka cały czas pracuje szesnastkami (dół–góra), uderzasz tylko w zaznaczone miejsca. Kluczowe jest zawieszenie na „i” po „dwa” — to daje „bujanie”." },
+  swing: { id: "swing", name: "Swing „Freddie Green”: 4 krótkie ćwierćnuty", slots: ["D", "", "D", "", "D", "", "D", ""], note: "Cztery krótkie uderzenia na takt, lekki akcent na „dwa” i „cztery”. Po każdym uderzeniu poluzuj lewą rękę, żeby dźwięk był krótki." },
+  shuffle: { id: "shuffle", name: "Shuffle (ósemki swingowane)", slots: ["D", "D", "D", "D", "D", "D", "D", "D"], note: "Ósemki „długa–krótka” (jak „ta-da ta-da”). Same uderzenia w dół, lekki palm mute przy mostku." },
+  rasg: { id: "rasg", name: "Rasgueado 4-palcowe + akcent", slots: ["D", "D", "D", "G", "D", "", "D", "G"], note: "Na „raz” rozwijaj palce po kolei (mały–serdeczny–środkowy–wskazujący) — jedno szybkie „frrr” w dół. Reszta: akcent kciukiem w dół i wskazujący w górę." },
+};
+function songPattern(song) { return typeof song.strum === "string" ? (SONG_PAT[song.strum] || PATTERNS.find((p) => p.id === song.strum) || PATTERNS[1]) : song.strum; }
+
+const SONGS = [
+  /* ---------------- POCZĄTKUJĄCY 0 ---------------- */
+  { id: "panie-janie", title: "Panie Janie", artist: "Tradycyjna (kanon)", pd: true, lv: 0, key: "D-dur", capo: 0, meter: "4/4", beats: 4, bpm: [60, 100], strum: "p_q", tags: ["rytm"],
+    info: "Pierwsza piosenka na jednym akordzie — cała uwaga na równym biciu i czystym D.",
+    sections: [{ n: "Zwrotka", bars: "D | D | D | D | D | D | D | D", lyrics: ["[D]Panie Janie, Panie Janie,", "Rano wstań, rano wstań,", "Wszystkie dzwony biją, wszystkie dzwony biją,", "Bim, bam, bom, bim, bam, bom."] }],
+    tips: ["Struny E i A nie grają (×) — zaczynaj uderzenie od struny D.", "Liczenie na głos „raz, dwa, trzy, cztery” bardzo pomaga trzymać tempo.", "Gdy pójdzie łatwo: zaśpiewaj kanonem z drugą osobą, a Ty graj."] },
+  { id: "wlazl-kotek", title: "Wlazł kotek na płotek", artist: "Tradycyjna (piosenka ludowa)", pd: true, lv: 0, key: "D-dur", capo: 0, meter: "2/4", beats: 2, bpm: [60, 96], strum: "q2", tags: ["zmiany"],
+    info: "Dwa akordy: D i A. Idealne pierwsze ćwiczenie zmian w prawdziwej piosence.",
+    sections: [
+      { n: "Część 1", bars: "D | A | D | D | D | A | D | D", lyrics: ["[D]Wlazł kotek na [A]płotek i [D]mruga,", "[D]Ładna to pio[A]senka, nie[D]długa."] },
+      { n: "Część 2", bars: "A | D | A | D | D | A | D | D", lyrics: ["[A]Niedługa, nie[D]krótka, lecz [A]w sam [D]raz,", "[D]Zaśpiewaj ko[A]teczku jeszcze [D]raz!"] }],
+    tips: ["Przy zmianie D → A palec 1 może zostać blisko 2. progu — przesuń resztę palców razem.", "Jeśli nie zdążasz, zagraj na „dwa” puste struny i zmieniaj w tym czasie."] },
+  { id: "sto-lat", title: "Sto lat", artist: "Tradycyjna", pd: true, lv: 0, key: "A-dur", capo: 0, meter: "4/4", beats: 4, bpm: [60, 100], strum: "p_8", tags: ["zmiany"],
+    info: "Trzy akordy A, D, E — zagrasz na każdych urodzinach.",
+    sections: [
+      { n: "Zwrotka", bars: "A | E | E | A", x: 2, lyrics: ["[A]Sto lat, sto lat, niech [E]żyje, żyje [A]nam.", "[A]Sto lat, sto lat, niech [E]żyje, żyje [A]nam."] },
+      { n: "Zakończenie", bars: "A | D | A E | A | E | A", lyrics: ["[A]Jeszcze raz, [D]jeszcze raz, niech [A]żyje, [E]żyje [A]nam,", "Niech [E]żyje [A]nam!"] }],
+    tips: ["A i E mają ten sam kształt „trójkąta” palców — przesuwasz go tylko o strunę.", "W takcie „A E” zmieniasz akord w połowie (na „trzy”)."] },
+  { id: "drunken-sailor", title: "Drunken Sailor", artist: "Tradycyjna (szanta)", pd: true, lv: 0, key: "e-moll (dorycka)", capo: 0, meter: "4/4", beats: 4, bpm: [70, 120], strum: "p_8", tags: ["zmiany", "rytm"],
+    info: "Szanta na dwóch akordach Em i D — energiczne ósemki.",
+    sections: [
+      { n: "Zwrotka", bars: "Em | Em | D | D | Em | Em | D | Em", lyrics: ["[Em]What shall we do with a drunken sailor,", "[D]What shall we do with a drunken sailor,", "[Em]What shall we do with a drunken sailor,", "[D]Ear-ly in the [Em]morning?"] },
+      { n: "Refren", bars: "Em | Em | D | D | Em | Em | D | Em", lyrics: ["[Em]Way hay and up she rises,", "[D]Way hay and up she rises,", "[Em]Way hay and up she rises,", "[D]Ear-ly in the [Em]morning."] }],
+    tips: ["Em → D: palce 2 i 3 zwalniają struny A i D, a układ D stawiasz od palca 1.", "Akcentuj „raz” i „trzy” — szanta ma marszowy puls."] },
+  { id: "wild-thing", title: "Wild Thing", artist: "The Troggs", pd: false, lv: 0, key: "A-dur", capo: 0, meter: "4/4", beats: 4, bpm: [70, 104], strum: "p_8", tags: ["zmiany", "rytm"],
+    info: "Rockowy klasyk zbudowany na motywie A – D – E – D (po 2 uderzenia na akord).",
+    sections: [
+      { n: "Motyw (wstęp i zwrotka)", bars: "A D | E D | A D | E D", x: 2 },
+      { n: "Refren", bars: "A D | E D | A D | E D", x: 2 }],
+    tips: ["Cała trudność to szybka zmiana co 2 uderzenia — ćwicz najpierw A ↔ D, potem D ↔ E.", "W środkowej części (bridż) pojawiają się też inne akordy — tu ćwiczymy główny motyw.", "Tekstu nie podajemy (prawa autorskie) — śpiewaj z nagrania."] },
+  { id: "louie-louie", title: "Louie Louie", artist: "The Kingsmen (aut. Richard Berry)", pd: false, lv: 0, key: "A-dur", capo: 0, meter: "4/4", beats: 4, bpm: [70, 120], strum: "louie", tags: ["rytm", "zmiany"],
+    info: "Słynne „1-2-3, 1-2”: A – D – Em – D. Uczy synkopy na prostych chwytach.",
+    sections: [
+      { n: "Motyw (zwrotka)", bars: "A D | Em D | A D | Em D", x: 2 },
+      { n: "Refren", bars: "A D | Em D | A D | Em D", x: 2 }],
+    tips: ["Licz głośno „RAZ-dwa-trzy, CZTE-ry-i” — trzy uderzenia na A (lub Em), dwa na D.", "Em po D: przenieś palce 2 i 3 na struny A i D (2. próg), resztę zwolnij.", "Tekst chroniony prawem autorskim — tu tylko akordy i rytm."] },
+
+  /* ---------------- POCZĄTKUJĄCY 1 ---------------- */
+  { id: "hej-sokoly", title: "Hej, sokoły", artist: "Tradycyjna (polsko-ukraińska)", pd: true, lv: 1, key: "a-moll", capo: 0, meter: "4/4", beats: 4, bpm: [70, 112], strum: "p_folk", tags: ["zmiany", "rytm"],
+    info: "Ognisko w pigułce: Am, E, E7, C i G z folkowym biciem.",
+    sections: [
+      { n: "Zwrotka", bars: "Am | Am | E | E | Am | Am | E | E7", lyrics: ["[Am]Hej, tam gdzieś znad czarnej wody", "[E]Siada na koń kozak młody,", "[Am]Czule żegna się z dziewczyną,", "[E]Jeszcze czulej z Ukra[E7]iną."] },
+      { n: "Refren", bars: "C | C | G | G | Am | Am | E | E7", x: 2, lyrics: ["[C]Hej, hej, hej sokoły,", "[G]Omijajcie góry, lasy, doły.", "[Am]Dzwoń, dzwoń, dzwoń, dzwoneczku,", "[E]Mój stepowy skowro[E7]neczku.", "[C]Hej, hej, hej sokoły,", "[G]Omijajcie góry, lasy, doły.", "[Am]Dzwoń, dzwoń, dzwoń, dzwoneczku,", "[E]Mój stepowy skowro[Am]neczku."] }],
+    tips: ["Am → E: cały kształt przesuwasz o jedną strunę w górę — palce zostają w tym samym układzie.", "E7 to E bez palca 3 (pusta struna D) — łatwiejsze, niż wygląda.", "Za drugim razem refren kończ na Am."] },
+  { id: "cicha-noc", title: "Cicha noc", artist: "Franz X. Gruber / tłum. P. Maszyński", pd: true, lv: 1, key: "C-dur", capo: 0, meter: "3/4", beats: 3, bpm: [60, 96], strum: "waltz", tags: ["zmiany", "rytm"],
+    info: "Kolęda w 3/4 na C, G7 i F (wersja mała). Uczy liczenia na trzy.",
+    sections: [
+      { n: "Początek", bars: "C | C | C | C | G7 | G7 | C | C", lyrics: ["[C]Cicha noc, święta noc,", "[G7]Pokój niesie [C]ludziom wszem,"] },
+      { n: "Środek", bars: "F | F | C | C | F | F | C | C", lyrics: ["[F]A u żłóbka Matka [C]Święta", "[F]Czuwa sama uśmiech[C]nięta"] },
+      { n: "Zakończenie", bars: "G7 | G7 | C | C | C | G7 | C | C", lyrics: ["[G7]Nad dzieciątka [C]snem,", "[C]Nad dzie[G7]ciątka [C]snem."] }],
+    tips: ["Na tym poziomie graj F jako „F (mały)” — pełne barré przyjdzie później.", "C → G7: palce 3 i 2 przesuwają się o strunę w dół, palec 1 ląduje na 1. progu struny e.", "Liczenie: RAZ-dwa-trzy, akcent tylko na „raz”."] },
+  { id: "wsrod-nocnej-ciszy", title: "Wśród nocnej ciszy", artist: "Kolęda tradycyjna", pd: true, lv: 1, key: "C-dur", capo: 0, meter: "4/4", beats: 4, bpm: [60, 100], strum: "p_folk", tags: ["zmiany"],
+    info: "Kolęda na C, G, Am i F — klasyczny układ I–V–vi–IV.",
+    sections: [
+      { n: "Zwrotka", bars: "C G | C | C G | C", lyrics: ["[C]Wśród nocnej [G]ciszy [C]głos się rozchodzi:", "[C]Wstańcie, pa[G]sterze, [C]Bóg się wam rodzi!"] },
+      { n: "Refren", bars: "C Am | F G | C Am | F G | C G | C | C G | C", lyrics: ["[C]Czym prędzej się [Am]wybie[F]raj[G]cie,", "[C]Do Betlejem [Am]pośpie[F]szaj[G]cie", "[C]Przywi[G]tać [C]Pana,", "[C]Przywi[G]tać [C]Pana."] }],
+    tips: ["F graj jako „F (mały)”, a jeśli to za trudne — zastąp go Fmaj7.", "Przy dwóch akordach w takcie zmiana wypada na „trzy”."] },
+  { id: "bella-ciao", title: "Bella ciao", artist: "Tradycyjna (włoska)", pd: true, lv: 1, key: "a-moll", capo: 0, meter: "4/4", beats: 4, bpm: [80, 128], strum: "p_folk", tags: ["zmiany", "rytm"],
+    info: "Am, Dm i E7 — molowa kadencja, na której zbudowano setki piosenek.",
+    sections: [{ n: "Zwrotka", bars: "Am | Am | Am | Dm Am | Dm | Am | E7 | Am", x: 2, lyrics: ["[Am]Una mattina mi son svegliato,", "o bella ciao, bella ciao, bella [Dm]ciao, ciao, [Am]ciao!", "Una mat[Dm]tina mi son sve[Am]gliato", "e ho tro[E7]vato l'inva[Am]sor."] }],
+    tips: ["Am → Dm: palec 1 przechodzi ze struny H na e, palce 2 i 3 tworzą „trójkąt” na strunach G i H.", "E7 → Am: palec 1 zostaje na strunie G (1. próg) — przesuwasz tylko 2 i 3."] },
+  { id: "la-bamba", title: "La Bamba", artist: "Tradycyjna (meksykańska, son jarocho)", pd: true, lv: 1, key: "C-dur", capo: 0, meter: "4/4", beats: 4, bpm: [80, 140], strum: "p_8", tags: ["zmiany", "rytm"],
+    info: "Pętla C – F – G w szybkim tempie. Świetna do ćwiczenia szybkich zmian.",
+    sections: [
+      { n: "Zwrotka", bars: "C F | G | C F | G", x: 2, lyrics: ["[C]Para bai[F]lar la [G]bamba,", "[C]para bai[F]lar la [G]bamba se nece[C]sita una [F]poca de [G]gracia,", "[C]una poca de [F]gracia pa' [G]mí, pa' ti, y a[C]rriba y a[F]rriba… [G]"] },
+      { n: "Refren", bars: "C F | G | C F | G", x: 2, lyrics: ["[C]Yo no soy mari[F]nero, [G]", "[C]yo no soy mari[F]nero, soy capi[G]tán,", "[C]soy capi[F]tán, soy capi[G]tán."] }],
+    tips: ["F jako „F (mały)”: palce 3-2-1 jak w C, tylko przesunięte o strunę w górę.", "Zacznij powoli (80 BPM) — pętla jest krótka, więc szybko złapiesz automatyzm."] },
+  { id: "amazing-grace", title: "Amazing Grace", artist: "John Newton (1779), melodia tradycyjna", pd: true, lv: 1, key: "G-dur", capo: 0, meter: "3/4", beats: 3, bpm: [60, 90], strum: "waltz", tags: ["zmiany", "rytm"],
+    info: "Spokojny walc na G, G7, C i D. Uczy płynnych zmian w 3/4.",
+    sections: [
+      { n: "Pierwsza połowa", bars: "G | G | G7 | C | G | G | D | D", lyrics: ["A[G]mazing grace! How [G7]sweet the [C]sound", "That [G]saved a wretch like [D]me!"] },
+      { n: "Druga połowa", bars: "G | G | G7 | C | G | D | G | G", lyrics: ["I [G]once was lost, but [G7]now am [C]found;", "Was [G]blind, but [D]now I [G]see."] }],
+    tips: ["Pierwsza sylaba „A-” to przedtakt — zacznij śpiewać przed pierwszym uderzeniem.", "G → G7: tylko palec 3 schodzi ze struny e (3. próg) na 1. próg (palec 1)."] },
+  { id: "knockin", title: "Knockin' on Heaven's Door", artist: "Bob Dylan", pd: false, lv: 1, key: "G-dur", capo: 0, meter: "4/4", beats: 4, bpm: [55, 70], strum: "p_folk", tags: ["zmiany", "rytm"],
+    info: "Cztery akordy, wolne tempo: G – D – Am / G – D – C.",
+    sections: [
+      { n: "Zwrotka", bars: "G | D | Am | Am | G | D | C | C", x: 2 },
+      { n: "Refren", bars: "G | D | Am | Am | G | D | C | C", x: 2 }],
+    tips: ["Zamiast Am możesz grać Am7 — oba brzmią dobrze.", "G → D: palec 3 przechodzi z 3. progu struny e na 3. próg struny H — to krótki ruch, ćwicz go osobno.", "Tekst chroniony prawem autorskim — śpiewaj z nagrania."] },
+  { id: "whisky", title: "Whisky", artist: "Dżem", pd: false, lv: 1, key: "G-dur", capo: 0, meter: "4/4", beats: 4, bpm: [60, 80], strum: "p_8", tags: ["zmiany"],
+    info: "Polski klasyk ogniskowy: G i Cadd9 z wygodną „kotwicą” na strunach H i e.",
+    sections: [
+      { n: "Wstęp", bars: "G | Cadd9 | G | Cadd9", x: 2 },
+      { n: "Zwrotka", bars: "G | Cadd9 | G | Cadd9", x: 2 },
+      { n: "Refren", bars: "D | D | C Em | Am D | C Em | Am D | G | Cadd9", x: 2 },
+      { n: "Zakończenie", bars: "F | C | G | G" }],
+    tips: ["G (wersja 320033) → Cadd9: palce 3 i 4 zostają na 3. progu strun H i e — przestawiasz tylko 1 i 2.", "F na końcu zagraj jako „F (mały)”.", "Tempo orientacyjne — dopasuj do nagrania. Tekstu nie podajemy (prawa autorskie)."] },
+
+  /* ---------------- ŚREDNIOZAAWANSOWANY ---------------- */
+  { id: "rising-sun", title: "The House of the Rising Sun", artist: "Tradycyjna (amerykańska ballada ludowa)", pd: true, lv: 2, key: "a-moll", capo: 0, meter: "6/8", beats: 2, sub: 3, bpm: [40, 66], bpmNote: "BPM = ćwierćnuta z kropką (2 na takt)", strum: "pick68", tags: ["technika", "barre", "zmiany"],
+    info: "Arpeggio 6/8 i pełne barré F. Sześć akordów: Am, C, D, F, E.",
+    sections: [{ n: "Zwrotka", bars: "Am | C | D | F | Am | C | E | E | Am | C | D | F | Am | E | Am | E", lyrics: ["There [Am]is a [C]house in [D]New Or[F]leans", "They [Am]call the [C]Rising [E]Sun,", "And it's [Am]been the [C]ruin of [D]many a poor [F]girl,", "And [Am]me, oh [E]God, I'm [Am]one. [E]"] }],
+    riff: [
+      "Arpeggio (wzór akompaniamentu, każdy akord = 1 takt 6/8):",
+      "     Am          C           D           F",
+      "e|------0----|------0----|------2----|------1----|",
+      "H|----1---1--|----1---1--|----3---3--|----1---1--|",
+      "G|--2-------2|--0-------0|--2-------2|--2-------2|",
+      "D|-----------|-----------|0----------|-----------|",
+      "A|0----------|3----------|-----------|-----------|",
+      "E|-----------|-----------|-----------|1----------|"].join("\n"),
+    tips: ["F z barré: kciuk za gryfem na wysokości palca 2, palec 1 tuż przy progu.", "Jeśli barré jeszcze nie brzmi, przez pierwsze dni graj Fmaj7 — ale wracaj do F.", "Wersja The Animals (1964) ma własny, chroniony aranż — tutaj gramy tradycyjną wersję ludową."] },
+  { id: "greensleeves", title: "Greensleeves", artist: "Tradycyjna (angielska, XVI w.)", pd: true, lv: 2, key: "a-moll", capo: 0, meter: "3/4", beats: 3, bpm: [60, 96], strum: "pick34", tags: ["technika", "zmiany"],
+    info: "Fingerpicking w 3/4 i dominanta E w tonacji molowej.",
+    sections: [
+      { n: "Zwrotka", bars: "Am | C | G | Em | Am | E | E | Am | C | G | Em | Am E | Am | Am", lyrics: ["A[Am]las, my [C]love, you [G]do me [Em]wrong", "To [Am]cast me off dis[E]courteously.", "For [Am]I have [C]loved you [G]well and [Em]long,", "De[Am]lighting [E]in your [Am]company."] },
+      { n: "Refren", bars: "C | C | G | Em | Am | E | E | C | C | G | Em | Am E | Am | Am", lyrics: ["[C]Greensleeves was [G]all my [Em]joy,", "And [Am]Greensleeves was my [E]delight;", "[C]Greensleeves was my [G]heart of [Em]gold,", "And who but my [Am]lady [E]Greensleeves[Am]."] }],
+    tips: ["Kciuk zawsze na basie akordu: Am/C – struna A, G/Em/E – struna E.", "Zwolnij do 60 BPM i graj aż wszystkie struny będą czyste, dopiero potem przyspieszaj."] },
+  { id: "scarborough", title: "Scarborough Fair", artist: "Tradycyjna (angielska ballada)", pd: true, lv: 2, key: "a-moll (dorycka)", capo: 0, meter: "3/4", beats: 3, bpm: [60, 100], strum: "pick34", tags: ["technika", "zmiany"],
+    info: "Modalna ballada w 3/4: Am, G, C, D. Arpeggio i miękkie przejścia.",
+    sections: [{ n: "Zwrotka", bars: "Am | Am | G | Am | C | Am C | D | Am | Am | C | G | G | Am | G | Am | Am", x: 2, lyrics: ["Are you [Am]going to [G]Scarborough [Am]Fair?", "[C]Parsley, [Am]sage, rose[C]mary [D]and [Am]thyme.", "Re[Am]member [C]me to one who lives [G]there,", "She [Am]once was a [G]true love of [Am]mine."] }],
+    tips: ["Akord D (zamiast d-moll) daje skali „dorycki”, tęskny kolor — wsłuchaj się w niego.", "Aranżacja Simon & Garfunkel jest chroniona — gramy tradycyjną melodię i własny akompaniament."] },
+  { id: "blues-a", title: "Blues w A — shuffle z riffem", artist: "Ćwiczenie Trenera (autorskie)", pd: true, exercise: true, lv: 2, key: "A (blues)", capo: 0, meter: "4/4 (swing)", beats: 4, bpm: [70, 120], strum: "shuffle", tags: ["technika", "rytm"],
+    info: "12-taktowy blues: A7, D7, E7 i klasyczny riff „boogie” na dwóch strunach.",
+    sections: [
+      { n: "Takty 1–4", bars: "A7 | A7 | A7 | A7" },
+      { n: "Takty 5–8", bars: "D7 | D7 | A7 | A7" },
+      { n: "Takty 9–12", bars: "E7 | D7 | A7 | E7" }],
+    riff: [
+      "Riff boogie (swing: długa–krótka). Na A graj struny A+D, na D: D+G, na E: E+A.",
+      "    A (A5–A6)              D (D5–D6)              E (E5–E6)",
+      "G|-------------------|  -2-2-4-4-2-2-4-4-|  -----------------|",
+      "D|-2-2-4-4-2-2-4-4---|  -0-0-0-0-0-0-0-0-|  -----------------|",
+      "A|-0-0-0-0-0-0-0-0---|  -----------------|  -2-2-4-4-2-2-4-4-|",
+      "E|-------------------|  -----------------|  -0-0-0-0-0-0-0-0-|"].join("\n"),
+    tips: ["Palec 1 trzyma 2. próg, palec 3 sięga na 4. próg — nie odrywaj palca 1.", "Palm mute przy mostku daje bluesowy „chug”.", "Wariant: w takcie 12 zagraj E7 akordem z akcentem — to „turnaround” do początku."] },
+  { id: "wonderwall", title: "Wonderwall", artist: "Oasis", pd: false, lv: 2, key: "fis-moll (chwyty jak w e-moll)", capo: 2, meter: "4/4", beats: 4, bpm: [60, 87], strum: "wonder", tags: ["rytm", "zmiany"],
+    info: "Akordy sus i add (Em7, Dsus4, A7sus4, Cadd9) oraz synkopowane bicie szesnastkami.",
+    sections: [
+      { n: "Wstęp / Zwrotka", bars: "Em7 | G | Dsus4 | A7sus4", x: 4 },
+      { n: "Przedrefren", bars: "Cadd9 | Dsus4 | Em7 | Em7 | Cadd9 | Dsus4 | Em7 | Em7 | Cadd9 | Dsus4 | G | G | Em7 | G | A7sus4 | A7sus4" },
+      { n: "Refren", bars: "Cadd9 | Em7 | G | Em7", x: 4 }],
+    tips: ["W oryginale palce 3 i 4 zostają cały czas na 3. progu strun H i e (Em7 = 022033, G = 320033) — zmienia się tylko bas.", "W 12. takcie przedrefrenu bas schodzi na Fis (chwyt 2x0233).", "Tekst chroniony prawem autorskim — tu tylko akordy, układ i rytm."] },
+  { id: "hallelujah", title: "Hallelujah", artist: "Leonard Cohen", pd: false, lv: 2, key: "C-dur", capo: 0, meter: "6/8", beats: 2, sub: 3, bpm: [40, 58], bpmNote: "BPM = ćwierćnuta z kropką (2 na takt)", strum: "pick68", tags: ["technika", "zmiany", "barre"],
+    info: "Ballada 6/8 z arpeggio, barré F i dominantą E7 prowadzącą do Am.",
+    sections: [
+      { n: "Zwrotka", bars: "C | Am | C | Am | F | G | C | G | C | F | G | Am | F | G | E7 | E7 | Am | Am" },
+      { n: "Refren", bars: "F | Am | F | C G | C" }],
+    tips: ["W refrenie każde „Hallelujah” trwa 2 takty — rozluźnij prawą rękę, niech arpeggio „płynie”.", "E7 → Am to najmocniejszy moment piosenki — zagraj E7 odrobinę głośniej.", "Tekst chroniony prawem autorskim — śpiewaj z nagrania."] },
+  { id: "let-it-be", title: "Let It Be", artist: "The Beatles", pd: false, lv: 2, key: "C-dur", capo: 0, meter: "4/4", beats: 4, bpm: [56, 72], strum: "p_8", tags: ["zmiany", "barre"],
+    info: "C – G – Am – F po dwa uderzenia na akord. Pełne barré F w szybkich zmianach.",
+    sections: [
+      { n: "Zwrotka", bars: "C G | Am F | C G | F C", x: 2 },
+      { n: "Refren", bars: "Am G | F C | C G | F C", x: 2 }],
+    tips: ["Zmiany co 2 uderzenia — barré F stawiaj „od palca 1”, resztę dokładaj w locie.", "Łatwiejszy wariant na start: Fmaj7 zamiast F.", "Tekst chroniony prawem autorskim — tu tylko układ akordów."] },
+  { id: "autobiografia", title: "Autobiografia", artist: "Perfect", pd: false, lv: 2, key: "e-moll", capo: 0, meter: "4/4", beats: 4, bpm: [80, 111], strum: "p_pop", tags: ["zmiany", "rytm", "barre"],
+    info: "Długa narracyjna zwrotka i refren z barré F — klasyk polskiego rocka.",
+    sections: [
+      { n: "Zwrotka", bars: "Em | Em | C | D | Em | Em | C | D | Em | Em | C | D | Em | Em | Am | Em" },
+      { n: "Refren", bars: "C | D | G | C | Am | F | C | C", x: 2 }],
+    tips: ["Zwrotki graj lżej (czystszy dźwięk, mniej strun), refren pełnym biciem.", "Am → F → C: palec 1 kładzie barré na 1. progu — trzymaj kciuk nisko za gryfem.", "Tempo orientacyjne. Tekst chroniony prawem autorskim."] },
+
+  /* ---------------- ZAAWANSOWANY ---------------- */
+  { id: "hotel-california", title: "Hotel California", artist: "Eagles", pd: false, lv: 3, key: "h-moll", capo: 0, meter: "4/4", beats: 4, bpm: [50, 74], strum: "pick8", tags: ["barre", "technika", "zmiany"],
+    info: "Osiem akordów w h-moll z barré Hm i Fis. Arpeggio i płynne zmiany co takt.",
+    sections: [
+      { n: "Wstęp / Zwrotka", bars: "Hm | Fis | A | E | G | D | Em | Fis", x: 2 },
+      { n: "Refren", bars: "G | D | Fis | Hm | G | D | Em | Fis", x: 2 }],
+    tips: ["Łatwiejsza wersja (do nauki układu): kapodaster 7 i chwyty Em – H7 – D – A – C – G – Am – H7.", "Fis z barré na 2. progu: najpierw ustaw kształt E, potem przesuń go z barré.", "Tekst i solówki są chronione — tu tylko harmonia i sposób gry."] },
+  { id: "kocham-wolnosc", title: "Kocham wolność", artist: "Chłopcy z Placu Broni", pd: false, lv: 3, key: "h-moll", capo: 0, meter: "4/4", beats: 4, bpm: [90, 140], strum: "p_pop", tags: ["barre", "rytm", "zmiany"],
+    info: "Szybkie zmiany barré: Hm, Hm7, Fism, Fis w rockowym tempie.",
+    sections: [
+      { n: "Wstęp", bars: "Hm7 | G | Hm7 | G | Hm7 | G | Hm7 | G | Fis" },
+      { n: "Zwrotka", bars: "Hm A | Hm Fism | Hm A | Hm Fism | Hm A | Hm Fism | Hm A | G", x: 2 },
+      { n: "Refren", bars: "Hm | Fism | A | G", x: 2 }],
+    tips: ["Hm → Fism: barré przesuwa się z 2. progu na strunie A na 2. próg od struny E — palec 1 prawie stoi w miejscu.", "Łatwiejsza wersja: kapodaster 2 i chwyty Am – G – Am – Em (zwrotka), Am – Em – G – F (refren).", "Tempo orientacyjne. Tekst chroniony prawem autorskim."] },
+  { id: "autumn-leaves", title: "Autumn Leaves", artist: "Joseph Kosma (standard jazzowy)", pd: false, lv: 3, key: "e-moll / G-dur", capo: 0, meter: "4/4 (swing)", beats: 4, bpm: [70, 130], strum: "swing", tags: ["teoria", "zmiany", "rytm"],
+    info: "Akordy septymowe i półzmniejszone: ii–V–I w durze i w molu.",
+    sections: [
+      { n: "A (2×)", bars: "Am7 | D7 | Gmaj7 | Cmaj7 | Fism7b5 | H7 | Em | Em", x: 2 },
+      { n: "B", bars: "Fism7b5 | H7 | Em | Em | Am7 | D7 | Gmaj7 | Cmaj7 | Fism7b5 | H7 | Em | Em" }],
+    tips: ["Am7–D7–Gmaj7 to ii–V–I w G-dur, Fism7b5–H7–Em to ii–V–i w e-moll — cały utwór to te dwie kadencje.", "Harmonia uproszczona (bez chromatycznych dominant z ostatnich taktów).", "Melodia i tekst są chronione — tu tylko akordy."] },
+  { id: "fly-me", title: "Fly Me to the Moon", artist: "Bart Howard (standard jazzowy)", pd: false, lv: 3, key: "a-moll / C-dur", capo: 0, meter: "4/4 (swing)", beats: 4, bpm: [80, 120], strum: "swing", tags: ["teoria", "zmiany", "rytm"],
+    info: "Cykl kwintowy na akordach septymowych: Am7 – Dm7 – G7 – Cmaj7 – Fmaj7 – Hm7b5 – E7.",
+    sections: [
+      { n: "A1", bars: "Am7 | Dm7 | G7 | Cmaj7 C7 | Fmaj7 | Hm7b5 | E7 | Am7 A7" },
+      { n: "A2", bars: "Dm7 | G7 | Cmaj7 | Am7 | Dm7 | G7 | Cmaj7 | Hm7b5 E7" }],
+    tips: ["Każdy kolejny akord leży kwartę wyżej — słuchaj, jak bas „ciągnie” do przodu.", "Hm7b5 i E7 to ii–V do a-moll — w jazzie ten zwrot pojawia się w co drugim standardzie.", "Melodia i tekst są chronione — tu tylko harmonia."] },
+  { id: "kanon-d", title: "Kanon D-dur", artist: "Johann Pachelbel (ok. 1680)", pd: true, instrumental: true, lv: 3, key: "D-dur", capo: 0, meter: "4/4", beats: 4, bpm: [50, 80], strum: "pick8", tags: ["technika", "zmiany", "barre"],
+    info: "Ostinato 8 akordów z Fism (barré) i fingerstyle z melodią na górnych strunach.",
+    sections: [
+      { n: "Ostinato", bars: "D A | Hm Fism | G D | G A", x: 2 },
+      { n: "Z melodią", bars: "D A | Hm Fism | G D | G A", x: 2 }],
+    riff: [
+      "Melodia (domena publiczna) — jedna nuta na akord, razem z basem:",
+      "    D   A   Hm  Fism G   D   G   A",
+      "e|--2---0-----------------------------|",
+      "H|----------3---2---0-------0---2-----|",
+      "G|----------------------2-------------|",
+      "Graj nutę melodii palcem „a” razem z basem akordu, resztę taktu wypełnij arpeggio."].join("\n"),
+    tips: ["Bas schodzi D – A – H – Fis – G – D – G – A: kciuk prowadzi całość.", "Fism: pełne barré na 2. progu. Na początek wystarczy małe barré na 4 górnych strunach (palec 1 na 2. progu strun G-H-e, palec 3 na 4. progu struny D)."] },
+  { id: "funk-e9", title: "Funk na E9 — szesnastki z tłumieniem", artist: "Ćwiczenie Trenera (autorskie)", pd: true, exercise: true, instrumental: true, lv: 3, key: "E (mixolidyjska)", capo: 0, meter: "4/4", beats: 4, bpm: [70, 104], strum: "p_16", tags: ["rytm", "technika"],
+    info: "Funkowe „chicken scratch”: E9 w 7. pozycji, szesnastki i stłumione uderzenia.",
+    sections: [
+      { n: "Groove A", bars: "E9 | E9 | E9 | E9", x: 2 },
+      { n: "Groove B", bars: "A7 | A7 | E9 | E9", x: 2 }],
+    riff: [
+      "Licz:  1 e i a 2 e i a 3 e i a 4 e i a",
+      "Ręka:  D G D G D G D G D G D G D G D G",
+      "Gram:  ● · × ● · ● × · ● · × ● · ● × ·",
+      "● = krótki akord E9 (zwolnij nacisk zaraz po uderzeniu), × = stłumione struny, · = ruch w powietrzu"].join("\n"),
+    tips: ["Prawa ręka nigdy się nie zatrzymuje — szesnastki „w powietrzu” to podstawa funku.", "Gra tylko 4–5 górnych strun E9; niską E tłum opuszkiem palca 2.", "Zacznij od 70 BPM z metronomem na ósemkach, potem dopiero przyspieszaj."] },
+  { id: "andaluzja", title: "Kadencja andaluzyjska — rasgueado", artist: "Ćwiczenie Trenera (autorskie)", pd: true, exercise: true, instrumental: true, lv: 3, key: "a-moll (frygijska na E)", capo: 0, meter: "4/4", beats: 4, bpm: [60, 100], strum: "rasg", tags: ["rytm", "barre", "technika"],
+    info: "Am – G – F – E: hiszpańska progresja z rasgueado i pełnym barré F.",
+    sections: [
+      { n: "Kadencja", bars: "Am | G | F | E", x: 2 },
+      { n: "Z akcentami", bars: "Am G | F E | Am G | F E", x: 2 }],
+    tips: ["Rasgueado ćwicz najpierw na stłumionych strunach: mały – serdeczny – środkowy – wskazujący.", "W drugiej sekcji zmiany co 2 uderzenia — barré F musi być gotowe „w locie”.", "Na E zagraj ostatnie uderzenie z akcentem i pozwól mu wybrzmieć."] },
+];
+
+/* ============================== UTWORY: LOGIKA ============================== */
+const SONG_STATUS = { todo: "Do nauki", wip: "W trakcie", done: "Opanowany" };
+const SONG_LV_SHORT = ["Pocz. 0", "Pocz. 1", "Średni", "Zaaw."];
+const SONG_LV_COLOR = ["green", "blue", "orange", "pink"];
+function songById(id) { return SONGS.find((x) => x.id === id) || null; }
+function songSections(song) {
+  if (song._secs) return song._secs;
+  song._secs = song.sections.map((s) => ({ n: s.n, x: s.x || 1, lyrics: s.lyrics || null, bars: s.bars.split("|").map((b) => b.trim().split(/\s+/).filter(Boolean)) }));
+  return song._secs;
+}
+function songChords(song) { const set = []; songSections(song).forEach((s) => s.bars.forEach((b) => b.forEach((c) => { if (!set.includes(c)) set.push(c); }))); return set; }
+function songShape(name, level) { return name === "F" && level < 2 ? "F (mały)" : name; }
+function chordLabel(name) { return name.replace("b5", "♭5"); }
+function songUsesBarre(song) { return songChords(song).some((c) => BARRE_NAMES.includes(c)); }
+function songState(st, id) { return (st && st.songs && st.songs[id]) || { status: "todo", best: 0, plays: 0, last: null, log: [] }; }
+function knownChordSet(st) {
+  const set = new Set(st.known || []);
+  CHORDS.forEach((c) => { if (c.lv <= st.level) set.add(c.name); });
+  Object.keys(st.changes || {}).forEach((k) => { if (st.changes[k] > 0) k.split("–").forEach((n) => set.add(n)); });
+  Object.keys(st.songs || {}).forEach((id) => { const sg = songById(id); if (sg && st.songs[id].status === "done") songChords(sg).forEach((n) => set.add(n)); });
+  return set;
+}
+function songNewChords(song, st) { const k = knownChordSet(st); return songChords(song).filter((n) => !(k.has(n) || (n === "F" && song.lv < 2 && k.has("F (mały)")))); }
+function songReadiness(song, st) { const all = songChords(song); return all.length ? (all.length - songNewChords(song, st).length) / all.length : 1; }
+function songUnlocked(song, st) { return song.lv <= st.level + 1 || songReadiness(song, st) === 1; }
+function songWorkBpm(song, sp) {
+  if (!sp || !sp.best) return song.bpm[0];
+  return clamp(sp.status === "done" ? sp.best : sp.best + 4, song.bpm[0], song.bpm[1]);
+}
+function recommendSong(st, L, date, exclude) {
+  const rnd = rngFrom("song" + date + ":" + L);
+  const pool = SONGS.filter((sg) => sg.lv === L && sg.id !== exclude);
+  if (!pool.length) return null;
+  let best = null, bestScore = -1e9;
+  pool.forEach((sg) => {
+    const sp = songState(st, sg.id);
+    let score = songReadiness(sg, st) * 2 + rnd() * 1.2;
+    if (sp.status === "wip") score += 3;
+    if (sp.status === "done") score -= 6;
+    if (sp.last === date) score -= 0.5;
+    if (score > bestScore) { bestScore = score; best = sg; }
+  });
+  return best;
+}
+function songRecs(st, date) {
+  const main = recommendSong(st, st.level, date);
+  let challenge = null;
+  if (st.level < 3) {
+    const pool = SONGS.filter((sg) => sg.lv === st.level + 1 && songState(st, sg.id).status !== "done");
+    challenge = pool.slice().sort((a, b) => songReadiness(b, st) - songReadiness(a, st) || (songState(st, b.id).status === "wip" ? 1 : 0) - (songState(st, a.id).status === "wip" ? 1 : 0))[0] || null;
+  } else challenge = recommendSong(st, 3, date + "x", main && main.id);
+  return { main, challenge };
+}
+/* wywoływane z buildLesson (logic.ts) — wybiera utwór i sekcję do bloku „Utwór dnia” */
+function lessonSong(st, date) {
+  const L = effLevel(st, "song");
+  const sg = recommendSong(st, L, date) || recommendSong(st, st.level, date);
+  if (!sg) return null;
+  const sp = songState(st, sg.id); const secs = songSections(sg);
+  return { id: sg.id, section: (sp.plays || 0) % secs.length, bpm: songWorkBpm(sg, sp) };
+}
+function songSkillKeys(song) {
+  const k = ["akordy", "zmiany"];
+  const p = songPattern(song);
+  if (!p.pick || song.tags.includes("rytm")) k.push("rytm");
+  if (p.pick || song.riff || song.tags.includes("technika")) k.push("technika");
+  if (songUsesBarre(song)) k.push("barre");
+  if (song.tags.includes("teoria")) k.push("teoria");
+  return Array.from(new Set(k));
+}
+/* zapis sesji z utworem — mutuje klon stanu */
+function applySongResult(s, id, rating, bpm, secs) {
+  const song = songById(id); if (!song) return;
+  const today = todayStr();
+  s.songs = s.songs || {};
+  const sp = Object.assign({ status: "todo", best: 0, plays: 0, last: null, log: [] }, s.songs[id] || {});
+  sp.log = (sp.log || []).slice(-30);
+  sp.plays = (sp.plays || 0) + 1; sp.last = today;
+  const b = bpm && bpm > 0 ? Math.round(bpm) : 0;
+  if (b) sp.best = Math.max(sp.best || 0, b);
+  if (sp.status === "todo") sp.status = "wip";
+  if (rating === "easy" && sp.best >= song.bpm[1]) sp.status = "done";
+  sp.log.push({ date: today, rating, bpm: b || null });
+  s.songs[id] = sp;
+  const gain = rating === "easy" ? 3 : rating === "ok" ? 2 : 0;
+  if (gain) songSkillKeys(song).forEach((k) => { s.skills[k] = clamp(s.skills[k] + gain, 0, 100); });
+  if (b) s.bpmLog.push({ date: today, key: "song:" + id, bpm: b });
+  if (secs && secs >= 20) s.days[today] = (s.days[today] || 0) + secs / 60;
+  return sp;
+}
+function songBpmLabel(k) { if (!k || k.indexOf("song:") !== 0) return null; const sg = songById(k.slice(5)); return sg ? "🎵 " + sg.title : null; }
+
+/* ============================== UTWORY: WIDOKI ============================== */
+function songStatusBadge(status) { return h("span", { class: "sbadge " + status }, SONG_STATUS[status]); }
+function readyBar(fr) { return h("div", { class: "ready", title: "Znane akordy: " + Math.round(fr * 100) + "%" }, h("i", { style: { width: Math.round(fr * 100) + "%" } })); }
+function openSong(id, secIdx) {
+  ui.tab = "utwory"; ui.songId = id; ui.songSec = secIdx == null ? -1 : secIdx; render(); window.scrollTo(0, 0);
+}
+function setSongStatus(id, status) {
+  const s = clone(S); s.songs = s.songs || {};
+  const sp = Object.assign({ status: "todo", best: 0, plays: 0, last: null, log: [] }, s.songs[id] || {});
+  sp.status = status; s.songs[id] = sp; s.rev = (s.rev || 0) + 1;
+  commit(s, { silent: true });
+  toast(status === "done" ? "Opanowany! 🎉 Akordy z tego utworu liczą się jako znane." : status === "wip" ? "Dodano do „W trakcie” — będzie częściej w lekcjach." : "Oznaczono jako „Do nauki”.");
+}
+function rateSong(song, rating, bpm, secs) {
+  const s = clone(S); const prevLv = s.level;
+  const sp = applySongResult(s, song.id, rating, bpm, secs);
+  s.rev = (s.rev || 0) + 1; commit(s);
+  toast(sp.status === "done" ? "Utwór opanowany w tempie docelowym! 🎉" : rating === "hard" ? "Zwolnij tempo i ćwicz sekcjami — dasz radę." : "Zapisano: " + (bpm ? bpm + " BPM · " : "") + SONG_STATUS[sp.status]);
+  void prevLv;
+}
+
+function songRow(song, st, L) {
+  const sp = songState(st, song.id); const unl = songUnlocked(song, st); const fr = songReadiness(song, st);
+  const nw = songNewChords(song, st);
+  return h("button", { class: "li song-row" + (song.lv === L ? " cur" : "") + (unl ? "" : " locked"), "data-song": song.id, onclick: () => {
+    if (!unl) { toast("Odblokujesz na poziomie „" + LEVELS[song.lv].name + "” albo gdy poznasz akordy: " + nw.map(chordLabel).join(", ")); return; }
+    openSong(song.id);
+  } },
+    h("div", { class: "song-ic", style: { "--c": "var(--" + SONG_LV_COLOR[song.lv] + ")" } }, unl ? (song.exercise ? "🎯" : song.pd ? "📜" : "🎵") : "🔒"),
+    h("div", { class: "grow" },
+      h("div", { class: "song-t" }, song.title),
+      h("div", { class: "small" }, song.artist + " · " + songChords(song).map(chordLabel).join(" ")),
+      readyBar(fr)),
+    h("div", { class: "song-r" }, songStatusBadge(sp.status), sp.best ? h("div", { class: "small" }, sp.best + " BPM") : null));
+}
+
+function viewSongs(d) {
+  if (ui.songId) { const sg = songById(ui.songId); if (sg) return viewSong(sg); ui.songId = null; }
+  const st = S; const L = st.level; const today = todayStr();
+  const lvSel = ui.songLv == null ? L : ui.songLv;
+  const rec = songRecs(st, today);
+  const doneN = SONGS.filter((sg) => songState(st, sg.id).status === "done").length;
+  const wipN = SONGS.filter((sg) => songState(st, sg.id).status === "wip").length;
+  const kids = [largeTitle("Utwory", "Repertuar", [h("span", { class: "chip tint" }, "★ " + LEVELS[L].name), h("span", { class: "chip" }, "✅ " + doneN + " opanowanych"), h("span", { class: "chip" }, "⏳ " + wipN + " w trakcie")])];
+  if (rec.main) {
+    const sg = rec.main; const sp = songState(st, sg.id);
+    kids.push(h("section", { class: "section" }, h("div", { class: "song-hero", id: "rec-song" },
+      h("div", { class: "eyebrow2" }, "Polecany na Twój poziom · " + LEVELS[L].name),
+      h("div", { class: "hero-t" }, sg.title),
+      h("div", { class: "hero-s" }, sg.artist + " · " + sg.key + (sg.capo ? " · kapo " + sg.capo : "")),
+      h("div", { class: "hero-chips" }, songChords(sg).map((c) => h("span", null, chordLabel(c)))),
+      h("div", { class: "row", style: "margin-top:12px;justify-content:space-between" },
+        h("span", { class: "hero-s" }, sp.status === "wip" ? "Kontynuuj · " + songWorkBpm(sg, sp) + " BPM" : "Start od " + sg.bpm[0] + " BPM → cel " + sg.bpm[1]),
+        h("button", { class: "btn sm hero-btn", onclick: () => openSong(sg.id) }, "Graj ▶")))));
+  }
+  if (rec.challenge) {
+    const sg = rec.challenge; const nw = songNewChords(sg, st);
+    kids.push(h("section", { class: "section" }, h("div", { class: "card challenge", id: "challenge-song", style: { "--c": "var(--" + SONG_LV_COLOR[sg.lv] + ")" } },
+      h("div", { class: "row", style: "gap:12px" },
+        h("div", { class: "song-ic", style: { "--c": "var(--" + SONG_LV_COLOR[sg.lv] + ")" } }, "🚀"),
+        h("div", { class: "grow" },
+          h("div", { class: "small", style: "font-weight:600;color:var(--c)" }, L < 3 ? "Następne wyzwanie · " + LEVELS[sg.lv].name : "Kolejne wyzwanie"),
+          h("div", { class: "song-t" }, sg.title + " — " + sg.artist),
+          h("div", { class: "small" }, nw.length ? "Nowe akordy do nauki: " + nw.map(chordLabel).join(", ") : "Znasz już wszystkie akordy — spróbuj!")),
+        h("button", { class: "btn sm tinted", onclick: () => openSong(sg.id) }, "Zobacz")))));
+  }
+  const listEl = h("div", { class: "list", id: "song-list" });
+  const capEl = h("p", { class: "sec-cap", style: "margin:10px 4px 8px" });
+  const drawList = () => {
+    const lv = ui.songLv == null ? L : ui.songLv; const f = ui.songStatus || "all";
+    const items = SONGS.filter((sg) => sg.lv === lv && (f === "all" || songState(st, sg.id).status === f));
+    capEl.textContent = lv === L ? "★ Twój poziom — z tych utworów układam lekcje." : lv === L + 1 ? "🚀 Poziom wyżej — wyzwania. Odblokowane, sprawdź brakujące akordy." : lv < L ? "Powtórka — łatwiejsze utwory na rozgrzewkę i dla przyjemności." : "🔒 Odblokują się po awansie albo gdy poznasz wszystkie ich akordy.";
+    listEl.replaceChildren(...(items.length ? items.map((sg) => songRow(sg, st, L)) : [h("div", { class: "li" }, h("span", { class: "muted" }, "Brak utworów z tym statusem."))]));
+  };
+  drawList();
+  kids.push(h("section", { class: "section" },
+    h("h2", { class: "sec-title" }, "Biblioteka"),
+    segmented([0, 1, 2, 3].map((l) => ({ value: l, label: (l === L ? "★ " : "") + SONG_LV_SHORT[l] })), lvSel, (v) => { ui.songLv = v; drawList(); }, { label: "Poziom utworów" }),
+    h("div", { style: "margin-top:10px" }, pills([{ value: "all", label: "Wszystkie" }, { value: "todo", label: "Do nauki" }, { value: "wip", label: "W trakcie" }, { value: "done", label: "Opanowane" }], ui.songStatus || "all", (v) => { ui.songStatus = v; drawList(); })),
+    capEl, listEl));
+  kids.push(h("p", { class: "small", style: "margin:18px 6px 0;text-align:center" }, "📜 = domena publiczna (z tekstem i akordami) · 🎵 = utwór chroniony: tylko akordy, układ, rytm i wskazówki · 🎯 = ćwiczenie Trenera"));
+  return kids;
+}
+
+function pickGrid(p) {
+  const counts = p.counts || p.slots.map((_, i) => String(i + 1));
+  return h("div", null,
+    h("div", { class: "pattern", style: { "grid-template-columns": "repeat(" + p.slots.length + ", minmax(0,1fr))" } },
+      p.slots.map((s, i) => h("div", { class: "slot" + (s ? " on" : "") }, h("b", { style: "font-size:17px" }, s), h("span", null, counts[i])))),
+    h("div", { class: "small", style: "margin-top:8px" }, p.note));
+}
+function songPatternView(song) { const p = songPattern(song); return h("div", { class: "stack" }, h("div", { style: "font-weight:600" }, p.name), p.pick ? pickGrid(p) : patternGrid(p)); }
+function songDiagrams(song, st) {
+  const nw = songNewChords(song, st);
+  return h("div", { class: "diagrams" }, songChords(song).map((n) => {
+    const shape = songShape(n, song.lv); const el = chordDiagram(ch(shape), true, chordLabel(shape));
+    if (nw.includes(n)) el.classList.add("is-new");
+    return el;
+  }));
+}
+function lyricsView(sec) {
+  return h("div", { class: "ly" }, sec.lyrics.map((line) => {
+    const parts = []; const re = /\[([^\]]+)\]/g; let last = 0; let chord = ""; let m;
+    while ((m = re.exec(line))) { if (m.index > last || chord) parts.push([chord, line.slice(last, m.index)]); chord = m[1]; last = re.lastIndex; }
+    parts.push([chord, line.slice(last)]);
+    return h("div", { class: "ly-line" }, parts.filter((p) => p[0] || p[1]).map((p) => h("span", { class: "ly-seg" }, h("b", null, p[0] ? chordLabel(p[0]) : "\u00a0"), h("span", null, p[1] || "\u00a0"))));
+  }));
+}
+
+/* ---------- play-along: przewijana siatka akordów zsynchronizowana z metronomem ---------- */
+function playAlong(song, o) {
+  const st = S; const secs = songSections(song); const B = song.beats; const SUB = song.sub || 1;
+  let secSel = o.sec == null ? -1 : o.sec; let bpm = clamp(o.bpm || song.bpm[0], 30, 240);
+  let loop = secSel >= 0; let countIn = true; let backing = true; let trainer = false;
+  let seq = []; let cells = []; let timerId = 0; let tos = []; let on = false; let startAt = 0; let played = 0; let passes = 0; let lastOn = null;
+  const chart = h("div", { class: "pa-chart" + (o.compact ? " compact" : "") });
+  const curEl = h("div", { class: "cur" }, "—"); const nxEl = h("div", { class: "nx" }, "");
+  const barEl = h("div", { class: "small" }, "");
+  const dots = h("div", { class: "beats" }); for (let i = 0; i < B; i++) add(dots, [h("div", { class: "beat" })]);
+  const bpmVal = h("b", { class: "pa-bpm" }, String(bpm));
+  const playBtn = h("button", { class: "btn primary pa-play", id: o.compact ? null : "pa-play", onclick: () => (on ? stop() : start()) }, "▶ Start");
+  const range = h("input", { type: "range", class: "range", min: Math.max(30, song.bpm[0] - 20), max: song.bpm[1] + 20, value: bpm, "aria-label": "Tempo", oninput: (e) => setBpm(parseInt(e.target.value, 10)) });
+  function setBpm(v) { bpm = clamp(v, 30, 240); bpmVal.textContent = String(bpm); range.value = String(bpm); if (o.onBpm) o.onBpm(bpm); }
+  function buildSeq() {
+    seq = []; const list = secSel < 0 ? secs.map((_, i) => i) : [secSel];
+    list.forEach((i) => { const s = secs[i]; const reps = secSel < 0 ? s.x : 1; for (let r = 0; r < reps; r++) s.bars.forEach((b) => seq.push({ sec: i, rep: r, reps, chords: b })); });
+  }
+  function drawChart() {
+    chart.replaceChildren(); cells = []; let grid = null; let key = "";
+    seq.forEach((it, i) => {
+      const k = it.sec + ":" + it.rep;
+      if (k !== key) { key = k; add(chart, [h("div", { class: "pa-sec" }, secs[it.sec].n + (it.reps > 1 ? " · " + (it.rep + 1) + "/" + it.reps : ""))]); grid = h("div", { class: "pa-grid" }); add(chart, [grid]); }
+      const cell = h("div", { class: "pa-cell" + (it.chords.length > 1 ? " multi" : ""), "data-bar": String(i) }, it.chords.map((c) => h("span", null, chordLabel(c))));
+      cells.push(cell); add(grid, [cell]);
+    });
+    lastOn = null; showIdle();
+  }
+  function showIdle() { const f = seq[0]; curEl.textContent = f ? chordLabel(f.chords[0]) : "—"; nxEl.replaceChildren(h("span", { class: "small" }, "potem"), h("br"), h("b", null, seq[1] ? chordLabel(seq[1].chords[0]) : "—")); barEl.textContent = "Takt 0/" + seq.length + " · " + (secSel < 0 ? "cały utwór" : secs[secSel].n); }
+  function scrollTo(cell) { const top = cell.offsetTop - chart.clientHeight / 2 + cell.offsetHeight / 2; chart.scrollTo({ top: Math.max(0, top), behavior: "smooth" }); }
+  function visual(idx, inBar, chordIdx, count) {
+    Array.from(dots.children).forEach((d, i) => { d.className = "beat" + (i === inBar ? " on" + (inBar === 0 ? " acc" : "") : ""); });
+    if (count != null) { curEl.textContent = String(count); barEl.textContent = "Odliczanie…"; return; }
+    const it = seq[idx]; if (!it) return;
+    if (lastOn !== idx) {
+      if (lastOn != null && cells[lastOn]) { cells[lastOn].classList.remove("on"); cells[lastOn].classList.add("past"); }
+      if (idx === 0 || (lastOn != null && idx < lastOn)) cells.forEach((c, j) => { if (j >= idx) c.classList.remove("past"); });
+      cells[idx].classList.add("on"); cells[idx].classList.remove("past"); lastOn = idx; scrollTo(cells[idx]);
+      barEl.textContent = "Takt " + (idx + 1) + "/" + seq.length + " · " + secs[it.sec].n + (passes ? " · pętla " + (passes + 1) : "");
+    }
+    curEl.textContent = chordLabel(it.chords[chordIdx]);
+    const nextName = it.chords[chordIdx + 1] || (seq[idx + 1] ? seq[idx + 1].chords[0] : loop && seq[0] ? seq[0].chords[0] : "koniec");
+    nxEl.replaceChildren(h("span", { class: "small" }, "potem"), h("br"), h("b", null, chordLabel(nextName)));
+  }
+  function strum(ctx, name, when) {
+    const c = ch(songShape(name, song.lv)); let k = 0;
+    c.frets.forEach((f, s) => { if (f >= 0) { pluck(ctx, OPEN_FREQ[s] * Math.pow(2, f / 12), when + k * 0.014, 0.09, 1.6); k++; } });
+  }
+  function clearTimers() { clearInterval(timerId); tos.forEach(clearTimeout); tos = []; }
+  function start() {
+    const ctx = getCtx(); if (!ctx) { toast("Ta przeglądarka nie obsługuje dźwięku."); return; }
+    clearTimers(); on = true; passes = 0; playBtn.textContent = "■ Stop"; playBtn.classList.add("on");
+    cells.forEach((c) => c.classList.remove("on", "past")); lastOn = null; chart.scrollTo({ top: 0 });
+    startAt = performance.now();
+    let next = ctx.currentTime + 0.12; let beat = countIn ? -B : 0; let sub = 0;
+    timerId = setInterval(() => {
+      while (next < ctx.currentTime + 0.12) {
+        if (sub === 0) {
+          let idx = Math.floor(beat / B); const inBar = ((beat % B) + B) % B;
+          if (idx >= seq.length) {
+            if (loop) { beat = 0; idx = 0; passes++; if (trainer && bpm < song.bpm[1]) { const nb = Math.min(song.bpm[1], bpm + 2); tos.push(setTimeout(() => setBpm(nb), Math.max(0, (next - ctx.currentTime) * 1000))); } }
+            else { const wait = Math.max(0, (next - ctx.currentTime) * 1000); tos.push(setTimeout(() => { stop(); toast("Koniec! Zapisz tempo i oceń, jak poszło."); }, wait)); clearInterval(timerId); return; }
+          }
+          const delay = Math.max(0, (next - ctx.currentTime) * 1000);
+          if (beat < 0) { click(ctx, next, inBar === 0, 0.55); const cnt = -beat; tos.push(setTimeout(() => visual(-1, inBar, 0, cnt), delay)); }
+          else {
+            const it = seq[idx]; const n = it.chords.length; const per = B / n; const ci = Math.min(n - 1, Math.floor(inBar / per));
+            click(ctx, next, inBar === 0, inBar === 0 ? 0.55 : 0.35);
+            if (backing && Math.abs(inBar - ci * per) < 0.001) strum(ctx, it.chords[ci], next);
+            const bi = idx, ib = inBar; tos.push(setTimeout(() => visual(bi, ib, ci), delay));
+          }
+          beat++;
+        } else click(ctx, next, false, 0.14);
+        next += 60 / bpm / SUB; sub = (sub + 1) % SUB;
+        if (tos.length > 400) tos = tos.slice(-50);
+      }
+    }, 25);
+  }
+  function stop() {
+    if (on) { played += (performance.now() - startAt) / 1000; if (o.onSecs) o.onSecs(Math.round(played)); }
+    on = false; clearTimers(); playBtn.textContent = "▶ Start"; playBtn.classList.remove("on");
+    Array.from(dots.children).forEach((d) => { d.className = "beat"; });
+  }
+  onCleanup(() => { if (on) stop(); });
+  const secPick = pills([{ value: -1, label: "Cały utwór" }].concat(secs.map((s, i) => ({ value: i, label: s.n }))), secSel, (v) => {
+    const was = on; stop(); secSel = v; loop = v >= 0; loopT.checked = loop; buildSeq(); drawChart(); if (o.onSec) o.onSec(v); if (was) start();
+  });
+  secPick.classList.add("pa-secs");
+  const loopT = toggle(loop, (v) => { loop = v; }, "Pętla");
+  const opt = (label, el) => h("label", { class: "setting pa-opt" }, h("span", null, label), el);
+  buildSeq(); drawChart();
+  // API dla synchronizacji z nagraniem (YouTube): pozycja w uderzeniach od pierwszego akordu
+  const api = {
+    isPlaying: () => on,
+    stop: () => stop(),
+    setFull() { if (secSel !== -1) { stop(); secSel = -1; loop = false; loopT.checked = false; buildSeq(); drawChart(); setPills(-1); if (o.onSec) o.onSec(-1); } },
+    syncTo(b, rate) {
+      if (on) stop();
+      if (!(b >= 0)) { if (lastOn != null) { cells.forEach((c) => c.classList.remove("on", "past")); lastOn = null; chart.scrollTo({ top: 0 }); } showIdle(); barEl.textContent = b < 0 ? "Czekam na pierwszy akord…" : barEl.textContent; Array.from(dots.children).forEach((d) => { d.className = "beat"; }); return; }
+      const idx = Math.floor(b / B);
+      if (idx >= seq.length) { barEl.textContent = "Koniec układu · " + seq.length + " t."; return; }
+      const inBar = Math.floor(b - idx * B); const it = seq[idx]; const n = it.chords.length; const ci = Math.min(n - 1, Math.floor(inBar / (B / n)));
+      const jumped = lastOn !== idx; visual(idx, inBar, ci);
+      if (jumped) cells.forEach((c, j) => c.classList.toggle("past", j < idx));
+      barEl.textContent = "Takt " + (idx + 1) + "/" + seq.length + " · " + secs[it.sec].n + " · z nagraniem" + (rate && rate !== 1 ? " ×" + String(rate).replace(".", ",") : "");
+    },
+    reset() { cells.forEach((c) => c.classList.remove("on", "past")); lastOn = null; showIdle(); Array.from(dots.children).forEach((d) => { d.className = "beat"; }); },
+  };
+  function setPills(v) { Array.from(secPick.children).forEach((b, i) => { const on1 = i === 0 ? v === -1 : v === i - 1; b.classList.toggle("on", on1); b.setAttribute("aria-pressed", on1 ? "true" : "false"); }); }
+  if (o.apiRef) o.apiRef(api);
+  return h("div", { class: "playalong stack" },
+    secPick,
+    h("div", { class: "pa-now" }, h("div", null, curEl, h("div", { style: "margin-top:8px" }, dots)), nxEl),
+    barEl,
+    chart,
+    h("div", { class: "row", style: "justify-content:space-between;gap:8px" },
+      h("button", { class: "btn sm tinted", "aria-label": "Wolniej", onclick: () => setBpm(bpm - 5) }, "−5"),
+      h("div", { style: "text-align:center;flex:1" }, bpmVal, h("span", { class: "small" }, " BPM"), h("div", { class: "small" }, "start " + song.bpm[0] + " · cel " + song.bpm[1] + (song.bpmNote ? " · " + song.bpmNote : ""))),
+      h("button", { class: "btn sm tinted", "aria-label": "Szybciej", onclick: () => setBpm(bpm + 5) }, "+5")),
+    range,
+    h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" },
+      h("button", { class: "btn sm plain", onclick: () => setBpm(song.bpm[0]) }, "🐢 Tempo startowe"),
+      h("button", { class: "btn sm plain", onclick: () => setBpm(song.bpm[1]) }, "🎯 Tempo docelowe")),
+    o.compact ? null : h("div", { class: "stack pa-opts" },
+      opt("Pętla (powtarzaj sekcję)", loopT),
+      opt("Odliczanie przed startem", toggle(countIn, (v) => { countIn = v; }, "Odliczanie")),
+      opt("Akordy w tle", toggle(backing, (v) => { backing = v; }, "Akordy w tle")),
+      opt("Trener tempa (+2 BPM co pętlę)", toggle(trainer, (v) => { trainer = v; if (v) { loop = true; loopT.checked = true; } }, "Trener tempa"))),
+    playBtn);
+}
+
+function viewSong(song) {
+  const st = S; const sp = songState(st, song.id); const secs = songSections(song); const unl = songUnlocked(song, st);
+  let paBpm = songWorkBpm(song, sp); let paSecs = 0;
+  const kids = [];
+  kids.push(h("button", { class: "btn plain back", id: "song-back", onclick: () => { ui.songId = null; render(); window.scrollTo(0, 0); } }, "‹ Utwory"));
+  kids.push(largeTitle(song.title, song.artist, [
+    h("span", { class: "chip", style: { color: "var(--" + SONG_LV_COLOR[song.lv] + ")" } }, LEVELS[song.lv].name),
+    h("span", { class: "chip" }, "🎼 " + song.key), song.capo ? h("span", { class: "chip" }, "Kapodaster " + song.capo) : null,
+    h("span", { class: "chip" }, song.meter), h("span", { class: "chip" }, "♩ " + song.bpm[0] + "→" + song.bpm[1]),
+    h("span", { class: "chip tint" }, song.pd ? (song.instrumental ? "📜 Domena publiczna" : "📜 Tekst + akordy") : "🎵 Tylko akordy")]));
+  if (!unl) kids.push(callout("orange", "🔒", "Utwór z wyższego poziomu", "Możesz go podejrzeć, ale do lekcji wejdzie po awansie na „" + LEVELS[song.lv].name + "” lub gdy opanujesz akordy: " + songNewChords(song, st).map(chordLabel).join(", ") + "."));
+  kids.push(h("p", { class: "muted", style: "margin:4px 4px 14px;color:var(--text)" }, song.info));
+  kids.push(section("Status", null, [
+    h("div", { id: "song-status" }, segmented(["todo", "wip", "done"].map((k) => ({ value: k, label: SONG_STATUS[k] })), sp.status, (v) => setTimeout(() => setSongStatus(song.id, v), 220), { label: "Status utworu" })),
+    h("div", { class: "row song-stats" },
+      h("div", null, h("b", null, sp.best ? sp.best + "" : "—"), h("span", { class: "small" }, "najlepsze BPM")),
+      h("div", null, h("b", null, String(sp.plays || 0)), h("span", { class: "small" }, "sesji")),
+      h("div", null, h("b", null, Math.round(Math.min(1, (sp.best || 0) / song.bpm[1]) * 100) + "%"), h("span", { class: "small" }, "tempa docelowego")))]));
+  const nw = songNewChords(song, st);
+  kids.push(section("Akordy", nw.length ? "Nowe dla Ciebie: " + nw.map(chordLabel).join(", ") + " (zaznaczone). Dotknij diagramu, by usłyszeć." : "Znasz wszystkie akordy z tego utworu. Dotknij diagramu, by usłyszeć.", [songDiagrams(song, st)]));
+  kids.push(section(songPattern(song).pick ? "Fingerpicking" : "Bicie", null, [songPatternView(song)]));
+  let paApi = null;
+  kids.push(ytSection(song, () => paApi));
+  kids.push(section("Graj z akordami", "Siatka przewija się z metronomem. Wybierz sekcję, by ćwiczyć ją osobno w pętli.", [playAlong(song, { sec: ui.songSec == null ? -1 : ui.songSec, bpm: paBpm, apiRef: (a) => { paApi = a; }, onBpm: (b) => { paBpm = b; bpmIn.placeholder = String(b); }, onSecs: (s) => { paSecs = s; }, onSec: (v) => { ui.songSec = v; } })]));
+  kids.push(section("Układ utworu", song.pd && !song.instrumental ? "Tekst z akordami (domena publiczna)." : null, secs.map((s) => h("div", { class: "song-sec" },
+    h("div", { class: "row", style: "justify-content:space-between" }, h("b", null, s.n), s.x > 1 ? h("span", { class: "chip" }, "× " + s.x) : null, h("span", { class: "small" }, s.bars.length + " t.")),
+    h("div", { class: "barrow" }, s.bars.map((b) => h("span", null, b.map(chordLabel).join(" ")))),
+    song.pd && s.lyrics ? lyricsView(s) : null))));
+  if (song.riff) kids.push(section(song.exercise ? "Riff / wzór (ćwiczenie Trenera)" : "Tabulatura (domena publiczna)", null, [tabView(song.riff)]));
+  kids.push(section("Wskazówki", null, [h("ul", null, song.tips.map((t) => h("li", null, t)))]));
+  if (!song.pd) kids.push(h("p", { class: "small", style: "margin:0 6px 16px" }, "© Utwór chroniony prawem autorskim — nie zamieszczamy tekstu ani tabulatur. Podane są tylko akordy, układ, rytm i tempo do ćwiczeń; tekst znajdziesz u wydawcy lub w serwisach licencjonowanych."));
+  const bpmIn = h("input", { class: "input", type: "number", min: 30, inputmode: "numeric", style: "width:100px", placeholder: String(paBpm), "aria-label": "Tempo BPM", id: "song-bpm" });
+  kids.push(section("Zapisz sesję", "Ocena dopasuje tempo i kolejne lekcje. „Za łatwe” w tempie docelowym = Opanowany.", [
+    h("div", { class: "row" }, h("span", { style: "font-size:15px;flex:1" }, "Czyste tempo (BPM):"), bpmIn),
+    h("div", { class: "rate" }, ["easy", "ok", "hard"].map((r) => h("button", { class: "btn rate-" + r + (r === "ok" ? " primary" : " tinted") + (r === "easy" ? " green" : r === "hard" ? " orange" : ""), style: r === "ok" ? "--accent:var(--blue)" : null, onclick: () => { const v = parseInt(bpmIn.value, 10); rateSong(song, r, v > 0 ? v : paBpm, paSecs); } }, RATING_LABEL[r])))]));
+  return kids;
+}
+
+function songProgressSection(st) {
+  const counts = { todo: 0, wip: 0, done: 0 };
+  SONGS.forEach((sg) => { counts[songState(st, sg.id).status]++; });
+  const started = SONGS.filter((sg) => songState(st, sg.id).status !== "todo").sort((a, b) => (songState(st, b.id).last || "").localeCompare(songState(st, a.id).last || ""));
+  return section("Repertuar", "Utwory zasilają mapę umiejętności: akordy, zmiany, rytm, technikę i barré.", [
+    h("div", { class: "row song-stats" },
+      h("div", null, h("b", { style: "color:var(--green)" }, String(counts.done)), h("span", { class: "small" }, "opanowane")),
+      h("div", null, h("b", { style: "color:var(--orange)" }, String(counts.wip)), h("span", { class: "small" }, "w trakcie")),
+      h("div", null, h("b", null, String(counts.todo)), h("span", { class: "small" }, "do nauki"))),
+    started.length ? h("div", { class: "list" }, started.slice(0, 8).map((sg) => { const sp = songState(st, sg.id); return h("button", { class: "li", onclick: () => openSong(sg.id) }, h("span", { class: "grow" }, h("div", { style: "font-weight:600" }, sg.title), h("div", { class: "small" }, sp.best ? "najlepiej " + sp.best + " / " + sg.bpm[1] + " BPM" : "bez pomiaru tempa")), songStatusBadge(sp.status)); }))
+      : h("div", { class: "muted" }, "Jeszcze nic — zacznij od zakładki Utwory albo bloku „Utwór dnia” w lekcji.")]);
+}
+
+/* ============================== UTWORY: YOUTUBE ============================== */
+// Rozpoznaje link YouTube / YouTube Music / youtu.be / shorts / embed / live albo samo 11-znakowe ID.
+function parseYouTube(input) {
+  const raw = String(input || "").trim(); if (!raw) return null;
+  const ID = /^[A-Za-z0-9_-]{11}$/;
+  if (ID.test(raw)) return { id: raw, start: 0 };
+  let u; try { u = new URL(/^[a-z]+:\/\//i.test(raw) ? raw : "https://" + raw); } catch (e) { return null; }
+  const host = u.hostname.toLowerCase().replace(/^(www|m)\./, "");
+  let id = null;
+  if (host === "youtu.be") id = u.pathname.split("/")[1];
+  else if (host === "youtube.com" || host === "music.youtube.com" || host === "youtube-nocookie.com") {
+    if (u.pathname === "/watch") id = u.searchParams.get("v");
+    else { const m = u.pathname.match(/^\/(shorts|embed|live|v)\/([^/?#]+)/); if (m) id = m[2]; }
+  }
+  if (!id || !ID.test(id)) return null;
+  const t = u.searchParams.get("t") || u.searchParams.get("start") || "";
+  let start = 0; const tm = String(t).match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s?)?$/);
+  if (tm && t) start = (parseInt(tm[1] || 0, 10) * 3600) + (parseInt(tm[2] || 0, 10) * 60) + parseInt(tm[3] || 0, 10);
+  return { id, start: start || 0 };
+}
+function ytQuery(song) {
+  const a = song.artist || "";
+  const artist = /^(Tradycyjna|Kolęda|Ćwiczenie)/.test(a) ? "" : a.split(/[(/,]/)[0].trim();
+  const title = song.exercise ? song.title.split(" — ")[0] : song.title;
+  return (artist ? artist + " " : "") + title;
+}
+function ytLinks(song) {
+  const q = ytQuery(song); const enc = (s) => encodeURIComponent(s).replace(/%20/g, "+");
+  return {
+    music: "https://music.youtube.com/search?q=" + enc(q),
+    lesson: "https://www.youtube.com/results?search_query=" + enc(q + " guitar lesson"),
+    original: "https://www.youtube.com/results?search_query=" + enc(q),
+  };
+}
+function ytGet(id) { return (S && S.yt && S.yt[id]) || null; }
+function ytSave(songId, patch, opts) {
+  const s = clone(S); s.yt = s.yt || {};
+  if (patch === null) delete s.yt[songId]; else s.yt[songId] = Object.assign({}, s.yt[songId] || {}, patch);
+  commit(s, opts);
+}
+let ytApiPromise = null;
+function loadYouTubeApi(timeoutMs) {
+  if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+  if (ytApiPromise) return ytApiPromise;
+  ytApiPromise = new Promise((resolve, reject) => {
+    if (navigator.onLine === false) { reject(new Error("offline")); return; }
+    const prev = window.onYouTubeIframeAPIReady;
+    const to = setTimeout(() => reject(new Error("timeout")), timeoutMs || 10000);
+    window.onYouTubeIframeAPIReady = () => { clearTimeout(to); if (typeof prev === "function") { try { prev(); } catch (e) { /* ignoruj */ } } resolve(window.YT); };
+    const sc = document.createElement("script"); sc.src = "https://www.youtube.com/iframe_api"; sc.async = true;
+    sc.onerror = () => { clearTimeout(to); reject(new Error("load")); };
+    document.head.appendChild(sc);
+  }).catch((e) => { ytApiPromise = null; throw e; });
+  return ytApiPromise;
+}
+function fmtSec(t) { if (!(t >= 0)) return "—"; const m = Math.floor(t / 60); const s = t - m * 60; return m + ":" + (s < 10 ? "0" : "") + s.toFixed(1); }
+
+function ytSection(song, getPa) {
+  const yt = ytGet(song.id); const L = ytLinks(song);
+  const linkBtn = (href, label, cls, id) => h("a", { class: "btn sm " + cls, href, target: "_blank", rel: "noopener noreferrer", id }, label);
+  const input = h("input", { class: "input grow", id: "yt-url", type: "url", inputmode: "url", autocomplete: "off", autocapitalize: "off", spellcheck: "false", placeholder: "Wklej link z YouTube lub YouTube Music", value: yt ? yt.url || "https://youtu.be/" + yt.id : "", "aria-label": "Link do nagrania YouTube" });
+  const saveLink = () => {
+    const p = parseYouTube(input.value);
+    if (!p) { input.classList.add("bad"); toast("Nie rozpoznano linku YouTube. Skopiuj adres z „Udostępnij” → „Kopiuj link”."); return; }
+    const same = yt && yt.id === p.id;
+    ytSave(song.id, Object.assign({ id: p.id, url: input.value.trim(), start: p.start }, same ? {} : { offset: null, a: null, b: null }));
+    toast("Zapisano nagranie dla „" + song.title + "”.");
+  };
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); saveLink(); } });
+  input.addEventListener("input", () => input.classList.remove("bad"));
+  const kids = [
+    h("div", { class: "row yt-links", style: "gap:8px;flex-wrap:wrap" },
+      linkBtn(L.music, "▶ YouTube Music", "tinted yt-music", "yt-music"),
+      linkBtn(L.lesson, "▶ YouTube · lekcja", "tinted yt-red", "yt-lesson"),
+      linkBtn(L.original, "Oryginał", "plain", "yt-orig")),
+    h("div", { class: "row", style: "gap:8px" }, input,
+      h("button", { class: "btn sm primary", id: "yt-save", onclick: saveLink }, "Zapisz"),
+      yt ? h("button", { class: "btn sm plain", id: "yt-clear", "aria-label": "Usuń nagranie", onclick: () => { ytSave(song.id, null); toast("Usunięto nagranie."); } }, "Usuń") : null),
+  ];
+  if (yt && yt.id) kids.push(ytPlayer(song, yt, getPa));
+  else kids.push(h("p", { class: "small", style: "margin:0" }, "Znajdź nagranie przyciskiem wyżej, w aplikacji YouTube wybierz „Udostępnij → Kopiuj link” i wklej tutaj. Pojawi się odtwarzacz z pętlą A-B, zwolnieniem i synchronizacją siatki akordów."));
+  return section("Nagranie (YouTube)", "Słuchaj oryginału i graj razem z nim.", kids);
+}
+
+function ytPlayer(song, yt, getPa) {
+  const host = h("div", { id: "yt-host" });
+  const frame = h("div", { class: "yt-frame" }, host);
+  const status = h("div", { class: "small", id: "yt-status" }, "Ładowanie odtwarzacza…");
+  const watchUrl = "https://www.youtube.com/watch?v=" + yt.id + (yt.start ? "&t=" + yt.start + "s" : "");
+  let player = null; let ready = false; let playing = false; let rate = 1; let poll = 0; let dead = false;
+  let A = yt.a == null ? null : yt.a; let Bp = yt.b == null ? null : yt.b; let offset = yt.offset == null ? null : yt.offset;
+  let recBpm = yt.bpm || song.bpm[1]; let sync = !!yt.sync && offset != null;
+  const playBtn = h("button", { class: "btn primary", id: "yt-play", disabled: true, onclick: () => { if (!ready) return; if (playing) player.pauseVideo(); else player.playVideo(); } }, "▶ Odtwórz");
+  const back5 = h("button", { class: "btn sm tinted", disabled: true, "aria-label": "Cofnij 5 sekund", onclick: () => { if (ready) player.seekTo(Math.max(0, player.getCurrentTime() - 5), true); } }, "↺ 5 s");
+  const ratePick = pills([{ value: 0.5, label: "0,5×" }, { value: 0.75, label: "0,75×" }, { value: 1, label: "1×" }], 1, (v) => { rate = v; if (ready) player.setPlaybackRate(v); updInfo(); });
+  ratePick.id = "yt-rate";
+  const abInfo = h("span", { class: "small", id: "yt-ab" });
+  const setA = h("button", { class: "btn sm tinted", id: "yt-a", disabled: true, onclick: () => { A = player.getCurrentTime(); if (Bp != null && Bp <= A) Bp = null; saveSilent({ a: A, b: Bp }); updAB(); } }, "Ustaw A");
+  const setB = h("button", { class: "btn sm tinted", id: "yt-b", disabled: true, onclick: () => { const t = player.getCurrentTime(); if (A == null || t <= A + 0.5) { toast("Najpierw ustaw A, a B później w nagraniu."); return; } Bp = t; saveSilent({ a: A, b: Bp }); updAB(); player.seekTo(A, true); } }, "Ustaw B");
+  const clrAB = h("button", { class: "btn sm plain", id: "yt-abclear", onclick: () => { A = null; Bp = null; saveSilent({ a: null, b: null }); updAB(); } }, "Wyczyść");
+  const offInfo = h("span", { class: "small", id: "yt-offset" });
+  const startBtn = h("button", { class: "btn sm primary", id: "yt-sync-start", disabled: true, onclick: () => { offset = player.getCurrentTime(); sync = true; syncT.checked = true; saveSilent({ offset, sync: true }); const pa = getPa(); if (pa) pa.setFull(); updInfo(); toast("Start ustawiony na " + fmtSec(offset) + " — siatka podąża za nagraniem."); } }, "⏱ Start (1. akord)");
+  const nudge = (d) => { if (offset == null) return; offset = Math.max(0, offset + d); saveSilent({ offset }); updInfo(); };
+  const syncT = toggle(sync, (v) => { if (v && offset == null) { syncT.checked = false; toast("Najpierw stuknij „Start” w momencie pierwszego akordu."); return; } sync = v; saveSilent({ sync: v }); const pa = getPa(); if (pa) { if (v) pa.setFull(); else pa.reset(); } updInfo(); }, "Synchronizacja z nagraniem");
+  syncT.id = "yt-sync";
+  const bpmIn = h("input", { class: "input", id: "yt-bpm", type: "number", min: 30, max: 260, inputmode: "numeric", style: "width:84px", value: String(recBpm), "aria-label": "Tempo nagrania (BPM)", onchange: (e) => { const v = parseInt(e.target.value, 10); if (v >= 30 && v <= 260) { recBpm = v; saveSilent({ bpm: v }); updInfo(); } else e.target.value = String(recBpm); } });
+  const effInfo = h("span", { class: "small", id: "yt-eff" });
+  function saveSilent(p) { ytSave(song.id, p, { silent: true }); }
+  function updAB() { abInfo.textContent = A == null ? "Pętla wyłączona" : "A " + fmtSec(A) + (Bp == null ? " · ustaw B" : " → B " + fmtSec(Bp) + " · pętla"); clrAB.disabled = A == null && Bp == null; }
+  function updInfo() { offInfo.textContent = offset == null ? "Start nieustawiony" : "Start " + fmtSec(offset); effInfo.textContent = "Siatka: " + recBpm + " × " + String(rate).replace(".", ",") + " = " + Math.round(recBpm * rate) + " BPM"; }
+  updAB(); updInfo();
+  function enable(on) { [playBtn, back5, setA, setB, startBtn].forEach((b) => { b.disabled = !on; }); }
+  function tick() {
+    if (!ready || dead) return;
+    let t = 0; try { t = player.getCurrentTime() || 0; } catch (e) { return; }
+    if (A != null && Bp != null && playing && t >= Bp) { player.seekTo(A, true); t = A; }
+    if (sync && offset != null) { const pa = getPa(); if (pa) pa.syncTo((t - offset) * recBpm / 60, rate); }
+  }
+  function fail(msg) {
+    if (dead) return;
+    enable(false); frame.classList.add("off");
+    frame.replaceChildren(h("div", { class: "yt-fallback" }, h("div", { style: "font-size:30px" }, "📵"), h("b", null, msg), h("div", { class: "small" }, "Możesz otworzyć nagranie w YouTube i grać z siatką akordów i metronomem poniżej."),
+      h("div", { class: "row", style: "gap:8px;justify-content:center;flex-wrap:wrap" },
+        h("a", { class: "btn sm tinted", href: watchUrl, target: "_blank", rel: "noopener noreferrer", id: "yt-open" }, "Otwórz w YouTube"),
+        h("button", { class: "btn sm plain", id: "yt-retry", onclick: () => render() }, "Spróbuj ponownie"))));
+    status.textContent = "Odtwarzacz niedostępny";
+  }
+  loadYouTubeApi(10000).then((YT) => {
+    if (dead) return;
+    const vars = { playsinline: 1, rel: 0, modestbranding: 1, controls: 1, start: yt.start || 0 };
+    if (/^https?:$/.test(location.protocol)) vars.origin = location.origin;
+    player = new YT.Player(host, { videoId: yt.id, width: "100%", height: "100%", playerVars: vars, events: {
+      onReady: () => { if (dead) return; ready = true; enable(true); status.textContent = "Gotowe · stuknij ▶ (na iPhonie dźwięk startuje po stuknięciu)"; poll = setInterval(tick, 80); },
+      onStateChange: (e) => { playing = e.data === 1; playBtn.textContent = playing ? "⏸ Pauza" : "▶ Odtwórz"; playBtn.classList.toggle("on", playing); if (playing) { const pa = getPa(); if (pa && pa.isPlaying()) pa.stop(); } status.textContent = ({ "-1": "Gotowe", 0: "Koniec nagrania", 1: "Odtwarzanie", 2: "Pauza", 3: "Buforowanie…", 5: "Gotowe" })[e.data] || status.textContent; },
+      onPlaybackRateChange: (e) => { rate = e.data; Array.from(ratePick.children).forEach((b, i) => b.classList.toggle("on", [0.5, 0.75, 1][i] === rate)); updInfo(); },
+      onError: (e) => { fail(e.data === 101 || e.data === 150 || e.data === 153 ? "Autor nagrania nie pozwala odtwarzać go poza YouTube." : e.data === 100 ? "Nagranie nie istnieje albo jest prywatne." : "Nie udało się odtworzyć nagrania."); },
+    } });
+  }).catch((e) => { fail(e && e.message === "offline" ? "Brak internetu — odtwarzacz YouTube niedostępny." : "Nie udało się załadować odtwarzacza YouTube."); });
+  onCleanup(() => { dead = true; clearInterval(poll); try { if (player && player.destroy) player.destroy(); } catch (e) { /* ignoruj */ } });
+  const opt = (label, el) => h("label", { class: "setting pa-opt" }, h("span", null, label), el);
+  return h("div", { class: "stack yt-player", id: "yt-player" },
+    frame, status,
+    h("div", { class: "row", style: "gap:8px" }, playBtn, back5),
+    h("div", { class: "row", style: "justify-content:space-between;gap:8px;flex-wrap:wrap" }, h("span", { style: "font-weight:600" }, "Prędkość"), ratePick),
+    h("div", { class: "stack yt-box" },
+      h("div", { class: "row", style: "justify-content:space-between" }, h("span", { style: "font-weight:600" }, "Pętla A-B"), abInfo),
+      h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" }, setA, setB, clrAB)),
+    h("div", { class: "stack yt-box" },
+      opt("Siatka akordów podąża za nagraniem", syncT),
+      h("div", { class: "small" }, "Stuknij „Start” dokładnie na pierwszym akordzie. Siatka liczy takty z tempa nagrania × prędkości odtwarzania."),
+      h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" }, startBtn,
+        h("button", { class: "btn sm tinted", "aria-label": "Start 0,1 s wcześniej", onclick: () => nudge(-0.1) }, "−0,1 s"),
+        h("button", { class: "btn sm tinted", "aria-label": "Start 0,1 s później", onclick: () => nudge(0.1) }, "+0,1 s"), offInfo),
+      h("div", { class: "row", style: "gap:8px" }, h("span", { style: "flex:1" }, "Tempo nagrania (BPM)"), bpmIn),
+      effInfo));
+}
 
 /* ============================== ZAPIS (localStorage) ============================== */
 const STORE_KEY = "trener-gitara-v1";
@@ -688,7 +1545,7 @@ function decodeState(code) {
     }
     const s = JSON.parse(json);
     if (!s || s.v !== 1 || !s.skills || !s.days || !Array.isArray(s.sessions)) return null;
-    s.bpmLog = s.bpmLog || []; s.changeLog = s.changeLog || []; s.changes = s.changes || {}; s.adj = s.adj || {}; s.bpm = s.bpm || {}; s.known = s.known || [];
+    s.bpmLog = s.bpmLog || []; s.changeLog = s.changeLog || []; s.changes = s.changes || {}; s.adj = s.adj || {}; s.bpm = s.bpm || {}; s.known = s.known || []; s.songs = s.songs || {}; s.yt = s.yt || {};
     return s;
   } catch (e) { return null; }
 }
@@ -1076,7 +1933,8 @@ const CAT_COLOR = { warm: "orange", tech: "purple", chords: "blue", rhythm: "pin
 const CAT_ICON = { warm: "🔥", tech: "✋", chords: "🔁", rhythm: "🥁", theory: "📘", song: "🎶", cool: "🌙" };
 function blockCard(b, idx, res, open, ctx) {
   const ex = b.ex; const pair = b.pair || [];
-  const title = b.cat === "chords" && b.pair ? "Zmiany: " + pair.join(" ↔ ") : b.cat === "song" && b.prog ? "Progresja: " + b.prog.name : b.cat === "rhythm" && b.pattern ? "Rytm: " + b.pattern.name : ex.title;
+  const song = b.cat === "song" && b.song ? songById(b.song) : null;
+  const title = song ? "Utwór: " + song.title + " — " + songSections(song)[b.section || 0].n : b.cat === "chords" && b.pair ? "Zmiany: " + pair.join(" ↔ ") : b.cat === "song" && b.prog ? "Progresja: " + b.prog.name : b.cat === "rhythm" && b.pattern ? "Rytm: " + b.pattern.name : ex.title;
   const diagramNames = (b.cat === "song" || b.cat === "rhythm") && b.prog ? Array.from(new Set(b.prog.chords)) : ex.chords;
   const color = "var(--" + CAT_COLOR[b.cat] + ")";
   const card = h("div", { class: "card block" + (open ? " open" : ""), style: { "--c": color, "--accent": color }, "data-block": b.cat });
@@ -1097,15 +1955,23 @@ function blockCard(b, idx, res, open, ctx) {
     const resultInput = h("input", { class: "input", type: "number", min: 0, inputmode: "numeric", style: "width:110px", placeholder: ex.metric === "bpm" ? String(b.bpm || 60) : "np. 20", "aria-label": "Wynik" });
     const k = [];
     k.push(h("ul", null, ex.desc.map((d) => h("li", null, d))));
+    if (song) {
+      const secI = b.section || 0; const sp = songState(S, song.id);
+      k.push(h("div", { class: "row", style: "gap:6px;flex-wrap:wrap" }, h("span", { class: "chip" }, song.artist), h("span", { class: "chip" }, "🎼 " + song.key), song.capo ? h("span", { class: "chip" }, "Kapo " + song.capo) : null, songStatusBadge(sp.status)));
+      k.push(songDiagrams(song, S));
+      k.push(songPatternView(song));
+      k.push(playAlong(song, { sec: secI, bpm: b.bpm, compact: true, onBpm: (v) => { resultInput.placeholder = String(v); }, onSecs: (s) => { secs = Math.max(secs, s); } }));
+      k.push(h("button", { class: "btn tinted", onclick: () => openSong(song.id, secI) }, "Pełna karta utworu ›"));
+    }
     if (b.cat === "rhythm" && b.pattern) k.push(patternGrid(b.pattern));
     if (b.cat === "rhythm" && b.prog) k.push(h("div", { class: "muted", style: "color:var(--text)" }, "Ćwicz wzór najpierw na stłumionych strunach, potem na akordzie " + b.prog.chords[0] + ", a na koniec zmieniając: " + Array.from(new Set(b.prog.chords)).join(" → ") + "."));
-    if (b.cat === "song" && b.prog) k.push(h("div", { class: "prog" }, b.prog.chords.map((c) => h("span", null, c)), h("span", null, "𝄇")));
-    if (b.cat === "song" && b.pattern) k.push(patternGrid(b.pattern));
+    if (b.cat === "song" && b.prog && !song) k.push(h("div", { class: "prog" }, b.prog.chords.map((c) => h("span", null, c)), h("span", null, "𝄇")));
+    if (b.cat === "song" && b.pattern && !song) k.push(patternGrid(b.pattern));
     if (ex.tab) k.push(tabView(ex.tab));
-    if (b.cat !== "chords" && diagramNames) k.push(h("div", { class: "diagrams" }, diagramNames.map((nm) => chordDiagram(ch(nm), true))));
+    if (b.cat !== "chords" && diagramNames && !song) k.push(h("div", { class: "diagrams" }, diagramNames.map((nm) => chordDiagram(ch(nm), true))));
     if (b.cat === "chords" && pair.length === 2) k.push(changeChallenge(pair, S.changes[pair.join("–")], (n) => { ctx.saveChange(pair, n); resultInput.value = String(n); }));
     k.push(h("div", { class: "divider" }), h("div", { class: "small", style: "font-weight:600" }, "Czas bloku"), timer(b.minutes, (s) => { secs = s; }));
-    if (ex.metric === "bpm" && b.bpm) {
+    if (ex.metric === "bpm" && b.bpm && !song) {
       const holder = h("div");
       let shown = false;
       const mb = h("button", { class: "btn sm tinted", onclick: () => { shown = !shown; mb.textContent = shown ? "Ukryj metronom" : "🎵 Metronom"; holder.replaceChildren(...(shown ? [h("div", { class: "card", style: "background:var(--fill);box-shadow:none" }, metronome(b.bpm, true))] : [])); } }, "🎵 Metronom");
@@ -1113,7 +1979,7 @@ function blockCard(b, idx, res, open, ctx) {
     }
     if (!res) {
       k.push(h("div", { class: "divider" }));
-      if (ex.metric !== "none") k.push(h("div", { class: "row" }, h("span", { style: "font-size:15px;flex:1" }, ex.metric === "bpm" ? "Najwyższe czyste tempo (BPM):" : "Zmian w 1 minutę:"), resultInput, h("span", { class: "small" }, "opcjonalnie")));
+      if (ex.metric !== "none") k.push(h("div", { class: "row" }, h("span", { style: "font-size:15px;flex:1" }, song ? "Czyste tempo utworu (BPM):" : ex.metric === "bpm" ? "Najwyższe czyste tempo (BPM):" : "Zmian w 1 minutę:"), resultInput, h("span", { class: "small" }, "opcjonalnie")));
       k.push(h("div", { style: "font-size:15px;font-weight:600" }, "Jak poszło? Ocena dostosuje kolejne lekcje."));
       k.push(h("div", { class: "rate" }, ["easy", "ok", "hard"].map((r) => h("button", { class: "btn rate-" + r + (r === "ok" ? " primary" : " tinted") + (r === "easy" ? " green" : r === "hard" ? " orange" : ""), style: r === "ok" ? "--accent:var(--blue)" : null, onclick: () => { const v = parseInt(resultInput.value, 10); ctx.completeBlock(b, r, secs, v > 0 ? v : undefined); } }, RATING_LABEL[r]))));
     } else {
@@ -1174,9 +2040,10 @@ function heatmap(days) {
 }
 /* ============================== APLIKACJA ============================== */
 let S = loadState();
-const ui = { tab: "dzis", retest: false, openId: null, chordFilter: "Podstawowe", bpmKey: "spider", confirmReset: false };
+const ui = { tab: "dzis", retest: false, openId: null, chordFilter: "Podstawowe", bpmKey: "spider", confirmReset: false, songId: null, songLv: null, songStatus: "all", songSec: -1 };
 const TABS = [
   { id: "dzis", label: "Dzisiaj", title: "Dzisiaj", icon: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>' },
+  { id: "utwory", label: "Utwory", title: "Utwory", icon: '<path d="M9 18.2V5.6l11-2.4v12.6"/><circle cx="6.5" cy="18.2" r="2.6"/><circle cx="17.5" cy="15.8" r="2.6"/>' },
   { id: "narzedzia", label: "Narzędzia", title: "Narzędzia", icon: '<path d="M9.2 3h5.6l4.2 18H5L9.2 3z"/><path d="M7 15h10"/><path d="M12 15l4.5-9"/>' },
   { id: "akordy", label: "Akordy", title: "Akordy", icon: '<rect x="5" y="2.8" width="14" height="18.4" rx="2.4"/><path d="M5 8h14M5 13h14M9.7 2.8v18.4M14.3 2.8v18.4"/><circle cx="12" cy="10.5" r="1.5" fill="currentColor"/>' },
   { id: "postepy", label: "Postępy", title: "Postępy", icon: '<path d="M3.5 20.5h17"/><rect x="5" y="11" width="3.4" height="7" rx="1.2"/><rect x="10.3" y="5.5" width="3.4" height="12.5" rx="1.2"/><rect x="15.6" y="8.5" width="3.4" height="9.5" rx="1.2"/>' },
@@ -1197,9 +2064,10 @@ const actions = {
     s.adj[b.cat] = clamp((s.adj[b.cat] || 0) + (rating === "easy" ? 1 : rating === "hard" ? -1 : 0), -3, 3);
     const sk = b.ex.skill;
     s.skills[sk] = clamp(s.skills[sk] + (rating === "easy" ? 4 : rating === "ok" ? 2 : -1), 0, 100);
-    if (b.cat === "song" && rating !== "hard") s.skills.rytm = clamp(s.skills.rytm + 1, 0, 100);
+    if (b.cat === "song" && rating !== "hard" && !b.song) s.skills.rytm = clamp(s.skills.rytm + 1, 0, 100);
+    if (b.cat === "song" && b.song) applySongResult(s, b.song, rating, result || b.bpm, 0);
     const k = b.ex.bpmKey;
-    if (k && b.ex.metric === "bpm") {
+    if (k && b.ex.metric === "bpm" && !b.song) {
       const cur = s.bpm[k] || 60; const base = result && result > 0 ? result : cur;
       const nb = rating === "easy" ? Math.max(cur, base) + 6 : rating === "ok" ? Math.max(cur, base) + 2 : Math.max(40, Math.min(cur, base) - 6);
       s.bpm[k] = clamp(nb, 40, 220);
@@ -1235,7 +2103,7 @@ const actions = {
   },
   changeLevel(lvl) {
     const old = S.level;
-    ui.openId = null;
+    ui.openId = null; ui.songLv = null; ui.songId = null;
     commit(Object.assign({}, S, { rev: (S.rev || 0) + 1, level: lvl, levelSessions: 0, adj: {}, today: S.today ? Object.assign({}, S.today, { snap: undefined }) : null }));
     toast((lvl > old ? "Gratulacje! Nowy poziom: " : "Zmieniono poziom na: ") + LEVELS[lvl].name);
   },
@@ -1324,10 +2192,10 @@ function challengeTool() {
 
 function viewChords() {
   const grid = h("div", { class: "chords" });
-  const draw = () => grid.replaceChildren(...CHORDS.filter((c) => ui.chordFilter === "Wszystkie" || c.cat === ui.chordFilter).map((c) => chordDiagram(c, true)));
+  const draw = () => grid.replaceChildren(...CHORDS.filter((c) => ui.chordFilter === "Wszystkie" || c.cat === ui.chordFilter).map((c) => chordDiagram(c, true, chordLabel(c.name))));
   draw();
   return [largeTitle("Akordy", "Biblioteka · " + CHORDS.length + " chwytów"),
-    h("section", { class: "section" }, pills(["Podstawowe", "Septymowe", "Barré", "Power chordy", "Wszystkie"].map((x) => ({ value: x, label: x })), ui.chordFilter, (v) => { ui.chordFilter = v; draw(); }),
+    h("section", { class: "section" }, pills(["Podstawowe", "Septymowe", "Sus i add", "Barré", "Power chordy", "Wszystkie"].map((x) => ({ value: x, label: x })), ui.chordFilter, (v) => { ui.chordFilter = v; draw(); }),
       h("p", { class: "sec-cap", style: "margin-top:6px" }, "Dotknij diagramu, aby usłyszeć akord. Cyfry to palce: 1 wskazujący, 2 środkowy, 3 serdeczny, 4 mały; × = nie grać struny, ○ = pusta struna."),
       h("div", { class: "card" }, grid))];
 }
@@ -1339,6 +2207,7 @@ function viewProgress(d) {
       .map(([v, k, c1, c2]) => h("div", { class: "card tile", style: { "--c1": c1, "--c2": c2 } }, h("div", { class: "v" }, v), h("div", { class: "k" }, k)))),
     h("p", { class: "sec-cap", style: "margin-top:10px" }, "Najsłabszy obszar: " + d.weakest.label.toLowerCase() + " — lekcje częściej go ćwiczą.")));
   kids.push(section("Mapa umiejętności", st.level < 3 ? "Skala 0–100. Awans od średniej " + PROMO_AVG[st.level] + " i " + PROMO_SESS[st.level] + " lekcji na poziomie." : "Skala 0–100.", [skillBars(st.skills, true)], { delay: 40 }));
+  kids.push(songProgressSection(st));
   kids.push(section("Dni ćwiczeń", "Ostatnie 15 tygodni · minuty dziennie.", [heatmap(st.days)], { delay: 80 }));
   const bpmKeys = Array.from(new Set(st.bpmLog.map((x) => x.key)));
   if (bpmKeys.length) {
@@ -1351,7 +2220,7 @@ function viewProgress(d) {
     };
     drawChart();
     const selKey = bpmKeys.includes(ui.bpmKey) ? ui.bpmKey : bpmKeys[0];
-    kids.push(section("Postęp tempa (BPM)", null, [pills(bpmKeys.map((k) => ({ value: k, label: BPM_LABEL[k] || k })), selKey, (v) => { ui.bpmKey = v; drawChart(); }), chartBox], { delay: 120 }));
+    kids.push(section("Postęp tempa (BPM)", null, [pills(bpmKeys.map((k) => ({ value: k, label: BPM_LABEL[k] || songBpmLabel(k) || k })), selKey, (v) => { ui.bpmKey = v; drawChart(); }), chartBox], { delay: 120 }));
   }
   const changeRows = Object.entries(st.changes).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
   if (changeRows.length) kids.push(section("Rekordy zmian akordów", "Zmian na minutę.", [h("div", { class: "list" }, changeRows.map(([k, v]) => h("div", { class: "li" }, h("span", { class: "grow", style: "font-weight:600" }, k), h("span", { class: "val" }, v + " / min"))))], { plain: true }));
@@ -1421,7 +2290,7 @@ function refreshTabbar() {
   if (!S || ui.retest) { bar.style.display = "none"; return; }
   bar.style.display = "";
   bar.replaceChildren(...TABS.map((t) => h("button", { class: "tab" + (ui.tab === t.id ? " on" : ""), "data-tab": t.id, "aria-current": ui.tab === t.id ? "page" : null, onclick: () => {
-    if (ui.tab === t.id) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    if (ui.tab === t.id) { if (t.id === "utwory" && ui.songId) { ui.songId = null; render(); window.scrollTo(0, 0); return; } window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     ui.tab = t.id; ui.confirmReset = false; render(); window.scrollTo(0, 0);
   } }, svgIcon(t.icon), h("span", null, t.label))));
 }
@@ -1433,8 +2302,9 @@ function render() {
   if (!S || ui.retest) { kids = viewPlacement(); document.getElementById("navtitle").textContent = ui.retest ? "Test kontrolny" : "Trener Gitara"; }
   else {
     const d = derive();
-    kids = ui.tab === "dzis" ? viewToday(d) : ui.tab === "narzedzia" ? viewTools() : ui.tab === "akordy" ? viewChords() : ui.tab === "postepy" ? viewProgress(d) : viewProfile(d);
-    document.getElementById("navtitle").textContent = TABS.find((t) => t.id === ui.tab).title;
+    kids = ui.tab === "dzis" ? viewToday(d) : ui.tab === "utwory" ? viewSongs(d) : ui.tab === "narzedzia" ? viewTools() : ui.tab === "akordy" ? viewChords() : ui.tab === "postepy" ? viewProgress(d) : viewProfile(d);
+    const openS = ui.tab === "utwory" && ui.songId ? songById(ui.songId) : null;
+    document.getElementById("navtitle").textContent = openS ? openS.title : TABS.find((t) => t.id === ui.tab).title;
   }
   app.replaceChildren(...kids);
   refreshTabbar();
