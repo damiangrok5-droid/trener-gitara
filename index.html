@@ -589,6 +589,12 @@ const QUAL = {
   m7b5:   { label: "półzmniejszony", iv: [0, 3, 6, 10], opt: [], lv: 45 },
   aug:    { label: "zwiększony", iv: [0, 4, 8], opt: [], lv: 38 },
   "5":    { label: "power chord", iv: [0, 7], opt: [], lv: 9 },
+  madd9:  { label: "molowy add9", iv: [0, 2, 3, 7], opt: [7], lv: 30 },
+  "7#9":  { label: "septyma z #9 (akord Hendrixa)", iv: [0, 3, 4, 7, 10], opt: [7], lv: 40 },
+  "7b9":  { label: "septyma z ♭9", iv: [0, 1, 4, 7, 10], opt: [7], lv: 55 },
+  "13":   { label: "trzynastka (dominantowy)", iv: [0, 4, 7, 9, 10], opt: [7], lv: 50 },
+  m9:     { label: "molowy nonowy", iv: [0, 2, 3, 7, 10], opt: [7], lv: 50 },
+  maj9:   { label: "wielka nona", iv: [0, 2, 4, 7, 11], opt: [7], lv: 50 },
 };
 /* formy przesuwne: offsety progów względem progu prymy r (null = nie grać), palce, barré */
 const FORMS = {
@@ -605,6 +611,7 @@ const FORMS = {
     m7b5: { f: [0, null, 0, 0, -1, null], p: [2, 0, 3, 4, 1, 0] },
     aug: { f: [0, null, 2, 1, 1, null], p: [1, 0, 4, 2, 3, 0] },
     "5": { f: [0, 2, 2, null, null, null], p: [1, 3, 4, 0, 0, 0] },
+    "13": { f: [0, null, 0, 1, 2, null], p: [1, 0, 2, 3, 4, 0] },
   },
   A: { // pryma na strunie A (5.)
     "": { f: [null, 0, 2, 2, 2, 0], p: [0, 1, 2, 3, 4, 1], b: [1, 5] },
@@ -624,6 +631,23 @@ const FORMS = {
     m7b5: { f: [null, 0, 1, 0, 1, null], p: [0, 1, 3, 2, 4, 0] },
     aug: { f: [null, 0, 3, 2, 2, null], p: [0, 1, 4, 2, 3, 0] },
     "5": { f: [null, 0, 2, 2, null, null], p: [0, 1, 3, 4, 0, 0] },
+    madd9: { f: [null, 0, 2, 4, 1, 0], p: [0, 1, 3, 4, 2, 1], b: [1, 5] },
+    "7#9": { f: [null, 0, -1, 0, 1, null], p: [0, 2, 1, 3, 4, 0] },
+    "7b9": { f: [null, 0, -1, 0, -1, null], p: [0, 3, 1, 4, 2, 0] },
+    m9: { f: [null, 0, -2, 0, 0, null], p: [0, 2, 1, 3, 4, 0] },
+    maj9: { f: [null, 0, -1, 1, 0, null], p: [0, 2, 1, 4, 3, 0] },
+  },
+  D: { // pryma na strunie D (4.) — formy 4-strunowe (triady z basem na D)
+    "": { f: [null, null, 0, 2, 3, 2], p: [0, 0, 1, 2, 4, 3] },
+    m: { f: [null, null, 0, 2, 3, 1], p: [0, 0, 1, 3, 4, 2] },
+    "7": { f: [null, null, 0, 2, 1, 2], p: [0, 0, 1, 3, 2, 4] },
+    maj7: { f: [null, null, 0, 2, 2, 2], p: [0, 0, 1, 3, 3, 3], b: [3, 5, 2] },
+    m7: { f: [null, null, 0, 2, 1, 1], p: [0, 0, 1, 3, 2, 2], b: [4, 5, 1] },
+    sus2: { f: [null, null, 0, 2, 3, 0], p: [0, 0, 1, 3, 4, 1], b: [2, 5, 0] },
+    sus4: { f: [null, null, 0, 2, 3, 3], p: [0, 0, 1, 2, 3, 4] },
+    "6": { f: [null, null, 0, 2, 0, 2], p: [0, 0, 1, 3, 1, 4], b: [2, 4, 0] },
+    dim7: { f: [null, null, 0, 1, 0, 1], p: [0, 0, 1, 3, 2, 4] },
+    aug: { f: [null, null, 0, 3, 3, 2], p: [0, 0, 1, 3, 4, 2] },
   },
 };
 /* chwyty otwarte (ręcznie, sprawdzane testem nut) */
@@ -645,12 +669,29 @@ const OPEN_CHORDS = [
   ["Cadd9|G", [3, 3, 2, 0, 3, 3], [2, 3, 1, 0, 4, 4], "Cadd9/G"], ["Gadd9", [3, 0, 0, 2, 0, 3], [2, 0, 0, 1, 0, 3]], ["Aadd9", [-1, 0, 2, 4, 2, 0], [0, 0, 1, 3, 2, 0]],
   ["E9", [0, 2, 0, 1, 0, 2], [0, 2, 0, 1, 0, 3]], ["Esus2", [0, 2, 4, 4, 0, 0], [0, 1, 3, 4, 0, 0]],
   ["Caug", [-1, 3, 2, 1, 1, 0], [0, 4, 3, 1, 2, 0]], ["Ddim7", [-1, -1, 0, 1, 0, 1], [0, 0, 0, 1, 0, 2]], ["A6", [-1, 0, 2, 2, 2, 2], [0, 0, 1, 1, 1, 1], null, { fret: 2, from: 2, to: 5 }],
+  /* v2.2: więcej chwytów otwartych */
+  ["Csus2", [-1, 3, 0, 0, 3, 3], [0, 2, 0, 0, 3, 4]], ["Csus4", [-1, 3, 3, 0, 1, 1], [0, 3, 4, 0, 1, 1], null, { fret: 1, from: 4, to: 5 }], ["Gsus4", [3, 3, 0, 0, 1, 3], [2, 3, 0, 0, 1, 4]],
+  ["Emadd9", [0, 2, 4, 0, 0, 0], [0, 1, 3, 0, 0, 0]], ["Amadd9", [-1, 0, 2, 4, 1, 0], [0, 0, 2, 4, 1, 0]], ["Em9", [0, 2, 0, 0, 0, 2], [0, 2, 0, 0, 0, 3]],
+  ["Em7|3", [0, 2, 2, 0, 3, 0], [0, 1, 2, 0, 3, 0], "Em7 (022030)"], ["E7#9", [0, 7, 6, 7, 8, 0], [0, 2, 1, 3, 4, 0]], ["Fmaj7|C", [-1, 3, 3, 2, 1, 0], [0, 3, 4, 2, 1, 0], "Fmaj7/C"],
+  ["Gmaj7|5", [3, -1, 4, 4, 3, -1], [1, 0, 3, 4, 2, 0], "Gmaj7 (3x443x)"], ["Cmaj9", [-1, 3, 2, 4, 3, 0], [0, 2, 1, 4, 3, 0]], ["Dm9", [-1, 5, 3, 5, 5, 0], [0, 2, 1, 3, 4, 0]],
+  /* przewroty (akordy ze wskazanym basem, „C/E” = C z basem E) */
+  ["C/E", [0, 3, 2, 0, 1, 0], [0, 3, 2, 0, 1, 0]], ["C/G", [3, 3, 2, 0, 1, 0], [4, 3, 2, 0, 1, 0]], ["G/H", [-1, 2, 0, 0, 3, 3], [0, 1, 0, 0, 3, 4]],
+  ["D/Fis", [2, 0, 0, 2, 3, 2], [1, 0, 0, 2, 4, 3]], ["Am/G", [3, 0, 2, 2, 1, 0], [4, 0, 2, 3, 1, 0]], ["Am/E", [0, 0, 2, 2, 1, 0], [0, 0, 2, 3, 1, 0]],
+  ["D/A", [-1, 0, 0, 2, 3, 2], [0, 0, 0, 1, 3, 2]], ["E/Gis", [4, -1, 2, 1, 0, 0], [4, 0, 2, 1, 0, 0]], ["A/E", [0, 0, 2, 2, 2, 0], [0, 0, 1, 2, 3, 0]],
+  ["A/Cis", [-1, 4, 2, 2, 2, 0], [0, 3, 1, 1, 1, 0], null, { fret: 2, from: 2, to: 4 }], ["G/D", [-1, -1, 0, 0, 0, 3], [0, 0, 0, 0, 0, 3]], ["Em/D", [-1, -1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+  ["F/C", [-1, 3, 3, 2, 1, 1], [0, 3, 4, 2, 1, 1], null, { fret: 1, from: 4, to: 5 }], ["Dm/C", [-1, 3, 0, 2, 3, 1], [0, 3, 0, 2, 4, 1]], ["G/Fis", [2, -1, 0, 0, 0, 3], [2, 0, 0, 0, 0, 3]],
+  ["D/C", [-1, 3, 0, 2, 3, 2], [0, 3, 0, 1, 4, 2]], ["Hm/A", [-1, 0, 4, 4, 3, 2], [0, 0, 3, 4, 2, 1]], ["Am/C", [-1, 3, 2, 2, 1, 0], [0, 4, 2, 3, 1, 0]],
+  ["E/H", [-1, 2, 2, 1, 0, 0], [0, 2, 3, 1, 0, 0]], ["C/H", [-1, 2, 2, 0, 1, 0], [0, 2, 3, 0, 1, 0]], ["F/A", [-1, 0, 3, 2, 1, 1], [0, 0, 3, 2, 1, 1], null, { fret: 1, from: 4, to: 5 }],
 ];
 const OPEN_LV = { Em: 0, Am: 1, D: 2, A: 3, E: 4, G: 5, C: 6, "G|4": 6, Dm: 7, E7: 8, A7: 8, D7: 8, E5: 9, A5: 9, D5: 9, G7: 10, C7: 10, H7: 10, Am7: 11, Em7: 11, Dm7: 11, Cadd9: 12, "Cadd9|G": 12, Gadd9: 12, Aadd9: 12,
-  Fmaj7: 14, Cmaj7: 14, Gmaj7: 14, Dmaj7: 14, Amaj7: 14, Emaj7: 14, Asus2: 15, Asus4: 15, Dsus2: 15, Dsus4: 15, Esus4: 15, Esus2: 15, A7sus4: 15, "F (mały)": 16,  E9: 33, Am6: 38, D6: 38, A6: 38, Caug: 38, Ddim7: 38 };
-const FORM_LV = { E: { "": 17, m: 17, "7": 17, m7: 17, "5": 9 }, A: { "": 20, m: 20, "7": 20, m7: 20, "5": 9 } };
+  Fmaj7: 14, Cmaj7: 14, Gmaj7: 14, Dmaj7: 14, Amaj7: 14, Emaj7: 14, Asus2: 15, Asus4: 15, Dsus2: 15, Dsus4: 15, Esus4: 15, Esus2: 15, A7sus4: 15, "F (mały)": 16,  E9: 33, Am6: 38, D6: 38, A6: 38, Caug: 38, Ddim7: 38,
+  Csus2: 15, Csus4: 15, Gsus4: 15, Emadd9: 18, Amadd9: 30, Em9: 30, "Em7|3": 12, "E7#9": 40, "Fmaj7|C": 14, "Gmaj7|5": 27, Cmaj9: 50, Dm9: 50,
+  "C/E": 22, "C/G": 22, "G/H": 18, "D/Fis": 20, "Am/G": 18, "Am/E": 18, "D/A": 18, "E/Gis": 24, "A/E": 18, "A/Cis": 24, "G/D": 18, "Em/D": 16, "F/C": 22, "Dm/C": 22, "G/Fis": 18, "D/C": 22, "Hm/A": 24, "Am/C": 20, "E/H": 20, "C/H": 18, "F/A": 20 };
+const FORM_LV = { E: { "": 17, m: 17, "7": 17, m7: 17, "5": 9 }, A: { "": 20, m: 20, "7": 20, m7: 20, "5": 9 }, D: { "": 24, m: 24, "7": 24, maj7: 24, m7: 24, sus2: 24, sus4: 24, "6": 38, dim7: 38, aug: 38 } };
 
 function parseChordName(name) {
+  const sl = name.indexOf("/");
+  if (sl > 0) { const b = parseChordName(name.slice(0, sl)); let br = name.slice(sl + 1); if (ROOT_ALIAS[br]) br = ROOT_ALIAS[br]; const bpc = ROOTS.indexOf(br); return b && bpc >= 0 && !b.bass ? Object.assign(b, { bass: br, bassPc: bpc }) : null; }
   for (const len of [3, 2, 1]) {
     let r = name.slice(0, len); if (ROOT_ALIAS[r]) r = ROOT_ALIAS[r];
     const pc = ROOTS.indexOf(r); if (pc < 0) continue;
@@ -667,11 +708,11 @@ const CHORD_BY = {};
   OPEN_CHORDS.forEach(([id, frets, fingers, label, barre]) => {
     const name = id.split("|")[0];
     const p = parseChordName(name.replace(" (mały)", ""));
-    add({ id, name: id.includes("|") ? id : name, base: p ? p.root + p.q : name, root: p ? p.root : null, q: p ? p.q : null, frets, fingers, barre: barre || null, form: "otwarty", lv: OPEN_LV[id] ?? 20, label: label || null });
+    add({ id, name: id.includes("|") ? id : name, base: p ? (p.bass ? name : p.root + p.q) : name, bass: p && p.bass ? p.bass : null, root: p ? p.root : null, q: p ? p.q : null, frets, fingers, barre: barre || null, form: "otwarty", lv: OPEN_LV[id] ?? 20, label: label || null });
   });
   ROOTS.forEach((root, pc) => {
     Object.keys(FORMS).forEach((form) => {
-      const rs = form === "E" ? 0 : 1;
+      const rs = form === "E" ? 0 : form === "A" ? 1 : 2;
       Object.keys(FORMS[form]).forEach((q) => {
         const t = FORMS[form][q];
         let r = (pc - OPEN_PC[rs] + 12) % 12;
@@ -683,18 +724,19 @@ const CHORD_BY = {};
         if (t.b) { const bf = r + (t.b[2] || 0); barre = { fret: bf, from: t.b[0], to: t.b[1] }; }
         const name = root + q;
         const lv = (FORM_LV[form] && FORM_LV[form][q] != null) ? FORM_LV[form][q] : Math.max(QUAL[q].lv, form === "E" ? 17 : 20);
-        add({ id: name + "|" + form, name, base: name, root, q, frets, fingers: t.p.slice(), barre, form: "barré " + form, lv, label: null });
+        add({ id: name + "|" + form, name, base: name, root, q, frets, fingers: t.p.slice(), barre, form: form === "D" ? "forma D" : "barré " + form, lv, label: null });
       });
     });
   });
 })();
 function chordScore(c) { // im niżej tym bardziej „domyślny” chwyt
-  const mx = Math.max(...c.frets); return (c.form === "otwarty" ? 0 : 10) + mx;
+  const mx = Math.max(...c.frets); return (c.form === "otwarty" ? 0 : c.form === "forma D" ? 16 : 10) + mx;
 }
 const CHORD_NAMES = Object.keys(CHORD_BY).filter((n) => !n.includes("|"));
 function resolveName(name) {
   if (CHORD_BY[name]) return name;
   const p = parseChordName(name); if (!p) return null;
+  if (p.bass) { const k = p.root + p.q + "/" + p.bass; return CHORD_BY[k] ? k : null; }
   const n = p.root + p.q; return CHORD_BY[n] ? n : null;
 }
 function chVoicings(name) {
@@ -708,9 +750,10 @@ function ch(name) {
 }
 function chordExists(name) { return !!resolveName(name); }
 const BARRE_NAMES = CHORD_NAMES.filter((n) => { const c = ch(n); return !!c.barre && c.form !== "otwarty"; });
+const SLASH_NAMES = CHORD_NAMES.filter((n) => n.includes("/"));
 function chordDesc(c) {
   const q = c.q != null ? QUAL[c.q] : null;
-  return (c.root ? c.root + " " : "") + (q ? q.label : "") + " · " + c.form + (c.barre && c.form !== "otwarty" ? " (" + c.barre.fret + ". próg)" : "");
+  return (c.root ? c.root + " " : "") + (q ? q.label : "") + (c.bass ? " z basem " + c.bass + " (przewrót)" : "") + " · " + c.form + (c.barre && c.form !== "otwarty" ? " (" + c.barre.fret + ". próg)" : "");
 }
 const STR_NAMES = ["E (6.)", "A (5.)", "D (4.)", "G (3.)", "H (2.)", "e (1.)"];
 const FINGER_NAMES = ["", "wskazujący (1)", "środkowy (2)", "serdeczny (3)", "mały (4)"];
@@ -788,9 +831,15 @@ function rngFrom(seedStr) {
 function effLevel(st, cat) { const a = (st.adj || {})[cat] || 0; const dk = typeof CAT_DOM !== "undefined" ? CAT_DOM[cat] : null; const base = dk && st.dom ? domOf(st, dk) : st.level; return clamp(base + (a >= 2 ? 2 : a <= -2 ? -2 : 0), 0, 79); }
 function planState(st, date) {
   const sn = st.today && st.today.date === date ? st.today.snap : undefined;
-  return sn ? { ...st, ...sn } : st;
+  if (!sn) return st;
+  const o = { ...st, ...sn };
+  if (sn.sessN != null) o.sessions = (st.sessions || []).slice(0, sn.sessN);
+  if (!sn.theory) o.theory = st.theory;
+  return o;
 }
-function makeSnap(s) { return { songs: JSON.parse(JSON.stringify(s.songs || {})), adj: { ...s.adj }, changes: { ...s.changes }, skills: { ...s.skills }, bpm: { ...s.bpm }, concepts: { ...(s.concepts || {}) }, cprac: { ...(s.cprac || {}) }, cbpm: { ...(s.cbpm || {}) }, levelSessions: s.levelSessions, level: s.level, goal: s.goal, dom: { ...(s.dom || {}) }, domNew: { ...(s.domNew || {}) }, sessN: (s.sessions || []).length }; }
+/* dzisiejsza lekcja zamrożona od pierwszej interakcji (blok, teoria) */
+function ensureSnap(s, prev) { const d = todayStr(); if (!s.today || s.today.date !== d) s.today = { date: d, done: {}, saved: false, snap: makeSnap(prev || s) }; else if (!s.today.snap) s.today.snap = makeSnap(prev || s); return s; }
+function makeSnap(s) { return { songs: JSON.parse(JSON.stringify(s.songs || {})), adj: { ...s.adj }, changes: { ...s.changes }, skills: { ...s.skills }, bpm: { ...s.bpm }, concepts: { ...(s.concepts || {}) }, cprac: { ...(s.cprac || {}) }, cbpm: { ...(s.cbpm || {}) }, levelSessions: s.levelSessions, level: s.level, goal: s.goal, dom: { ...(s.dom || {}) }, domNew: { ...(s.domNew || {}) }, sessN: (s.sessions || []).length, theory: JSON.parse(JSON.stringify(s.theory || {})) }; }
 const TECH_KEYS = ["pick", "legato", "fp", "scale", "lick", "arp", "sweep", "impro", "ear"];
 /* następny element programu: pierwsza nie wprowadzona koncepcja ≤ poziomu z spełnionymi wymaganiami; inaczej pogłębienie */
 function nextConcept(st, rnd) {
@@ -1863,14 +1912,14 @@ function changesNeed(L) { return Math.min(60, 14 + L); }
 function songWindow(L) { return [Math.max(0, L - 8), L + 1]; }
 function levelGoals(st) {
   const L = st.level; const cs = st.concepts || {}; const goals = [];
-  const lvC = CONCEPTS.filter((c) => c.lv <= L); const introN = lvC.filter((c) => cs[c.id]).length;
-  goals.push({ id: "intro", t: "Wprowadzenia do koncepcji (do Twojego poziomu)", val: introN, need: lvC.length, done: introN >= lvC.length });
+  const lvC = CONCEPTS.filter((c) => c.lv <= L && !c.extra); const introN = lvC.filter((c) => cs[c.id]).length;
+  goals.push({ id: "intro", t: "Nowe tematy poznane (do Twojego poziomu)", val: introN, need: lvC.length, done: introN >= lvC.length });
   goals.push({ id: "sess", t: "Lekcje ukończone na tym poziomie", val: st.levelSessions, need: levelSessNeed(L), done: st.levelSessions >= levelSessNeed(L) });
   const w = warmFor(L)[0]; const wt = warmTarget(w, L); const wv = (st.bpm || {})[w.bpmKey] || 0;
-  goals.push({ id: "warm", t: "Rozgrzewka „" + w.title + "” — czyste tempo", val: wv, need: wt, unit: "BPM", done: wv >= wt });
+  goals.push({ id: "warm", t: "Rozgrzewka „" + w.title + "” — najwyższe czyste tempo", val: wv, need: wt, unit: "BPM", done: wv >= wt });
   const pairs = PAIRS.filter((p) => p.lv <= L && p.lv >= L - 10); const best = Math.max(0, ...pairs.map((p) => (st.changes || {})[p.p.join("–")] || 0));
   goals.push({ id: "chg", t: "Zmiany akordów (para z poziomu, 1 min)", val: best, need: changesNeed(L), unit: "zmian", done: best >= changesNeed(L) });
-  const cur = CONCEPTS.filter((c) => c.lv <= L && c.lv >= L - 3 && drillHasBpm(c));
+  const cur = CONCEPTS.filter((c) => !c.extra && c.lv <= L && c.lv >= L - 3 && drillHasBpm(c));
   if (cur.length) { const c = cur[cur.length - 1]; const v = (st.cbpm || {})[c.id] || 0; const t = drillTarget(c, L); goals.push({ id: "drill", t: "Ćwiczenie „" + c.t + "”", val: v, need: t, unit: "BPM", done: v >= t, concept: c.id }); }
   if (typeof SONGS !== "undefined") {
     const [a, b] = songWindow(L); const ok = SONGS.filter((sg) => sg.step >= a && sg.step <= b).some((sg) => { const sp = songState(st, sg.id); return sp.status === "done" || (sp.plays || 0) >= 2; });
@@ -1886,6 +1935,86 @@ function bpmKeyLabel(k) {
   if (typeof songBpmLabel === "function") { const s = songBpmLabel(k); if (s) return s; }
   return BPM_LABEL[k] || DRILL_LABEL[k] || k;
 }
+
+/* ===== v2.2: dodatkowe tematy techniczne (extra: nie wpływają na cele awansu) ===== */
+[
+  { id: "sus_add", t: "Akordy sus i add9 — ozdoby", lv: 13, cat: "akordy", pre: ["sept"], read: "ch",
+    what: "Sus i add9 to „przyprawy”: zmieniasz jeden palec, a akord brzmi świeżo. Tak grają ballady pop i folk (Dsus4 → D → Dsus2).",
+    steps: ["Zagraj D, potem dołóż mały palec na 3. próg H (Dsus4) i wróć do D.", "Z D zdejmij palec ze struny e (Dsus2) i wróć.", "Ciąg D – Dsus4 – D – Dsus2 po 2 uderzenia.", "Cadd9 → G: palce 3 i 4 zostają na miejscu."],
+    mist: ["Uderzanie strun, których nie ma w akordzie (np. gruba E w D).", "Zbyt mocne dociskanie palca ozdobnika — zatrzymuje rytm."],
+    check: "Ciąg D – Dsus4 – D – Dsus2 przez 8 taktów bez przerw przy 80 BPM.", dia: chD("Dsus4", "D", "Dsus2", "Cadd9"), drill: { key: "changes", b0: 60, inc: 4, max: 110, sub: "ćwierćnuty" } },
+  { id: "bas_country", t: "Bas przemienny (boom-chicka)", lv: 11, cat: "rytm", pre: ["basy"], read: "rh",
+    what: "Bas na „raz” i „trzy” (pryma, potem kwinta), akord na „dwa” i „cztery”. Fundament country, folku i piosenki turystycznej.",
+    steps: ["G: bas na grubej E (3. próg), akord, bas na D (pusta), akord.", "C: bas A3, akord, bas E3, akord.", "D: bas D0, akord, bas A0, akord.", "Zagraj G – C – D – G w kółko."],
+    mist: ["Bas zbyt cichy — ma być wyraźnie głośniejszy niż akord.", "Uderzanie akordu wszystkimi strunami — wystarczą 3–4 cienkie."],
+    check: "G – C – D – G z basem przemiennym, 8 taktów przy 90 BPM bez pomyłki basu.", dia: rhD("p_split"), drill: { key: "strum", b0: 70, inc: 4, max: 130, sub: "bas + akord", groove: "country" } },
+  { id: "fp_pima", t: "Arpeggio p-i-m-a", lv: 12, cat: "technika", pre: ["fp_intro"], read: "tab",
+    what: "Kciuk (p) gra bas, palce i-m-a grają struny G-H-e. Na tym wzorze opiera się większość piosenek grywanych palcami.",
+    steps: ["Ustaw palce: i na G, m na H, a na e; kciuk na basie akordu.", "Graj p-i-m-a-m-i na C (bas A3).", "Przejdź na Am (bas A0) i G (bas E3).", "Zwiększaj tempo dopiero, gdy każdy dźwięk jest równy."],
+    mist: ["Ręka „skacze” nad strunami — palce mają być blisko.", "Kciuk gra nie ten bas — patrz na prymę akordu."],
+    check: "C – Am – G – C arpeggio p-i-m-a-m-i, równo przy 70 BPM (ósemki).", dia: tabD("A3 G0 H1 e0 H1 G0 A0 G2 H1 e0 H1 G2"), drill: { key: "fp", b0: 50, inc: 2, max: 100, sub: "ósemki" } },
+  { id: "pm_riffs", t: "Riffy z palm mute (ósemki i galop)", lv: 14, cat: "technika", pre: ["palm", "power"], read: "tab",
+    what: "Krawędź dłoni przy mostku tłumi struny — riff brzmi „ciężko” i zwarto. Akcenty bez tłumienia dają kontrast.",
+    steps: ["Ósemki na pustej E z palm mute, sama kostka w dół.", "Dodaj akcent bez PM na „raz”.", "Riff E0 E0 E3 E5 i power chord G5–A5.", "Galop: ósemka + dwie szesnastki (ta-taka)."],
+    mist: ["Dłoń za daleko od mostka — dźwięk znika zamiast „mruczeć”.", "Ruch z łokcia — szybko się męczy; graj z nadgarstka."],
+    check: "Riff ósemkowy z PM przez 8 taktów przy 120 BPM, akcenty wyraźne.", dia: tabD("E0 E0 E0 E0 E3 E3 E5 E5 E0 E0 E0 E0"), drill: { key: "pick", b0: 80, inc: 4, max: 160, sub: "ósemki PM", groove: "rock" } },
+  { id: "power_okt", t: "Power chordy 3-dźwiękowe i oktawy", lv: 16, cat: "akordy", pre: ["power"], read: "ch",
+    what: "Power chord z oktawą (1-5-8) brzmi pełniej. Oktawy (1 i 8, środkowa struna wytłumiona) to brzmienie indie i jazzu (Wes Montgomery).",
+    steps: ["G5 z oktawą: E3 A5 D5 (palce 1, 3, 4).", "Przesuń ten kształt na A5 i C5.", "Oktawa: E3 + D5, struna A wytłumiona palcem 1.", "Melodia oktawami: G – A – H – C."],
+    mist: ["Dzwoni struna, której nie ma w kształcie — tłum palcem 1.", "Za mocny chwyt przy przesuwaniu — rozluźnij przy ruchu."],
+    check: "Riff G5 – B5 – C5 z oktawą, czysto 8 taktów przy 100 BPM.", dia: chD("G5", "A5", "C5", "D5"), drill: { key: "changes", b0: 60, inc: 4, max: 140, sub: "ósemki" } },
+  { id: "hammer_lick", t: "Licki legato w pentatonice", lv: 18, cat: "technika", pre: ["hammer", "penta1"], read: "tab",
+    what: "Legato (hammer-on i pull-off) daje płynne frazy — mniej uderzeń kostką, więcej śpiewności.",
+    steps: ["Na strunie G: 5h7, potem 7p5.", "Fraza: e5 H8p5 G7p5 D7p5.", "Połącz z kostkowaniem: dwa dźwięki kostką, dwa legato.", "Graj lick w trioli, potem w ósemkach."],
+    mist: ["Pull-off bez szarpnięcia — drugi dźwięk ginie.", "Hammer zbyt słaby — uderzaj palcem z góry."],
+    check: "Lick 4 dźwięki legato, równo przy 80 BPM, drugi dźwięk tak głośny jak pierwszy.", dia: tabD("e5 H8p5 G7p5 D7p5 A7p5 E8p5"), drill: { key: "legato", b0: 60, inc: 2, max: 120, sub: "ósemki" } },
+  { id: "chuck", t: "Martwe uderzenia (chuck) i tłumienie lewą ręką", lv: 20, cat: "rytm", pre: ["rytm16"], read: "rh",
+    what: "Poluzowanie lewej ręki daje perkusyjne „czk” zamiast akordu. To sekret funku, reggae i akustycznego popu.",
+    steps: ["Trzymaj Am, uderz, potem tylko poluźnij palce i uderz — „czk”.", "Wzór: akord na 1 i 3, chuck na 2 i 4.", "Szesnastki: prawa ręka bez przerwy, akord tylko na akcentach.", "Zagraj to samo na E9 (funk)."],
+    mist: ["Puszczanie strun całkiem — zaczynają dźwięczeć puste.", "Zatrzymywanie prawej ręki na chuck — ma pracować ciągle."],
+    check: "8 taktów wzoru akord–chuck przy 90 BPM, chuck bez dźwięku wysokości.", dia: rhD("p_16"), drill: { key: "strum", b0: 70, inc: 4, max: 110, sub: "szesnastki", groove: "funk" } },
+  { id: "inwersje", t: "Przewroty i akordy ukośnikowe (C/E, D/Fis)", lv: 22, cat: "akordy", pre: ["barre_e"], read: "ch",
+    what: "„D/Fis” to akord D z Fis w basie. Przewroty pozwalają, by bas szedł płynnie krokami — tak brzmią ballady Claptona i Adele.",
+    steps: ["Zagraj G – D/Fis – Em: słuchaj, jak bas schodzi G – Fis – E.", "C – C/H – Am – Am/G – F: opadający bas.", "C/E i C/G: ten sam akord, inny bas — porównaj brzmienie.", "Wymyśl własną linię basu do G – C – D."],
+    mist: ["Uderzanie grubej struny, której nie ma w zapisie (np. A w D/Fis).", "Kciuk na Fis zbyt słaby — bas ma być słyszalny."],
+    check: "C – C/H – Am – Am/G – F – C/E – Dm – G płynnie przy 70 BPM.", dia: chD("C/E", "D/Fis", "G/H", "Am/G"), drill: { key: "changes", b0: 50, inc: 4, max: 100, sub: "półnuty" } },
+  { id: "skank", t: "Skank reggae i ska", lv: 28, cat: "rytm", pre: ["offbeat", "chuck"], read: "rh",
+    what: "Reggae to akordy na „i” (offbeat), krótkie jak klaśnięcie. Ska — to samo, ale szybciej i ostrzej.",
+    steps: ["Liczy „1 i 2 i 3 i 4 i” — uderzaj tylko na „i”.", "Graj tylko 3–4 cienkie struny, akord barré.", "Tłum od razu lewą ręką — dźwięk krótki.", "Am – D (dorycko) przez 8 taktów."],
+    mist: ["Za długie akordy — brzmi jak pop, nie reggae.", "Przyspieszanie — reggae „leży” na rytmie."],
+    check: "Skank na Am – D z perkusją reggae, 16 taktów przy 76 BPM, każdy akord krótki.", dia: rhD("p_reggae"), drill: { key: "strum", b0: 64, inc: 2, max: 96, sub: "offbeat", groove: "reggae" } },
+  { id: "bend_cel", t: "Bendy z intonacją (bend do nuty celu)", lv: 30, cat: "technika", pre: ["bend_full"], read: "tab",
+    what: "Dobry bend trafia dokładnie w wysokość dźwięku docelowego. Fałszywy bend to najczęstszy błąd solówek.",
+    steps: ["Zagraj G9, zapamiętaj wysokość; potem bend z G7 do tej wysokości.", "Bend o półton (H8b9) i o cały ton (H8b10).", "Pre-bend: podciągnij bez uderzenia, uderz, opuść (release).", "Fraza: G7b9 r7 G5 H5 H8."],
+    mist: ["Bend „za nisko” — pchaj 3 palcami, nie jednym.", "Ruch z palców zamiast obrotu nadgarstka."],
+    check: "10 bendów o cały ton z G7 — każdy trafia w dźwięk G9 (sprawdź stroikiem).", dia: tabD("G9 G7b9 G7b9r7 G5 H5 H8b10 H8 H5"), drill: { key: "lick", b0: 60, inc: 2, max: 100, sub: "ósemki", groove: "shuffle" } },
+  { id: "flazolety", t: "Flażolety naturalne (5., 7., 12. próg)", lv: 34, cat: "technika", pre: ["slides"], read: "tab",
+    what: "Dotknij struny nad progiem (bez dociskania) i uderz — dzwoneczkowy dźwięk. Używane w intro, balladach i do strojenia.",
+    steps: ["Palec lekko nad 12. progiem (dokładnie nad drutem), uderz, zdejmij palec.", "To samo nad 7. i 5. progiem.", "Akord flażoletów: 12. próg na G-H-e razem.", "Strojenie: flażolet 5. progu E = 7. progu A."],
+    mist: ["Dociskanie struny — wychodzi zwykły dźwięk.", "Palec między progami zamiast nad drutem."],
+    check: "Czyste flażolety na 12., 7. i 5. progu na wszystkich 6 strunach.", dia: tabD("G12 H12 e12 G7 H7 e7 G5 H5 e5"), drill: { key: "fp", b0: 50, inc: 2, max: 90, sub: "ćwierćnuty" } },
+  { id: "hendrix", t: "Akord Hendrixa i ozdobniki akordowe", lv: 36, cat: "akordy", pre: ["ext", "hammer"], read: "ch",
+    what: "E7#9 łączy tercję wielką i ♯9 — brzmi „brudno” i bluesowo. Hendrix (Little Wing) dodawał też do akordów hammer-ony na górnych strunach.",
+    steps: ["E7#9: x7678x, kciuk/pusta E jako bas.", "Riff E7#9 – A7 – E7#9 szesnastkami.", "Em z ozdobnikiem: hammer na H (0h3) i G.", "Spróbuj Little Wing: Em – G – Am z ozdobnikami."],
+    mist: ["Dzwoniąca struna e w E7#9 — tłum palcem 4.", "Ozdobnik zagłusza akord — ma być delikatny."],
+    check: "Riff na E7#9 przez 8 taktów przy 90 BPM + ozdobnik na Em czysto.", dia: chD("E7#9", "A7", "Em", "G"), drill: { key: "changes", b0: 60, inc: 4, max: 110, sub: "szesnastki" } },
+  { id: "sekst", t: "Tercje i seksty (dwudźwięki soul)", lv: 38, cat: "technika", pre: ["dwudzwieki"], read: "tab",
+    what: "Seksty na strunach G+e i tercje na G+H to brzmienie soulu (Curtis Mayfield, Hendrix). Dwa dźwięki, cała harmonia.",
+    steps: ["Seksty w C-dur: G5+e5, G7+e7, G9+e8 …", "Tercje na G+H: G5+H5, G7+H6 …", "Ślizg sekstą o próg w górę do celu.", "Graj nad Am7 – D9 (Oye Como Va)."],
+    mist: ["Dzwoni struna H między sekstą — tłum ją palcem lewej ręki.", "Ślizg bez docisku — dźwięk ginie."],
+    check: "Seksty w C-dur w górę i w dół po skali, czysto przy 70 BPM.", dia: tabD("G5 e5 G7 e7 G9 e8 G10 e10 G12 e12"), drill: { key: "lick", b0: 50, inc: 2, max: 100, sub: "ósemki", groove: "neosoul" } },
+  { id: "walking", t: "Walking bass na gitarze", lv: 47, cat: "technika", pre: ["ii_v_i"], read: "tab",
+    what: "Ćwierćnutowa linia basu łączy akordy: pryma na „raz”, potem dźwięki akordu lub skali, a na „cztery” półton do następnej prymy.",
+    steps: ["Dm7: D – F – A – As (półton nad G, prowadzi do G7).", "G7: G – H – D – Cis (półton nad C, prowadzi do Cmaj7).", "Cmaj7: C – E – G – H.", "Dodaj akord na „dwa” i „cztery” (bas + comping)."],
+    mist: ["Pryma nie na „raz” — linia gubi harmonię.", "Brak dźwięku prowadzącego na „cztery”."],
+    check: "Walking bass na ii–V–I (Dm7 – G7 – Cmaj7) przez 16 taktów przy 100 BPM.", dia: tabD("A5 A8 D7 E4 E3 E7 A5 A4 A3 A7 D5 D9"), drill: { key: "scale", b0: 60, inc: 4, max: 160, sub: "ćwierćnuty", groove: "swing" } },
+  { id: "nony", t: "Nony i trzynastki: m9, maj9, 13, 7♭9", lv: 52, cat: "akordy", pre: ["ext", "jazz_shell"], read: "ch",
+    what: "Rozszerzone akordy dodają kolor bez zmiany funkcji: Dm9 (ii), G13 (V), Cmaj9 (I), A7♭9 prowadzi z powrotem do ii.",
+    steps: ["Dm9: x5355x — porównaj z Dm7.", "G13: 3x345x — dominanta z sekstą (13).", "Cmaj9: x3243x.", "Ciąg Dm9 – G13 – Cmaj9 – A7b9 płynnie, górny głos jak najbliżej."],
+    mist: ["Za dużo strun — w jazzie grasz 4, nie 6.", "Skakanie górnym głosem — szukaj najbliższego dźwięku."],
+    check: "Ciąg Dm9 – G13 – Cmaj9 – A7♭9 przez 8 taktów swingu przy 120 BPM.", dia: chD("Dm9", "G13", "Cmaj9", "A7b9"), drill: { key: "changes", b0: 70, inc: 4, max: 160, sub: "półnuty", groove: "swing" } },
+].forEach((o) => { o.extra = true; C(o); });
+CONCEPTS.sort((a, b) => a.lv - b.lv);
 
 /* ============================== TEST POZIOMUJĄCY v2 ============================== */
 function PQ(lv, q, opts, a, extra) { return Object.assign({ lv, q, opts, a }, extra || {}); }
@@ -2171,7 +2300,7 @@ function focusBlock(st, key, rnd) {
 }
 
 /* ============================== KURS TEORII (v2.1) ==============================
-   14 rozdziałów, prosty polski, notacja H/B. Każdy rozdział: lekcje (tekst + wizualizacja + dźwięk) i quiz (próg 80%). */
+   19 rozdziałów, prosty polski, notacja H/B. Każdy rozdział: lekcje (tekst + wizualizacja + dźwięk) i quiz (próg 80%). */
 const TH_PASS = 0.8;
 const LET_PC = [0, 2, 4, 5, 7, 9, 11]; const LET_N = ["C", "D", "E", "F", "G", "A", "H"];
 const FLAT_NOTE = ["C", "Des", "D", "Es", "E", "F", "Ges", "G", "As", "A", "B", "H"];
@@ -2364,6 +2493,74 @@ const THEORY_CH = [
       qs.push(thQ("Transpozycja zmienia…", "wysokość wszystkich akordów", ["tylko rytm", "tylko melodię", "metrum"], r));
       qs.push(thQ("Am z kapo na 2. progu brzmi jak…", "Hm", ["Am", "Cm", "Bm"], r));
       qs.push(thQ("G D Em C o 2 półtony w dół to…", "F C Dm B", ["Fis Cis Dism H", "E H Cism A", "A E Fism D"], r)); return qs; } },
+  /* ---- v2.2: nowe rozdziały ---- */
+  { id: "t15", t: "Akordy septymowe i rozszerzone", ic: "🎷", lessons: [
+    { id: "t15a", t: "Cztery rodzaje septym", txt: ["maj7 = dur + septyma wielka (C E G H) — marzycielsko, ballady i bossa.", "7 = dur + septyma mała (C E G B) — dominanta, blues, „chce gdzieś iść”.", "m7 = moll + septyma mała (A C E G) — miękko, soul i jazz. m7b5 = zmniejszony z małą septymą (H D F A) — „ii” w molu."], vis: { k: "chords", names: ["Cmaj7", "C7", "Am7", "Hm7b5"] } },
+    { id: "t15b", t: "Nony, undecymy, tercdecymy", txt: ["Ponad septymą dodajemy kolejne tercje: 9 (= 2 oktawę wyżej), 11 (= 4), 13 (= 6).", "C9 = C E G B D; Cmaj9 = C E G H D; Cm9 = C Es G B D. Na gitarze kwintę zwykle pomijamy.", "E7#9 („akord Hendrixa”) ma naraz tercję wielką i ♯9 (brzmi jak mała tercja) — ostro, bluesowo."], vis: { k: "chords", names: ["Cmaj9", "Dm9", "E7#9", "G13"] } },
+    { id: "t15c", t: "Sus i add — bez tercji lub z dodatkiem", txt: ["sus2/sus4: tercję zastępuje 2 lub 4 — akord ani dur, ani moll, „zawieszony”.", "add9: zwykły trójdźwięk + 9, bez septymy (Cadd9 = C E G D).", "Typowy ruch: Dsus4 → D → Dsus2 → D — ozdoba bez zmiany harmonii."], vis: { k: "chords", names: ["Dsus4", "D", "Dsus2", "Cadd9"] } }],
+    quiz: (r) => { const qs = []; const Q = [["maj7", [0, 4, 7, 11]], ["7", [0, 4, 7, 10]], ["m7", [0, 3, 7, 10]], ["m7b5", [0, 3, 6, 10]]];
+      for (let i = 0; i < 5; i++) { const root = thPick([0, 2, 4, 5, 7, 9], r), q = thPick(Q, r); const li = LET_PC.indexOf(root); const sp = (z) => z[1].map((x, j) => spell(li + [0, 2, 4, 6][j], (root + x) % 12)).join(" ");
+        const ok = sp(q); const wr = Q.filter((z) => z !== q).map(sp);
+        qs.push(thQ("Dźwięki akordu " + PL_NOTE[root] + q[0] + " to…", ok, wr, r)); }
+      qs.push(thQ("Który akord to typowa dominanta (V) w C-dur?", "G7", ["Gmaj7", "Gm7", "Cmaj7"], r));
+      qs.push(thQ("Nona (9) to ten sam dźwięk co…", "sekunda (2) oktawę wyżej", ["septyma", "kwarta", "seksta"], r));
+      qs.push(thQ("Cadd9 różni się od C9 tym, że…", "nie ma septymy", ["nie ma tercji", "ma kwartę zamiast tercji", "ma obniżoną kwintę"], r));
+      qs.push(thQ("W akordzie sus4 zamiast tercji jest…", "kwarta", ["sekunda", "septyma", "seksta"], r));
+      qs.push(thQ("Która składowa akordu 9 na gitarze jest najczęściej pomijana?", "kwinta", ["pryma", "tercja", "septyma"], r));
+      qs.push(thQ("E7#9 nazywany jest akordem…", "Hendrixa", ["Beatlesów", "Jobima", "Coltrane'a"], r)); return qs; } },
+  { id: "t16", t: "Przewroty i linia basu", ic: "🪜", lessons: [
+    { id: "t16a", t: "Co znaczy „C/E”", txt: ["Akord ukośnikowy: przed kreską akord, po kresce najniższy dźwięk (bas). C/E = akord C z E w basie.", "Gdy bas to tercja akordu — I przewrót (C/E). Gdy kwinta — II przewrót (C/G).", "Bas spoza akordu też się zdarza: D/C, Am/G — to „bas przechodni”."], vis: { k: "chords", names: ["C", "C/E", "C/G", "G/H"] } },
+    { id: "t16b", t: "Schodzący i wchodzący bas", txt: ["Przewroty pozwalają, żeby bas szedł krokami zamiast skakać: C – C/H – Am – Am/G – F.", "Ballady: G – D/Fis – Em (bas G – Fis – E). Clapton „Wonderful Tonight”, Adele „Someone Like You”.", "Ćwicz: graj tylko bas kciukiem, potem dodaj resztę akordu."], vis: { k: "chords", names: ["G", "D/Fis", "Em", "Em/D"] } }],
+    quiz: (r) => { const qs = []; const tri = [["C", 0, 4, 7], ["G", 7, 11, 2], ["D", 2, 6, 9], ["A", 9, 1, 4], ["F", 5, 9, 0], ["E", 4, 8, 11]];
+      for (let i = 0; i < 4; i++) { const t = thPick(tri, r); const inv = r() < 0.5 ? 1 : 2; const ok = t[0] + "/" + PL_NOTE[t[inv + 1]];
+        qs.push(thQ(t[0] + " w " + (inv === 1 ? "I" : "II") + " przewrocie (" + (inv === 1 ? "tercja" : "kwinta") + " w basie) zapiszesz jako…", ok, [t[0] + "/" + PL_NOTE[t[inv === 1 ? 3 : 2]], t[0] + "/" + PL_NOTE[(t[1] + 2) % 12], t[0] + "/" + PL_NOTE[(t[1] + 10) % 12]], r)); }
+      qs.push(thQ("W zapisie „Am/G” najniższy dźwięk to…", "G", ["A", "C", "E"], r));
+      qs.push(thQ("Progresja G – D/Fis – Em daje bas…", "G – Fis – E", ["G – D – E", "G – A – H", "D – Fis – A"], r));
+      qs.push(thQ("D/Fis to akord D w…", "I przewrocie", ["II przewrocie", "postaci zasadniczej", "wersji molowej"], r));
+      qs.push(thQ("Po co gra się przewroty?", "żeby bas szedł płynnie krokami", ["żeby akord był molowy", "żeby zmienić tonację", "żeby przyspieszyć tempo"], r));
+      qs.push(thQ("C/G to akord C, w którego basie jest…", "kwinta", ["tercja", "pryma", "septyma"], r)); return qs; } },
+  { id: "t17", t: "Funkcje harmoniczne i moll harmoniczna", ic: "🧭", lessons: [
+    { id: "t17a", t: "Tonika, subdominanta, dominanta", txt: ["Każdy akord w tonacji pełni funkcję: T (tonika, I — spokój), S (subdominanta, IV — oddalenie), D (dominanta, V — napięcie).", "Zastępcze: vi i iii działają jak T, ii jak S, vii° jak D. Dlatego Am może zastąpić C, a Dm — F.", "Kadencja D → T (G7 → C) to najmocniejsze „zamknięcie” zdania muzycznego."], vis: { k: "keychords", key: 0 } },
+    { id: "t17b", t: "Dlaczego w a-moll gramy E, a nie Em", txt: ["W naturalnej a-moll piąty akord to Em — słaby, bo nie ma dźwięku prowadzącego.", "Moll harmoniczna podnosi 7. stopień (G → Gis): akord V staje się E (E Gis H) i mocno ciągnie do Am.", "Stąd typowe: Am – Dm – E – Am (Nim wstanie dzień, ballady, flamenco)."], vis: { k: "chords", names: ["Am", "Dm", "E", "E7"] } },
+    { id: "t17c", t: "Dominanty wtrącone", txt: ["Każdy akord można „zapowiedzieć” jego własną dominantą: D7 → G, A7 → Dm, E7 → Am.", "W C-dur: C – A7 – Dm – G7 – C. A7 to V/ii (dominanta do Dm).", "Słyszysz je w standardach, Beatlesach i kolędach — brzmią jak „lekki skręt” melodii."], vis: { k: "chords", names: ["C", "A7", "Dm", "G7"] } }],
+    quiz: (r) => { const qs = []; const keys = [["C", ["C", "Dm", "Em", "F", "G", "Am"]], ["G", ["G", "Am", "Hm", "C", "D", "Em"]], ["D", ["D", "Em", "Fism", "G", "A", "Hm"]], ["F", ["F", "Gm", "Am", "B", "C", "Dm"]]];
+      for (let i = 0; i < 4; i++) { const k = thPick(keys, r); const f = thPick([["toniką (T)", 0], ["subdominantą (S)", 3], ["dominantą (D)", 4]], r);
+        qs.push(thQ("W " + k[0] + "-dur " + f[0] + " jest akord…", k[1][f[1]], k[1].filter((_, j) => j !== f[1] && j !== 5).slice(0, 3), r)); }
+      qs.push(thQ("W a-moll harmonicznej akord V to…", "E", ["Em", "Dm", "G"], r));
+      qs.push(thQ("Moll harmoniczna podnosi…", "7. stopień", ["3. stopień", "5. stopień", "6. i 7. stopień o kwintę"], r));
+      qs.push(thQ("Dominantą wtrąconą do Dm (w C-dur) jest…", "A7", ["G7", "E7", "D7"], r));
+      qs.push(thQ("Który akord może zastąpić tonikę C w C-dur?", "Am", ["G", "F", "Hm7b5"], r));
+      qs.push(thQ("Funkcję subdominanty pełni też akord…", "ii (np. Dm w C-dur)", ["V", "iii", "vii°"], r));
+      qs.push(thQ("Kadencja doskonała to…", "D → T (np. G7 → C)", ["T → S", "S → T", "T → D"], r)); return qs; } },
+  { id: "t18", t: "Zapis gitarowy: tabulatura i techniki", ic: "📝", lessons: [
+    { id: "t18a", t: "Czytanie tabulatury", txt: ["6 linii = 6 strun; na górze cienka e, na dole gruba E. Liczba = próg, 0 = pusta struna.", "Czytaj od lewej do prawej; liczby jedna nad drugą grasz razem (akord).", "Tabulatura nie pokazuje rytmu — słuchaj nagrania albo patrz na nuty/bicie."], vis: { k: "fret", notes: [{ s: 0, f: 0 }, { s: 0, f: 3 }, { s: 1, f: 2 }] } },
+    { id: "t18b", t: "Symbole technik", txt: ["h = hammer-on (5h7), p = pull-off (7p5), / i \\ = ślizg w górę/dół (5/7).", "b = bend (7b9 — podciągnij z 7. do wysokości 9. progu), r = release (powrót), ~ = vibrato.", "x = martwe uderzenie, PM = palm mute, < > lub (12) = flażolet."], vis: { k: "fret", notes: [{ s: 3, f: 5 }, { s: 3, f: 7 }, { s: 3, f: 9 }] } }],
+    quiz: (r) => { const qs = [];
+      qs.push(thQ("Linia na samej górze tabulatury to struna…", "cienka e", ["gruba E", "D", "G"], r));
+      qs.push(thQ("Zapis „5h7” oznacza…", "hammer-on z 5. na 7. próg", ["pull-off z 7. na 5.", "ślizg z 5. na 7.", "bend z 5."], r));
+      qs.push(thQ("Zapis „7b9” oznacza…", "bend z 7. progu do wysokości 9.", ["hammer-on z 7. na 9.", "ślizg z 7. na 9.", "zagraj 7. i 9. naraz"], r));
+      qs.push(thQ("„0” w tabulaturze to…", "pusta struna", ["struna tłumiona", "pauza", "kapodaster"], r));
+      qs.push(thQ("„x” w tabulaturze to…", "martwe (stłumione) uderzenie", ["pusta struna", "flażolet", "bend"], r));
+      qs.push(thQ("Skrót PM oznacza…", "palm mute (tłumienie dłonią)", ["pull-off", "przejście melodyczne", "powtórz"], r));
+      qs.push(thQ("Liczby jedna nad drugą w tej samej kolumnie grasz…", "razem", ["po kolei od góry", "po kolei od dołu", "tylko najniższą"], r));
+      qs.push(thQ("Czego zwykła tabulatura NIE pokazuje dokładnie?", "rytmu", ["progów", "strun", "kolejności dźwięków"], r));
+      qs.push(thQ("„~” po numerze progu to…", "vibrato", ["ślizg", "tryl", "tłumienie"], r));
+      qs.push(thQ("„7p5” oznacza…", "pull-off z 7. na 5. próg", ["hammer-on z 5. na 7.", "bend o 2 progi", "ślizg w dół"], r)); return qs; } },
+  { id: "t19", t: "Rytm zaawansowany: triole, swing, metra nieparzyste", ic: "🥁", lessons: [
+    { id: "t19a", t: "Triole i swing", txt: ["Triola = 3 równe nuty w miejscu 2. Ósemkowe triole liczymy „1-i-a 2-i-a”.", "Swing/shuffle: z trioli gramy 1. i 3. nutę — „długa–krótka”. Ósemki zapisane prosto, grane z bujaniem.", "Słuchaj: blues shuffle, jazz, Pride and Joy."], vis: { k: "rh", p: "p_shuffle" } },
+    { id: "t19b", t: "6/8 czy 3/4?", txt: ["Oba mają 6 ósemek w takcie, ale inne grupowanie: 3/4 = 2+2+2 (RAZ dwa trzy), 6/8 = 3+3 (RAZ-i-a DWA-i-a).", "6/8 czuje się „na dwa” — kołysząco (ballady, szanty, jig).", "Test: klaszcz akcenty — dwa mocne (6/8) czy trzy (3/4)?"], vis: { k: "rh", p: "p_68" } },
+    { id: "t19c", t: "Metra nieparzyste", txt: ["5/4 = 3+2 (Take Five), 7/8 = 2+2+3 lub 3+2+2 (Bałkany), 9/8 = 2+2+2+3.", "Licz grupami, nie pojedynczo: „RAZ-dwa RAZ-dwa RAZ-dwa-trzy”.", "Na perkusji Trenera (zakładka Rytm) znajdziesz gotowe wzory: 5/4, 7/8, 9/8, 5/8."], vis: { k: "rh", p: "p_8" } }],
+    quiz: (r) => { const qs = [];
+      qs.push(thQ("Triola ósemkowa to…", "3 równe nuty w czasie ćwierćnuty", ["2 ósemki", "4 szesnastki", "nuta z kropką"], r));
+      qs.push(thQ("Swing w ósemkach brzmi jak…", "długa–krótka", ["krótka–długa", "równe ósemki", "same szesnastki"], r));
+      qs.push(thQ("6/8 grupuje ósemki jako…", "3 + 3", ["2 + 2 + 2", "4 + 2", "2 + 4"], r));
+      qs.push(thQ("3/4 grupuje ósemki jako…", "2 + 2 + 2", ["3 + 3", "4 + 2", "5 + 1"], r));
+      qs.push(thQ("Take Five ma metrum…", "5/4", ["7/8", "6/8", "3/4"], r));
+      qs.push(thQ("Typowe bałkańskie 7/8 to…", "2+2+3 lub 3+2+2", ["4+3+0", "1+6", "7 równych akcentów"], r));
+      qs.push(thQ("Ile ósemek ma takt 9/8?", "9", ["6", "8", "12"], r));
+      qs.push(thQ("Shuffle opiera się na…", "triolach", ["szesnastkach", "kwintolach", "całych nutach"], r));
+      qs.push(thQ("Utwór w 6/8 najczęściej czujemy…", "„na dwa”", ["„na trzy”", "„na sześć” równych akcentów", "„na cztery”"], r));
+      qs.push(thQ("12/8 to w praktyce…", "4 grupy po 3 ósemki (slow blues)", ["6 grup po 2", "3 grupy po 4", "12 równych akcentów"], r)); return qs; } },
 ];
 const TH_BY = {}; THEORY_CH.forEach((c, i) => { c.idx = i; TH_BY[c.id] = c; c.lessons.forEach((l) => { TH_BY[l.id] = l; l.ch = c.id; }); });
 function thState(st) { const t = st.theory || {}; return { ch: t.ch || {}, read: t.read || {}, tr: t.tr || {} }; }
@@ -2375,8 +2572,8 @@ function theoryLessonBlock(st) {
   const t = thState(st); const c = thCurrent(st); const allDone = THEORY_CH.every((x) => (t.ch[x.id] || {}).passed);
   const les = c.lessons.find((l) => !t.read[l.id]);
   if (allDone) { const k = THEORY_CH[(st.sessions || []).length % THEORY_CH.length]; return { ex: { title: "Teoria — powtórka: " + k.t, desc: ["Kurs ukończony 🎓. Dziś szybka powtórka: zrób quiz rozdziału lub 3 minuty trenażera."], tab: null, metric: "check", skill: "teoria" }, theoryCh: k.id, theoryQuiz: true }; }
-  if (les) return { ex: { title: "Teoria " + (c.idx + 1) + "/14: " + les.t, desc: [c.t + " — lekcja " + (c.lessons.indexOf(les) + 1) + " z " + c.lessons.length + "."], tab: null, metric: "check", skill: "teoria" }, theoryCh: c.id, theoryLesson: les.id };
-  return { ex: { title: "Teoria " + (c.idx + 1) + "/14: quiz — " + c.t, desc: ["Wszystkie lekcje rozdziału przeczytane. Zdaj quiz (min. 80%), żeby odblokować następny rozdział."], tab: null, metric: "check", skill: "teoria" }, theoryCh: c.id, theoryQuiz: true };
+  if (les) return { ex: { title: "Teoria " + (c.idx + 1) + "/" + THEORY_CH.length + ": " + les.t, desc: [c.t + " — lekcja " + (c.lessons.indexOf(les) + 1) + " z " + c.lessons.length + "."], tab: null, metric: "check", skill: "teoria" }, theoryCh: c.id, theoryLesson: les.id };
+  return { ex: { title: "Teoria " + (c.idx + 1) + "/" + THEORY_CH.length + ": quiz — " + c.t, desc: ["Wszystkie lekcje rozdziału przeczytane. Zdaj quiz (min. 80%), żeby odblokować następny rozdział."], tab: null, metric: "check", skill: "teoria" }, theoryCh: c.id, theoryQuiz: true };
 }
 
 /* ============================== PRZENIESIENIE NA INNE URZĄDZENIE (kod 5 znaków) ==============================
@@ -2598,6 +2795,25 @@ G("54", "5/4 (3+2)", "Metra nieparzyste", 5, 4, { k: "X.....x.....X...x...", s: 
 G("78", "7/8 (2+2+3)", "Metra nieparzyste", 7, 2, { k: "X.....X.......", s: "....X.....X...", hh: "x.x.x.x.x.x.x." }, { r: [160, 260], bpm: 200, tags: ["78"], v: [["3+2+2", { k: "X.....X...X...", s: "......X...X..." }]] });
 G("98", "9/8 (2+2+2+3)", "Metra nieparzyste", 9, 2, { k: "X.......X.........", s: "....X.......X.....", hh: "x.x.x.x.x.x.x.x.x." }, { r: [180, 280], tags: ["98"], v: [["Akcent na grupy", { rm: "X...X...X...X....." }]] });
 G("58", "5/8 (3+2)", "Metra nieparzyste", 5, 2, { k: "X.....X...", s: "....x...x.", hh: "x.x.x.x.x." }, { r: [160, 260], tags: ["58"], v: [["2+3", { k: "X...X.....", s: "..x.....x." }]] });
+/* v2.2 — nowe rytmy */
+G("drive", "Rock — stopa ósemkowa (drive)", "Rock", 4, 4, { k: "X.x.X.x.X.x.X.x.", s: B4, hh: "X.x.x.x.X.x.x.x." }, { r: [110, 160], tags: ["rock", "punk"], v: [["Crash na ćwierćnuty", { hh: null, cr: "X...X...X...X..." }]] });
+G("diddley", "Bo Diddley beat", "Rock", 4, 4, { k: "X..X..X...X.X...", tt: "X..X..X...X.X...", hh: Q16 }, { r: [100, 140], tags: ["rock", "clave"], v: [["Na werblu", { tt: null, s: "X..X..X...X.X..." }]] });
+G("grunge", "Alt-rock / grunge (tomy)", "Rock", 4, 4, { k: "X.....X.X.......", s: B4, lt: "..x...x...x...x.", cr: "X..............." }, { r: [90, 130], tags: ["rock", "grunge"], v: [["Refren (ride)", { lt: null, rd: Q16 }]] });
+G("synthpop", "Synth-pop / new wave", "Pop i ballady", 4, 4, { k: "X...X...X...X...", s: B4, hh: "xxxxxxxxxxxxxxxx" }, { r: [110, 135], tags: ["pop", "80s"], v: [["Klaśnięcia", { s: null, cp: B4 }]] });
+G("trap", "Trap (half-time)", "Funk, soul, hip-hop", 4, 4, { k: "X......X..X.....", s: "........X.......", hh: "x.x.x.xxx.x.xxxx" }, { r: [130, 150], tags: ["hiphop", "trap"], v: [["Rolki hi-hatu", { hh: "xxxxx.x.xxxxXxXx" }]] });
+G("funklin", "Funk linearny", "Funk, soul, hip-hop", 4, 4, { k: "X.........x.....", s: "....X..o.o..X..o", hh: "..x.x.x.....x.x." }, { r: [88, 108], tags: ["funk", "linear"], v: [["Z otwartym hi-hatem", { oh: ".............x.." }]] });
+G("dnb", "Drum'n'bass (2-step)", "Taneczne", 4, 4, { k: "X.........X.....", s: "....X.......X...", hh: Q16 }, { r: [160, 176], tags: ["dnb", "dance"], v: [["Ride", { hh: null, rd: "x.x.x.x.x.x.x.x." }]] });
+G("jumpblues", "Jump blues (swing shuffle)", "Blues i shuffle", 4, 3, { k: "X..X..X..X..", s: "...X.....X..", rd: "X.xX.xX.xX.x" }, { r: [130, 180], tags: ["blues", "swing"], v: [["Hi-hat", { rd: null, hh: "X.xX.xX.xX.x" }]] });
+G("take5", "Jazz 5/4 (3+2)", "Jazz", 5, 3, { rd: "X.xX.xX.xX.xX.x", k: "X.....X..X.....", s: ".....x.....x.x." }, { r: [150, 180], tags: ["jazz", "54"], v: [["Hi-hat na 2 i 4", { hh: "...x.....x....." }]] });
+G("bolero", "Bolero (latin ballada)", "Latin", 4, 4, { k: "X.......X.......", rm: "....x.......x...", lt: "..........x.x...", hh: "x.x.x.x.x.x.x.x." }, { r: [70, 100], tags: ["latin", "ballada"], v: [["Ride", { hh: null, rd: "x.x.x.x.x.x.x.x." }]] });
+G("tango", "Tango", "Latin", 4, 4, { k: "X...X...X...X...", s: "X...X...X..xX..." }, { r: [110, 130], tags: ["tango", "latin"], v: [["Habanera", { s: "X..xX...X..xX..." }]] });
+G("bembe", "Afro-kubańskie 6/8 (bembé)", "Latin", 6, 2, { rd: "X.X.XX.X.X.X", k: "X.....X.....", hh: "...x.....x.." }, { r: [150, 200], tags: ["latin", "68"], v: [["Na kowbojce", { rd: null, rm: "X.X.XX.X.X.X" }]] });
+G("dembow", "Dancehall / dembow", "Reggae i ska", 4, 4, { k: "X...X...X...X...", s: "...x..x....x..x.", hh: "x.x.x.x.x.x.x.x." }, { r: [90, 110], tags: ["reggae", "dancehall"], v: [["Bez hi-hatu", { hh: null }]] });
+G("gallop", "Metal galop (stopa)", "Metal", 4, 4, { k: "X.xxX.xxX.xxX.xx", s: B4, cr: "X...X...X...X..." }, { r: [100, 160], tags: ["metal", "galop"], v: [["Ride", { cr: null, rd: "X...X...X...X..." }]] });
+G("twostep", "Country two-step", "Country i folk", 4, 4, { k: "X.......X.......", rm: "....X.......X...", hh: "x.x.x.x.x.x.x.x." }, { r: [100, 140], tags: ["country"], v: [["Z basem na 1 i 3", { k: "X...X...X...X..." }]] });
+G("krakowiak", "Krakowiak 2/4", "Walc, 6/8, marsz", 2, 4, { k: "X...X...", s: "..X.x...", hh: "x.x.x.x." }, { r: [110, 150], tags: ["ludowe", "24"], v: [["Z akcentem synkopy", { s: "..X..x.." }]] });
+G("oberek", "Oberek 3/4", "Walc, 6/8, marsz", 3, 4, { k: "X...........", s: "....x...X...", hh: "x.x.x.x.x.x." }, { r: [160, 220], tags: ["ludowe", "34"], v: [["Na tomach", { s: null, lt: "....x...X..." }]] });
+G("78b", "7/8 bałkański (3+2+2)", "Metra nieparzyste", 7, 2, { k: "X.....X...X...", s: "......X...X...", hh: "x.x.x.x.x.x.x." }, { r: [180, 280], tags: ["78", "balkan"], v: [["Darbuka", { hh: null, rm: "X..x..X.x.X.x." }]] });
 function grooveFill(g) {
   const n = g.meter * g.spb; const last = g.spb * (g.meter >= 4 ? 2 : 1); const st = n - last; const out = {};
   Object.keys(g.lanes).forEach((k) => { if (k === "k") out[k] = g.lanes[k].slice(0, st) + "X" + ".".repeat(last - 1); else if (k === "s") out[k] = g.lanes[k].slice(0, st) + ".".repeat(last); else out[k] = g.lanes[k].slice(0, st) + ".".repeat(last); });
@@ -3059,6 +3275,209 @@ const SONGS = [
   S("altered-dominants", "Dominanty alterowane — ćwiczenie", "Ćwiczenie Trenera", true, 78, "C-dur", "4/4 (swing)", [80, 160], "swing", ["jazz", "teoria"], "Dm7 – G9 – Cmaj7 z rozwiązaniem tercji i septym.",
     [sec("Cykl", "Dm7 | G9 | Cmaj7 | A9 | Dm7 | G9 | C6 | C6", 4)], ["Tritonus G7 (H–F) rozwiązuje się do C–E.", "Zamień G9 na Des7 (substytut trytonowy) w drugim przejściu."]);
 })();
+/* ============================== UTWORY: DANE (część 3, v2.2) ==============================
+   Domena publiczna (pd: true) — można podać tekst. Utwory chronione — tylko akordy, układ, bicie, tempo i wskazówki. */
+(function () {
+  const CP = "Tekst i melodia są chronione prawem autorskim — tu tylko akordy i układ; śpiewaj z nagrania.";
+  function S(id, title, artist, pd, step, key, meter, bpm, strum, tags, info, sections, tips, o) {
+    o = o || {}; const beats = /^3\//.test(meter) ? 3 : /^6\//.test(meter) ? 6 : /^2\//.test(meter) ? 2 : 4;
+    SONGS.push(Object.assign({ id, title, artist, pd, lv: tierOf(step), step, key, capo: o.capo || 0, meter, beats, bpm, strum, tags, info, sections, tips: pd ? tips : tips.concat([CP]) },
+      o.style ? { style: o.style } : {}, o.riff ? { riff: o.riff } : {}, o.ex ? { exercise: true } : {}));
+  }
+  const sec = (n, bars, x, lyrics) => Object.assign({ n, bars }, x ? { x } : {}, lyrics ? { lyrics } : {});
+  const EX = "Ćwiczenie Trenera";
+  /* ---------- POCZĄTKUJĄCY (0–19) ---------- */
+  S("krakowiaczek", "Krakowiaczek jeden", "Pieśń ludowa", true, 1, "C-dur", "2/4", [70, 110], "q2", ["zmiany"], "Krakowiak na dwóch akordach: C i G7.",
+    [sec("Zwrotka", "C | C | G7 | C | C | C | G7 | C", 2, ["[C]Krakowiaczek jeden [G7]miał koników [C]siedem,", "[C]Pojechał na wojnę, [G7]został mu się [C]jeden."])],
+    ["G7: palec 3 na grubej E, 2 na A, 1 na cienkiej e.", "Akcent na „raz” — krakowiak jest skoczny."]);
+  S("yankee-doodle", "Yankee Doodle", "Tradycyjna amerykańska", true, 2, "G-dur", "2/4", [80, 120], "q2", ["zmiany"], "G, C i D7 — marszowy klasyk.",
+    [sec("Zwrotka", "G | D7 | G | D7 | G | C | D7 | G", 2, ["[G]Yankee Doodle went to town [D7]a-riding on a pony,", "[G]Stuck a feather in his [C]cap and [D7]called it maca[G]roni."])],
+    ["Zmiana G → D7 → G co takt — trzymaj równe ćwierćnuty."]);
+  S("camptown-races", "Camptown Races", "Stephen Foster (1850)", true, 3, "G-dur", "2/4", [90, 130], "q2", ["zmiany"], "Foster na G i D7 — „doo-dah!”.",
+    [sec("Zwrotka", "G | G | D7 | G | G | G | D7 | G", 2, ["[G]Camptown ladies sing this song, [D7]doo-dah, [G]doo-dah,", "[G]Camptown racetrack five miles long, [D7]oh, doo-dah [G]day."])],
+    ["Na „doo-dah” krótkie, akcentowane uderzenia."]);
+  S("oda-do-radosci", "Oda do radości (temat)", "Ludwig van Beethoven (1824)", true, 3, "D-dur", "4/4", [70, 110], "p_q", ["zmiany", "melodia"], "Temat IX Symfonii na D i A — dwa akordy, słynna melodia.",
+    [sec("Fraza", "D | A | D | A | D | A | D | A D", 2)], ["Zagraj melodię na strunie H/e, a ktoś niech gra akordy — albo nagraj akordy i graj do nich."]);
+  S("zasiali-gorale", "Zasiali górale owies", "Pieśń góralska", true, 4, "G-dur", "3/4", [80, 120], "waltz", ["zmiany"], "Góralski walczyk na G i D7.",
+    [sec("Zwrotka", "G | G | D7 | D7 | D7 | D7 | G | G", 2)], ["„Raz” na basie, „dwa trzy” na cienkich strunach."]);
+  S("down-by-riverside", "Down by the Riverside", "Spiritual tradycyjny", true, 4, "G-dur", "4/4", [90, 130], "p_8", ["zmiany"], "Spiritual na G, C i D7.",
+    [sec("Zwrotka", "G | G | G | D7 | G | G | D7 | G", 0, ["[G]Gonna lay down my burden, down by the riverside, [D7]", "[G]Down by the riverside, [D7]down by the [G]riverside."]),
+     sec("Refren", "C | C | G | G | D7 | D7 | G | G", 0, ["[C]I ain't gonna study war no more, [G]", "[D7]Ain't gonna study war no [G]more."])], ["Refren zaczyna się od C — przygotuj palce wcześniej."]);
+  S("streets-of-laredo", "Streets of Laredo", "Tradycyjna amerykańska", true, 5, "D-dur", "3/4", [80, 110], "waltz", ["zmiany", "walc"], "Kowbojski walc na D i A7.",
+    [sec("Zwrotka", "D | A7 | D | A7 | D | A7 | D A7 | D", 2)], ["Bas na „raz”: D — struna D, A7 — struna A."]);
+  S("home-on-the-range", "Home on the Range", "Brewster Higley (1872)", true, 5, "G-dur", "3/4", [80, 110], "waltz", ["zmiany", "walc"], "Walc z prerii: G, C, D7 i A7.",
+    [sec("Zwrotka", "G | G | C | C | G | G | A7 | D7 | G | G | C | C | G | D7 | G | G", 0, ["Oh, [G]give me a home where the [C]buffalo roam,", "Where the [G]deer and the antelope [A7]play, [D7]", "Where [G]seldom is heard a dis[C]couraging word,", "And the [G]skies are not [D7]cloudy all [G]day."]),
+     sec("Refren", "G | D7 | G | G | G | G | A7 | D7 | G | G | C | C | G | D7 | G | G", 0, ["[G]Home, [D7]home on the [G]range,", "Where the deer and the antelope [A7]play, [D7]", "Where [G]seldom is heard a dis[C]couraging word,", "And the [G]skies are not [D7]cloudy all [G]day."])],
+    ["A7 → D7 to „dominanta dominanty” — usłyszysz, jak ciągnie do G."]);
+  S("hit-the-road-jack", "Hit the Road Jack", "Percy Mayfield / Ray Charles", false, 5, "a-moll", "4/4", [150, 175], "p_8", ["zmiany", "riff"], "Opadająca progresja Am – G – F – E7 przez cały utwór.",
+    [sec("Całość", "Am G | F E7 | Am G | F E7", 8)], ["Po 2 uderzenia na akord. F można grać jako Fmaj7, jeśli barré jeszcze nie wychodzi.", "Bas opada: A – G – F – E — wsłuchaj się."]);
+  S("twist-and-shout", "Twist and Shout", "Phil Medley / Bert Berns", false, 5, "D-dur", "4/4", [110, 126], "p_8", ["zmiany"], "D – G – A w kółko: rock and roll na trzech akordach.",
+    [sec("Zwrotka/refren", "D G | A | D G | A", 8), sec("Narastanie", "A | A | A | A", 1)], ["Na narastaniu graj szesnastki coraz głośniej.", "Zmiana G → A: przesuń cały kształt."]);
+  S("leaving-on-a-jet-plane", "Leaving on a Jet Plane", "John Denver", false, 6, "G-dur", "4/4", [80, 100], "p_folk", ["zmiany"], "G, C, D i Em — ballada folkowa idealna na pierwsze zmiany.",
+    [sec("Zwrotka", "G | C | G | C | G | C | D | D", 2), sec("Refren", "G | C | G | C | G | Em | D | D", 2)], ["Em → D: palec 2 zostaje blisko, zmiana jest krótka."]);
+  S("bad-moon-rising", "Bad Moon Rising", "Creedence Clearwater Revival", false, 6, "D-dur", "4/4", [120, 180], "p_8", ["zmiany"], "D – A – G: szybkie zmiany w połowie taktu.",
+    [sec("Zwrotka", "D A G | D | D A G | D", 2), sec("Refren", "G | G | D | D | A | G | D | D", 2)], ["„D A G” = D przez 2 uderzenia, A i G po jednym.", "Zacznij od 120 BPM, oryginał ~180."]);
+  S("love-me-do", "Love Me Do", "The Beatles", false, 6, "G-dur", "4/4", [120, 148], "p_8", ["zmiany"], "G i C przez prawie cały utwór, D w przejściu.",
+    [sec("Zwrotka", "G | C | G | C | G | C | C G | G", 2), sec("Przejście", "D | C | G | G | D | C G | G | G", 1)], ["Zmiana G → C co takt: palec 3 zostaje „kotwicą” na tym samym miejscu, jeśli grasz G 320033."]);
+  S("no-woman-no-cry", "No Woman, No Cry", "Bob Marley & The Wailers", false, 6, "C-dur", "4/4", [74, 80], "p_reggae", ["zmiany", "reggae"], "C – G – Am – F: kanon pop w reggae.",
+    [sec("Zwrotka/refren", "C G | Am F | C F | C G", 8)], ["Bicie na „i” (offbeat), krótko tłumione.", "Bez barré: F jako Fmaj7 albo małe F."]);
+  S("blowin-in-the-wind", "Blowin' in the Wind", "Bob Dylan", false, 7, "D-dur", "4/4", [80, 100], "p_folk", ["zmiany"], "D, G i A — folkowy hymn na trzech akordach.",
+    [sec("Zwrotka", "D G D | D G A | D G D Hm | D G A", 2), sec("Refren", "G A D Hm | G A D | G A D Hm | G A D", 1)], ["Hm można zastąpić D (prościej) na początku.", "Śpiewaj spokojnie, bicie lekko."]);
+  S("three-little-birds", "Three Little Birds", "Bob Marley & The Wailers", false, 7, "A-dur", "4/4", [70, 80], "p_reggae", ["zmiany", "reggae"], "A, D i E — reggae w luzie.",
+    [sec("Refren", "A | A | D | A | A | A | D A | A", 2), sec("Zwrotka", "A | E | A | D | A | E | D | A", 2)], ["Uderzenie krótko na „i”, dłoń tłumi od razu."]);
+  S("country-roads", "Take Me Home, Country Roads", "John Denver / Bill Danoff / Taffy Nivert", false, 8, "A-dur (kapo 2, kształty G)", "4/4", [76, 84], "p_folk", ["zmiany"], "G – Em – D – C: klasyk ogniskowy (kapodaster na 2. progu).",
+    [sec("Zwrotka", "G | Em | D | C G | G | Em | D | C G", 1), sec("Refren", "G | D | Em | C | G | D | C | G", 2)], ["Bez kapodastra też zabrzmi — tylko niżej.", "Refren zaczyna się na G — mocniej!"], { capo: 2 });
+  S("folsom-prison-blues", "Folsom Prison Blues", "Johnny Cash", false, 9, "E-dur", "4/4", [100, 112], "p_split", ["zmiany", "bas"], "Boom-chicka: bas + akord w 12-taktowym bluesie.",
+    [sec("Zwrotka", "E | E | E | E | E | E | E | E | A | A | E | E | H7 | H7 | E | E", 3)], ["Bas na „raz” i „trzy” (przemienny), akord na „dwa” i „cztery”.", "Tłum struny lekko dłonią — „pociągowy” rytm."], { style: "blues" });
+  S("smoke-on-the-water", "Smoke on the Water (riff na akordach)", "Deep Purple", false, 9, "g-moll", "4/4", [100, 114], "p_pm", ["power", "riff"], "Najsłynniejszy riff świata na power chordach G5, B5 (B♭), C5, Cis5.",
+    [sec("Riff", "G5 B5 | C5 | G5 B5 | Cis5 C5 | G5 B5 | C5 | B5 | G5", 2), sec("Refren", "C5 As5 | G5 | C5 As5 | G5", 2)], ["Notacja polska: B5 = B♭5 (3. próg struny A).", "Kostkuj w dół, palm mute na riffie."], { style: "rock" });
+  S("imagine", "Imagine", "John Lennon", false, 10, "C-dur", "4/4", [72, 78], "p_pop", ["zmiany"], "C – Cmaj7 – F, potem refren z E7.",
+    [sec("Zwrotka", "C Cmaj7 | F | C Cmaj7 | F", 2), sec("Przejście", "F Am | Dm F | G | C G7", 1), sec("Refren", "F G | C E7 | F G | C E7 | F G | C E7 | F G | C", 1)], ["C → Cmaj7: zdejmij palec 1 z H — tyle.", "F jako Fmaj7 na początek."]);
+  S("hurt", "Hurt", "Trent Reznor (wersja J. Cash)", false, 10, "a-moll", "4/4", [88, 96], "pick8", ["zmiany", "ballada"], "Am – C – D w zwrotce, G – Am – F – C w refrenie.",
+    [sec("Zwrotka", "Am | C | D | Am | Am | C | D | Am", 2), sec("Refren", "G | Am | F | C | G | Am | F | C", 2)], ["Zwrotka cicho, arpeggio; refren mocnym biciem."]);
+  S("water-is-wide", "The Water Is Wide", "Tradycyjna szkocko-angielska", true, 10, "D-dur", "4/4", [60, 76], "pick8", ["fingerpicking"], "Spokojna ballada do arpeggio: D, G, A, Hm.",
+    [sec("Zwrotka", "D | G | D | A | Hm | G | A | D", 3)], ["Kciuk gra bas (prymę akordu), palce i-m-a arpeggio."]);
+  S("boulevard-broken-dreams", "Boulevard of Broken Dreams", "Green Day", false, 12, "f-moll (kapo 1, kształty Em)", "4/4", [80, 86], "p_pm", ["zmiany", "pm"], "Em – G – D – A w zwrotce, C – G – D – Em w refrenie.",
+    [sec("Zwrotka", "Em G | D A | Em G | D A", 4), sec("Refren", "C G | D Em | C G | D Em", 2)], ["Zwrotka z palm mute, refren otwarcie."], { capo: 1, style: "rock" });
+  S("st-james-infirmary", "St. James Infirmary", "Tradycyjna (jazz/blues)", false, 12, "a-moll", "4/4", [60, 80], "p_shuffle", ["blues", "moll"], "Mollowy blues: Am, Dm i E7.",
+    [sec("Zwrotka", "Am | E7 | Am | Am | Am | Dm | Am E7 | Am", 4)], ["Wolno, z „bujaniem”. E7 akcentuj — ciągnie do Am."], { style: "blues" });
+  S("iron-man", "Iron Man (uproszczony)", "Black Sabbath", false, 13, "h-moll", "4/4", [70, 80], "p_pm", ["power", "riff"], "Ciężki riff na power chordach H5, D5, E5, G5, Fis5.",
+    [sec("Riff", "H5 | D5 E5 | E5 G5 Fis5 | G5 Fis5 D5 E5", 4)], ["Power chordy ślizgaj — bez odrywania palców.", "Wersja uproszczona — w oryginale są dodatkowe ozdobniki."], { style: "rock" });
+  S("californication", "Californication", "Red Hot Chili Peppers", false, 13, "a-moll", "4/4", [92, 98], "p_8", ["zmiany"], "Am – F w zwrotce, C – G – Dm – Am w refrenie.",
+    [sec("Zwrotka", "Am | F | Am | F", 4), sec("Refren", "C | G | Dm | Am", 4)], ["Zwrotkę możesz grać arpeggio — jak w oryginale."]);
+  S("smells-like-teen-spirit", "Smells Like Teen Spirit", "Nirvana", false, 15, "f-moll", "4/4", [112, 118], "p_8", ["power", "dynamika"], "Cztery power chordy: F5 – B5 (B♭) – As5 – Cis5 (D♭). Cicho w zwrotce, głośno w refrenie.",
+    [sec("Riff/refren", "F5 B5 | As5 Cis5", 8), sec("Zwrotka (cicho)", "F5 B5 | As5 Cis5", 4)], ["Między akordami „martwe” uderzenia tłumioną lewą ręką.", "Dynamika: zwrotka palm mute, refren pełny."], { style: "rock" });
+  S("paranoid", "Paranoid (uproszczony)", "Black Sabbath", false, 16, "e-moll", "4/4", [150, 165], "p_pm", ["power", "pm"], "Szybkie ósemki na E5 z przejściami D5 i G5.",
+    [sec("Zwrotka", "E5 | E5 | D5 G5 | E5", 6)], ["Kostka tylko w dół, palm mute. Zacznij od 120 BPM.", "Wersja uproszczona — oryginał ma krótkie riffy między akordami."], { style: "rock" });
+  S("with-or-without-you", "With or Without You", "U2", false, 16, "D-dur", "4/4", [106, 112], "p_8", ["zmiany"], "D – A – Hm – G przez cały utwór.",
+    [sec("Całość", "D | A | Hm | G", 12)], ["Hm jako barré A na 2. progu albo wersja 4-strunowa.", "Ósemki równiutko — buduj napięcie dynamiką."]);
+  S("wicked-game", "Wicked Game", "Chris Isaak", false, 17, "h-moll", "4/4", [108, 114], "p_pop", ["zmiany"], "Hm – A – E: hipnotyczny cykl.",
+    [sec("Całość", "Hm | A | E | E", 8)], ["Hm (barré) → A → E — przy E zostaw struny dźwięczeć."]);
+  S("back-in-black", "Back in Black (uproszczony)", "AC/DC", false, 18, "E-dur", "4/4", [90, 96], "p_8", ["power", "riff"], "Riff E – D – A na otwartych power chordach.",
+    [sec("Riff", "E5 D5 | A5 A5 | E5 D5 | A5 A5", 4)], ["Akordy krótkie, dużo ciszy między nimi — riff „oddycha”.", "Wersja uproszczona bez ozdobników."], { style: "rock" });
+  S("wonderful-tonight", "Wonderful Tonight", "Eric Clapton", false, 18, "G-dur", "4/4", [92, 98], "p_pop", ["zmiany", "przewroty"], "G – D/Fis – C – D: przewrót D/Fis daje schodzący bas.",
+    [sec("Zwrotka", "G D/Fis | C D | G D/Fis | C D", 4), sec("Refren", "C D | G D/Fis Em | C D | G", 2)], ["D/Fis: kciuk albo palec 1 na 2. progu grubej E.", "Bas: G – Fis – E — śpiewaj go w głowie."]);
+  S("hey-there-delilah", "Hey There Delilah", "Plain White T's", false, 18, "D-dur", "4/4", [100, 106], "pick8", ["fingerpicking", "barre"], "D – Fism – Hm – G – A z arpeggio.",
+    [sec("Zwrotka", "D | Fism | D | Fism | Hm | A | G | A", 4)], ["Fism to barré E na 2. progu — kluczowe ćwiczenie.", "Arpeggio: bas, potem struny G-H-e."]);
+  /* ---------- ŚREDNIO ZAAWANSOWANY (20–39) ---------- */
+  S("someone-like-you", "Someone Like You", "Adele", false, 20, "A-dur", "4/4", [66, 70], "pick8", ["fingerpicking", "przewroty"], "A – E/Gis – Fism – D: opadający bas w arpeggio.",
+    [sec("Zwrotka", "A | E/Gis | Fism | D", 6), sec("Refren", "A | E | Fism | D", 4)], ["E/Gis: kciuk/palec 4 na 4. progu grubej E.", "Arpeggio szesnastkami lekko i równo."]);
+  S("hey-jude", "Hey Jude", "The Beatles", false, 22, "F-dur", "4/4", [70, 76], "p_pop", ["zmiany", "barre"], "F – C – C7 – B (B♭). Coda „na na na” na F – Es – B.",
+    [sec("Zwrotka", "F | C | C7 | F | B | F | C | F", 3), sec("Coda", "F | Es | B | F", 8)], ["B (B♭) i Es to barré A — dobry trening.", "Coda: refren 4 akordy w kółko, coraz głośniej."]);
+  S("johnny-b-goode", "Johnny B. Goode", "Chuck Berry", false, 24, "B-dur (B♭)", "4/4", [150, 170], "p_8", ["blues", "barre"], "Rock'n'roll w 12-taktowym bluesie: B – Es – F.",
+    [sec("12 taktów", "B | B | B | B | Es | Es | B | B | F | Es | B | F", 6)], ["Spróbuj „chuck berry shuffle”: power chord + dodawany 6. stopień małym palcem.", "Notacja polska: B = B♭."], { style: "rock" });
+  S("black-magic-woman", "Black Magic Woman", "Peter Green (wersja Santany)", false, 24, "d-moll", "4/4", [118, 124], "p_sync", ["moll", "latin"], "Dm – Am – Gm – A7: mollowy latin-rock.",
+    [sec("Zwrotka", "Dm | Dm | Am | Am | Dm | Dm | Gm | Gm | Dm | Dm | A7 | Dm", 3)], ["Gm jako barré E na 3. progu.", "A7 → Dm kończy frazę — dominanta."], { style: "rock" });
+  S("purple-rain", "Purple Rain", "Prince", false, 25, "B-dur (B♭)", "4/4", [56, 60], "p_pop", ["barre", "ballada"], "B – Gm – F – Es: rockowa ballada na barré.",
+    [sec("Cykl", "B | Gm | F | Es", 10)], ["Wszystkie cztery to barré — doskonały trening zmian.", "Wolno, z długimi, dźwięczącymi akordami."]);
+  S("dont-stop-believin", "Don't Stop Believin'", "Journey", false, 26, "E-dur", "4/4", [116, 120], "p_8", ["barre", "zmiany"], "E – H – Cism – A, potem E – H – Gism – A.",
+    [sec("Zwrotka", "E | H | Cism | A | E | H | Gism | A", 4), sec("Refren", "E | H | Cism | A", 4)], ["H, Cism, Gism — barré A i E. Ósemki jak fortepian w oryginale."]);
+  S("comfortably-numb", "Comfortably Numb", "Pink Floyd", false, 28, "h-moll / D-dur", "4/4", [62, 66], "p_pop", ["barre", "zmiany"], "Zwrotka w h-moll, refren w D-dur.",
+    [sec("Zwrotka", "Hm | Hm | A | A | G | G | Em | Hm", 2), sec("Refren", "D A | D A | C G | C G | A | A", 2)], ["Refren jasny (dur), zwrotka ciemna (moll) — podkreśl kontrast."]);
+  S("tears-in-heaven", "Tears in Heaven", "Eric Clapton / Will Jennings", false, 30, "A-dur", "4/4", [76, 82], "pick8", ["przewroty", "fingerpicking"], "Szkoła przewrotów: E/Gis, A/E, D/Fis — opadający bas.",
+    [sec("Zwrotka", "A E/Gis | Fism A/E | D/Fis A/E | Esus4 E7 | A", 4)], ["Kciuk prowadzi linię basu: A – Gis – Fis – E – D(Fis)…", "Fingerpicking: bas + 2 struny palcami."]);
+  S("oye-como-va", "Oye Como Va", "Tito Puente (wersja Santany)", false, 30, "a-moll (dorycka)", "4/4", [118, 124], "p_sync", ["latin", "akordy 9"], "Vamp Am7 – D9 — doryckie brzmienie w latin rocku.",
+    [sec("Vamp", "Am7 D9 | Am7 D9", 16)], ["D9 jako forma A na 5. progu.", "Synkopa jak cha-cha: akcent na „i” po „dwa”."], { style: "jazz" });
+  S("sultans-of-swing", "Sultans of Swing (akordy)", "Dire Straits", false, 32, "d-moll", "4/4", [144, 150], "p_8", ["zmiany", "barre"], "Dm – C – B – A: andaluzyjska kadencja w rocku.",
+    [sec("Zwrotka", "Dm C | B A | Dm C | B A", 4), sec("Refren", "F | C | B | B Dm", 2)], ["B (B♭) jako barré A na 1. progu.", "W oryginale gitara gra fingerstyle bez kostki."], { style: "rock" });
+  S("thrill-is-gone", "The Thrill Is Gone", "Roy Hawkins / Rick Darnell (wersja B.B. Kinga)", false, 32, "h-moll", "4/4", [88, 94], "p_8", ["blues", "moll"], "Molowy blues: Hm – Em – G – Fis7.",
+    [sec("12 taktów", "Hm | Hm | Hm | Hm | Em | Em | Hm | Hm | G | Fis7 | Hm | Hm", 4)], ["Solówka: pentatonika h-moll w 7. pozycji.", "G → Fis7 → Hm to klasyczne zakończenie molowego bluesa."], { style: "blues" });
+  S("pride-and-joy", "Pride and Joy", "Stevie Ray Vaughan", false, 36, "E-dur (oryg. strój pół tonu niżej)", "4/4", [114, 120], "p_shuffle", ["blues", "shuffle"], "Teksański shuffle w E: E – A – H.",
+    [sec("12 taktów", "E | E | E | E | A | A | E | E | H | A | E | H", 6)], ["Ręka nieprzerwanie w ruchu, ósemki swingowane.", "Oryginał w stroju Es — z normalnym strojem brzmi pół tonu wyżej."], { style: "blues" });
+  /* ---------- ZAAWANSOWANY (40–59) ---------- */
+  S("malaguena", "Malagueña (motyw)", "Tradycyjna hiszpańska", true, 40, "E frygijska", "3/4", [100, 140], "rasg", ["flamenco", "frygijska"], "E – F – G – F – E: kadencja frygijska i rasgueado.",
+    [sec("Motyw", "E | F | G | F | E | E", 4)], ["Melodia na strunach wiolinowych, akordy rasgueado między frazami.", "F i G możesz grać jako barré."], { style: "ludowe" });
+  S("sunny", "Sunny", "Bobby Hebb", false, 42, "e-moll", "4/4", [118, 124], "p_charleston", ["jazz", "septymowe"], "Em7 – G7 – Cmaj7 – Fism7b5 H7: soulowy standard.",
+    [sec("Zwrotka", "Em7 | G7 | Cmaj7 | Fism7b5 H7", 6)], ["Fism7b5 → H7 → Em7: molowe ii–V–i.", "Krótkie akordy (staccato) jak w funku."], { style: "jazz" });
+  S("girl-from-ipanema", "The Girl from Ipanema (część A)", "Antônio Carlos Jobim", false, 46, "F-dur", "4/4", [120, 132], "p_bossa", ["bossa", "jazz"], "Fmaj7 – G7 – Gm7 – Fis7: bossa nova.",
+    [sec("A", "Fmaj7 | Fmaj7 | G7 | G7 | Gm7 | Fis7 | Fmaj7 | Fis7", 4)], ["Fis7 (G♭7) to substytucja trytonowa C7.", "Kciuk: bas na „raz” i „trzy”, palce synkopowo."], { style: "jazz" });
+  S("manha-de-carnaval", "Manhã de Carnaval", "Luiz Bonfá", false, 48, "a-moll", "4/4", [110, 126], "p_bossa", ["bossa", "jazz"], "Am – Hm7b5 – E7: molowe ii–V–i w bossie.",
+    [sec("A", "Am | Hm7b5 E7 | Am | Hm7b5 E7 | Am7 | Dm7 | G7 | Cmaj7 | Fmaj7 | Hm7b5 | E7 | E7", 2)], ["Hm7b5 jako forma A na 2. progu (x2323x).", "Melodię zagraj na górnych strunach nad akordami."], { style: "jazz" });
+  S("take-the-a-train", "Take the „A” Train", "Billy Strayhorn", false, 50, "C-dur", "4/4", [150, 180], "swing", ["jazz", "standard"], "C – D7 (♯11) – Dm7 – G7: standard swingowy, forma AABA.",
+    [sec("A", "C | C | D7 | D7 | Dm7 | G7 | C | Dm7 G7", 2), sec("B", "F | F | F | F | D7 | D7 | Dm7 | G7", 1), sec("A", "C | C | D7 | D7 | Dm7 | G7 | C | C", 1)], ["Comping na 2 i 4 albo „Freddie Green” — ćwierćnuty na 3 strunach.", "D7 to wtrącona dominanta (V/V)."], { style: "jazz" });
+  S("cantaloupe-island", "Cantaloupe Island", "Herbie Hancock", false, 50, "f-moll", "4/4", [108, 116], "p_16", ["jazz", "funk"], "Fm7 – Des7 – Dm7: modalny groove 16 taktów.",
+    [sec("16 taktów", "Fm7 | Fm7 | Fm7 | Fm7 | Des7 | Des7 | Des7 | Des7 | Dm7 | Dm7 | Dm7 | Dm7 | Fm7 | Fm7 | Fm7 | Fm7", 4)], ["Rytm jak fortepian w oryginale: synkopy szesnastkowe.", "Dm7 to nagła zmiana koloru — zaznacz ją dynamiką."], { style: "jazz" });
+  S("mr-pc", "Mr. P.C.", "John Coltrane", false, 52, "c-moll", "4/4", [200, 260], "swing", ["jazz", "blues"], "Szybki molowy blues jazzowy.",
+    [sec("12 taktów", "Cm7 | Cm7 | Cm7 | Cm7 | Fm7 | Fm7 | Cm7 | Cm7 | As7 | G7 | Cm7 | G7", 8)], ["As7 → G7: chromatyczne zejście dominant.", "Zacznij od 140 BPM; solówka: c-moll dorycka / pentatonika."], { style: "jazz" });
+  S("so-what", "So What", "Miles Davis", false, 54, "D dorycka", "4/4", [130, 140], "swing", ["jazz", "modalny"], "Modalny standard: 16 taktów Dm7, 8 taktów Esm7, 8 taktów Dm7.",
+    [sec("A", "Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7", 2), sec("B", "Esm7 | Esm7 | Esm7 | Esm7 | Esm7 | Esm7 | Esm7 | Esm7", 1), sec("A", "Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7 | Dm7", 1)], ["W oryginale fortepian gra akordy kwartowe — spróbuj voicingu E-A-D-G-H.", "Improwizacja: D dorycka, potem Es dorycka."], { style: "jazz" });
+  S("manha-europa", "Europa (Earth's Cry Heaven's Smile)", "Carlos Santana / Tom Coster", false, 56, "c-moll", "4/4", [62, 70], "p_pop", ["jazz", "kolo-kwintowe"], "Cm7 – Fm7 – B7 – Esmaj7 – Asmaj7 – Dm7b5 – G7: koło kwintowe w molu.",
+    [sec("Cykl", "Cm7 | Fm7 | B7 | Esmaj7 | Asmaj7 | Dm7b5 | G7 | Cm7", 6)], ["Każdy akord to krok o kwartę w górę — jak w Autumn Leaves.", "Melodia: długie dźwięki z vibrato i bendami."], { style: "rock" });
+  S("little-wing", "Little Wing (akordy intro)", "Jimi Hendrix", false, 60, "e-moll (oryg. strój pół tonu niżej)", "4/4", [66, 72], "p_q", ["ozdobniki", "rock"], "Em – G – Am – Em – Hm – B – Am – C – G – F – C – D, z ozdobnikami hammer-on.",
+    [sec("Intro/zwrotka", "Em | G | Am | Em | Hm | B | Am | C G F | C | D", 3)], ["Hendrix gra akordy z kciukiem na basie i ozdobnikami na górnych strunach.", "B = B♭ (barré A na 1. progu)."], { style: "rock" });
+  /* ---------- ĆWICZENIA TRENERA (własne, z tabulaturą) ---------- */
+  S("ex-kadencje", "Kadencja I–IV–V w 4 tonacjach", EX, true, 4, "C, G, D, A", "4/4", [60, 100], "q2", ["zmiany"], "Ta sama funkcja w czterech tonacjach — fundament transpozycji.",
+    [sec("C-dur", "C | F | G | C", 1), sec("G-dur", "G | C | D | G", 1), sec("D-dur", "D | G | A | D", 1), sec("A-dur", "A | D | E | A", 1)], ["F zagraj jako Fmaj7, jeśli barré jeszcze nie wychodzi."], { ex: true });
+  S("ex-bas-country", "Bas przemienny + akord (country)", EX, true, 9, "G-dur", "4/4", [70, 110], "p_split", ["bas"], "Bas na 1 i 3 (pryma, potem kwinta), akord na 2 i 4.",
+    [sec("Cykl", "G | C | D | G", 4)], ["G: bas E3, potem D0. C: A3, potem E3. D: D0, potem A0."], { ex: true, riff: T("E3 G0 D0 G0 A3 G0 E3 G0") });
+  S("ex-pima", "Fingerpicking p-i-m-a — C, Am, G", EX, true, 10, "C-dur", "4/4", [50, 90], "pick8", ["fingerpicking"], "Kciuk na basie, i-m-a na strunach G-H-e.",
+    [sec("Cykl", "C | Am | G | C", 4)], ["Kciuk (p) gra prymę: C — A3, Am — A0, G — E3.", "Palce nie odrywają się daleko od strun."], { ex: true, riff: T("A3 G0 H1 e0 H1 G0 A0 G2 H1 e0 H1 G2") });
+  S("ex-hammer-em", "Hammer-on i pull-off — riff w Em", EX, true, 11, "e-moll", "4/4", [60, 100], "p_8", ["legato"], "Krótki riff na pentatonice: jedno uderzenie, dwa dźwięki.",
+    [sec("Riff", "Em | Em | G | D", 4)], ["Hammer-on: uderzaj palcem mocno, „młoteczkiem”.", "Pull-off: lekko szarpnij strunę w dół palcem."], { ex: true, riff: T("E0 E0h3 A0 A0h2 D0 D0h2 D2p0 A2p0 E3") });
+  S("ex-pm-galop", "Palm mute — rock na E5", EX, true, 12, "e-moll", "4/4", [80, 140], "p_pm", ["pm", "power"], "Ósemki z tłumieniem, akcenty bez tłumienia.",
+    [sec("Riff", "E5 | E5 | G5 A5 | E5", 6)], ["Krawędź dłoni tuż przy mostku.", "Akcent (bez PM) na „raz” każdego taktu."], { ex: true, riff: T("E0 E0 E0 E0 E3 E3 E5 E5 E0 E0 E0 E0") });
+  S("ex-riff-grube", "Riff na grubych strunach (pentatonika E)", EX, true, 13, "e-moll", "4/4", [70, 120], "p_8", ["riff"], "Riff w stylu rocka lat 70. na strunach E i A.",
+    [sec("Riff", "E5 | E5 | A5 | E5", 6)], ["Kostkuj naprzemiennie (dół–góra).", "Tłum nieużywane struny wnętrzem dłoni."], { ex: true, riff: T("E0 E3 E5 A0 A2 A3 A2 A0 E5 E3 E0") });
+  S("ex-kanon-pop", "Kanon pop I–V–vi–IV w 3 tonacjach", EX, true, 14, "C, G, D", "4/4", [70, 110], "p_pop", ["zmiany"], "Najpopularniejsza progresja świata — setki hitów.",
+    [sec("C-dur", "C | G | Am | F", 2), sec("G-dur", "G | D | Em | C", 2), sec("D-dur", "D | A | Hm | G", 2)], ["Zaśpiewaj na tej progresji dowolny znany refren — pasuje zaskakująco wiele."], { ex: true });
+  S("ex-sus-add", "Ballada na akordach sus i add9", EX, true, 16, "G-dur / e-moll", "4/4", [66, 90], "p_folk", ["sus", "add9"], "Ozdobne akordy: Cadd9, Dsus4, Csus2, Emadd9.",
+    [sec("Zwrotka", "Cadd9 | G | Dsus4 D | Em", 2), sec("Refren", "Csus2 | G | Dsus2 D | Emadd9 Em", 2)], ["sus → dur = napięcie i rozwiązanie. Zagraj sus na „raz”, dur na „trzy”."], { ex: true });
+  S("ex-pierwszy-barre", "Pierwszy barré: F – C – G – C", EX, true, 16, "C-dur", "4/4", [60, 96], "p_8", ["barre"], "F jako pełne barré E na 1. progu w prostej kadencji.",
+    [sec("Cykl", "C | F | G | C", 8)], ["Palec 1 lekko obrócony na kostkę (krawędź), łokieć blisko ciała.", "Jeśli brzęczy — ściśnij mniej, ale bliżej progu."], { ex: true });
+  S("ex-pick34", "Arpeggio 3/4 w a-moll (p-i-m-i)", EX, true, 16, "a-moll", "3/4", [60, 100], "pick34", ["fingerpicking", "walc"], "Walcowe arpeggio: bas, i, m, i.",
+    [sec("Cykl", "Am | E7 | Am | E7 | Am | Dm | E7 | Am", 3)], ["Bas: Am — A0, E7 — E0, Dm — D0."], { ex: true, riff: T("A0 G2 H1 G2 H1 G2 E0 G1 H0 G1 H0 G1") });
+  S("ex-slide-a", "Ślizgi w dwudźwiękach — blues w A", EX, true, 18, "A-dur", "4/4", [60, 100], "p_shuffle", ["slide", "blues"], "Dwudźwięki na strunach G i H ze ślizgiem do akordu.",
+    [sec("Cykl", "A7 | D7 | A7 | E7", 4)], ["Ślizg z jednego progu niżej, nacisk utrzymany przez cały ruch."], { ex: true, style: "blues", riff: T("G4/5 H4/5 G5 H5 G6/7 H6/8 G7 H8 G5 H5") });
+  S("ex-68-ballada", "Ballada 6/8 — arpeggio", EX, true, 18, "e-moll", "6/8", [50, 80], "pick68", ["fingerpicking"], "Kołysanka 6/8: bas, potem 5 dźwięków arpeggio.",
+    [sec("Cykl", "Em | C | G | D", 4)], ["Licz „RAZ dwa trzy CZTERY pięć sześć”."], { ex: true });
+  S("ex-przewroty-c", "Przewroty: opadający bas w C", EX, true, 22, "C-dur", "4/4", [60, 90], "p_pop", ["przewroty"], "C – C/H – Am – Am/G – F – C/E – Dm – G: bas schodzi po skali.",
+    [sec("Cykl", "C | C/H | Am | Am/G | F | C/E | Dm | G", 4)], ["Słuchaj basu: C – H – A – G – F – E – D – G.", "Przewrót = ten sam akord, inny najniższy dźwięk."], { ex: true });
+  S("ex-przewroty-g", "Przewroty: G – G/Fis – Em – Em/D", EX, true, 20, "G-dur", "4/4", [60, 96], "p_folk", ["przewroty"], "Klasyczna linia basu w balladach.",
+    [sec("Cykl", "G | G/Fis | Em | Em/D | C | G/D | D | G", 4)], ["G/Fis: palec 2 na 2. progu grubej E, A wyciszona."], { ex: true });
+  S("ex-shuffle-g", "Shuffle w G z linią basu", EX, true, 20, "G-dur", "4/4", [80, 120], "p_shuffle", ["shuffle", "blues"], "Boogie bas G – C – D w 12-taktowym bluesie.",
+    [sec("12 taktów", "G5 | C5 | G5 | G5 | C5 | C5 | G5 | G5 | D5 | C5 | G5 | D5", 4)], ["Power chord 5 ↔ 6 (palec 3 ↔ 4) — klasyczny boogie."], { ex: true, style: "blues", riff: T("E3 A5 E3 A5 E3 A7 E3 A7") });
+  S("ex-reggae-am", "Reggae offbeat — Am i D", EX, true, 26, "a-moll (dorycka)", "4/4", [70, 90], "p_reggae", ["reggae"], "Krótkie akordy na „i”, ręka tłumi od razu.",
+    [sec("Vamp", "Am | D | Am | D", 8)], ["Graj tylko 3 cienkie struny, w górę albo w dół — krótko."], { ex: true });
+  S("ex-bendy-a", "Bendy — fraza bluesowa w A", EX, true, 26, "a-moll", "4/4", [60, 90], "p_shuffle", ["bend", "blues"], "Bend o cały ton z 7. na 9. próg (struna G) i release.",
+    [sec("12 taktów", "A7 | D7 | A7 | A7 | D7 | D7 | A7 | A7 | E7 | D7 | A7 | E7", 2)], ["Pchaj strunę 3 palcami (2+3, wspiera 1).", "Sprawdź intonację: zagraj 9. próg, potem bend do tego dźwięku."], { ex: true, style: "blues", riff: T("G7b9 G7b9r7 G5 H5 H8 e5 e8 e5 H8 H5 G7 G5") });
+  S("ex-travis-c", "Travis picking — progresja w C", EX, true, 27, "C-dur", "4/4", [60, 100], "travis", ["fingerpicking", "travis"], "Kciuk naprzemiennie bas, palce melodię — styl folk/country.",
+    [sec("Cykl", "C | C | G7 | G7 | G7 | G7 | C | C | E7 | E7 | F | F | C | G7 | C | C", 2)], ["Kciuk: struny A–G–D–G (C), E–G–D–G (G7)."], { ex: true, riff: T("A3 H1 D2 G0 A3 H1 D2 G0") });
+  S("ex-slow-blues", "Slow blues w A (12 taktów)", EX, true, 30, "A-dur", "4/4", [56, 76], "p_shuffle", ["blues"], "Wolny blues: A7 – D7 – E7 z turnaroundem.",
+    [sec("12 taktów", "A7 | D7 | A7 | A7 | D7 | D7 | A7 | A7 | E7 | D7 | A7 | E7", 4)], ["Szybka czwórka: D7 w takcie 2.", "Solówka: pentatonika a-moll + nuta blue (Es)."], { ex: true, style: "blues" });
+  S("ex-funk-13", "Funk — dominanty 9 i 13", EX, true, 38, "E", "4/4", [90, 110], "p_16", ["funk", "akordy 9"], "E9 i A13 szesnastkami z martwymi uderzeniami.",
+    [sec("Vamp", "E9 | E9 | A13 | A13", 8)], ["A13: forma E na 5. progu (5x567x).", "Ręka 16-tkami bez przerwy, akordy tylko na akcentach."], { ex: true });
+  S("ex-hendrix", "Akord Hendrixa E7#9 — funk-rock", EX, true, 40, "E", "4/4", [90, 110], "p_16", ["akordy 9", "rock"], "E7#9 — tercja wielka i mała naraz: brudny, bluesowy kolor.",
+    [sec("Riff", "E7#9 | E7#9 | A7 | E7#9", 6)], ["E7#9: x7678x, kciuk/puste E jako bas."], { ex: true, style: "rock" });
+  S("ex-galop", "Metal galop na E5 i F5", EX, true, 40, "e frygijska", "4/4", [120, 180], "p_gallop", ["metal", "pm"], "Rytm galopu (ósemka + dwie szesnastki) z palm mute.",
+    [sec("Riff", "E5 | E5 | F5 | E5", 6)], ["Ruch z nadgarstka, nie z łokcia.", "F5 — półton nad E5 = frygijski, metalowy kolor."], { ex: true, style: "rock", riff: T("E0 E0 E0 E0 E0 E0 E1 E1 E1 E0 E0 E0") });
+  S("ex-bossa-am", "Bossa w a-moll — ii–V i obieg kwintowy", EX, true, 44, "a-moll", "4/4", [100, 130], "p_bossa", ["bossa", "jazz"], "Am7 – Dm7 – G7 – Cmaj7 – Fmaj7 – Hm7b5 – E7.",
+    [sec("Cykl", "Am7 | Am7 | Dm7 | G7 | Cmaj7 | Fmaj7 | Hm7b5 | E7", 4)], ["Kciuk: bas 1 i 3 (pryma, kwinta), palce synkopa „bossy”."], { ex: true, style: "jazz" });
+  S("ex-rnb-9", "R&B ballada — maj9 i m9", EX, true, 54, "C-dur", "4/4", [60, 76], "p_pop", ["akordy 9", "neo-soul"], "Fmaj7 – Em7 – Dm9 – Cmaj9: miękkie, rozszerzone brzmienie.",
+    [sec("Cykl", "Fmaj7 | Em7 | Dm9 | Cmaj9", 8)], ["Dm9: x5355x(0) — otwarta e daje nonę.", "Graj palcami, kciuk na basie."], { ex: true, style: "jazz" });
+  S("ex-jazz-13b9", "Kadencja jazzowa z 13 i ♭9", EX, true, 58, "C-dur", "4/4", [100, 160], "swing", ["jazz"], "Dm9 – G13 – Cmaj9 – A7b9: kolorowe ii–V–I z dominantą wtrąconą.",
+    [sec("Cykl", "Dm9 | G13 | Cmaj9 | A7b9", 8)], ["G13: 3x345x. A7b9 prowadzi z powrotem do Dm9.", "Prowadź górny głos płynnie — najbliższa nuta."], { ex: true, style: "jazz" });
+  S("ex-chord-melody-grace", "Chord melody — Amazing Grace", EX, true, 62, "G-dur", "3/4", [60, 90], "waltz", ["chord melody", "fingerstyle"], "Melodia na górnej strunie akordu — gitara solo (melodia z domeny publicznej).",
+    [sec("Zwrotka", "G | G7 | C | G | G | Em | A7 | D7 | G | G7 | C | G | Em | D7 | G | G", 2)], ["Najpierw zagraj samą melodię, potem dodaj pod nią akord na „raz”.", "Melodia musi być najwyższym dźwiękiem akordu."], { ex: true });
+  S("ex-country-przewroty", "Country boom-chicka z przewrotami", EX, true, 60, "G-dur", "4/4", [100, 140], "p_split", ["przewroty", "country"], "Bas idzie po skali dzięki przewrotom: G – G/H – C – D/Fis – Em – C/G – D – G.",
+    [sec("Cykl", "G | G/H | C | D/Fis | Em | C/G | D | G", 6)], ["Bas: G – H – C – Fis – E – G – D – G.", "Hybrid picking: kostka bas, palce akord."], { ex: true });
+  S("ex-funk-ekspert", "Funk ekspert — Em9 i A13 w 16-tkach", EX, true, 66, "e-moll (dorycka)", "4/4", [96, 112], "p_funk2", ["funk"], "Dorycki vamp z akcentami na „e” i „a”.",
+    [sec("Vamp", "Em9 | Em9 | A13 | A13", 8)], ["Akcenty przesunięte — licz „1 e i a” na głos."], { ex: true });
+  S("ex-poly-dm", "Polirytmia 3:4 — arpeggio Dm9 / G13", EX, true, 70, "d-moll (dorycka)", "4/4", [70, 100], "p_16", ["polirytmia"], "Arpeggio w grupach po 3 nad metrum 4/4.",
+    [sec("Vamp", "Dm9 | Dm9 | G13 | G13", 8)], ["Akcent co 3 szesnastki — po 3 taktach wraca na „raz”."], { ex: true });
+  /* ---------- więcej: kolędy, szanty, polskie ---------- */
+  S("sloop-john-b", "Sloop John B", "Tradycyjna bahamska", true, 6, "G-dur", "4/4", [90, 120], "p_folk", ["zmiany"], "G, C i D7 — marynarska piosenka z Bahamów.",
+    [sec("Zwrotka", "G | G | G | G | G | G | D7 | D7 | G | G | G7 | C | C | G | D7 | G", 2, ["We [G]come on the sloop John B, my grandfather and me,", "Around Nassau town we did [D7]roam;"])], ["G → G7 → C: G7 „otwiera drzwi” do C."]);
+  S("pojdzmy-wszyscy", "Pójdźmy wszyscy do stajenki", "Kolęda polska", true, 4, "G-dur", "3/4", [80, 110], "waltz", ["zmiany", "kolędy"], "Kolęda w 3/4 na G, C i D7 (uproszczona harmonizacja).",
+    [sec("Zwrotka", "G | D7 | G | D7 | G | C | D7 | G", 2, ["[G]Pójdźmy wszyscy do stajenki, [D7]do Jezusa i [G]Panienki."])], ["„Raz” bas, „dwa trzy” akord."], { style: "ludowe" });
+  S("gdy-sie-chrystus-rodzi", "Gdy się Chrystus rodzi", "Kolęda polska", true, 5, "G-dur", "4/4", [90, 120], "p_8", ["zmiany", "kolędy"], "Radosna kolęda na G, C i D (uproszczona harmonizacja).",
+    [sec("Zwrotka", "G | D | G | D | G | C | D | G", 2, ["[G]Gdy się Chrystus rodzi [D]i na świat przychodzi,"]), sec("Refren (Gloria)", "C | G | D | G", 2)], ["Gloria — mocniej i wolniej."], { style: "ludowe" });
+  S("jezus-malusienki", "Jezus malusieńki", "Kolęda polska", true, 7, "a-moll", "3/4", [70, 96], "pick34", ["moll", "kolędy"], "Kołysankowa kolęda w molu: Am, Dm, E7 (uproszczona harmonizacja).",
+    [sec("Zwrotka", "Am | E7 | Am | E7 | Am | Dm | E7 | Am", 2, ["[Am]Jezus malusieńki [E7]leży wśród stajenki,"])], ["Arpeggio palcami, cicho — to kołysanka."], { style: "ludowe" });
+  S("bog-sie-rodzi", "Bóg się rodzi", "Franciszek Karpiński (1792), melodia polonezowa", true, 9, "C-dur", "3/4", [76, 100], "waltz", ["zmiany", "kolędy"], "Polonez — majestatyczna kolęda na C, F, G7 (uproszczona harmonizacja).",
+    [sec("Zwrotka", "C | G | C | G | C | F | G7 | C", 3, ["[C]Bóg się rodzi, [G]moc truchleje,"])], ["Rytm poloneza: akcent na „raz”, dumnie i wolno."], { style: "ludowe" });
+  S("nim-wstanie-dzien", "Nim wstanie dzień", "Krzysztof Komeda / Agnieszka Osiecka", false, 9, "a-moll", "4/4", [80, 96], "p_folk", ["moll", "ognisko"], "Ogniskowy klasyk: Am – Dm – G – C – F – Dm – E – Am.",
+    [sec("Zwrotka", "Am | Dm | G | C | F | Dm | E | Am", 4)], ["E → Am: dominanta w molu — zagraj E mocno.", "F możesz grać jako Fmaj7."]);
+})();
 
 /* ============================== UTWORY: LOGIKA ============================== */
 const SONG_STATUS = { todo: "Do nauki", wip: "W trakcie", done: "Opanowany" };
@@ -3082,7 +3501,7 @@ function songSections(song) {
 }
 function songChords(song) { const set = []; songSections(song).forEach((s) => s.bars.forEach((b) => b.forEach((c) => { if (!set.includes(c)) set.push(c); }))); return set; }
 function songShape(name, step) { return name === "F" && step < 15 ? "F (mały)" : name; }
-function chordLabel(name) { return name.replace("b5", "♭5"); }
+function chordLabel(name) { return name.replace("b5", "♭5").replace("7b9", "7♭9").replace("#9", "♯9"); }
 function songUsesBarre(song) { return songChords(song).some((c) => BARRE_NAMES.includes(c)); }
 function songState(st, id) { return (st && st.songs && st.songs[id]) || { status: "todo", best: 0, plays: 0, last: null, log: [] }; }
 function knownChordSet(st) {
@@ -3186,13 +3605,15 @@ function rateSong(song, rating, bpm, secs) {
 
 function songStyle(song) {
   const t = (song.title + " " + song.info + " " + (song.tags || []).join(" ")).toLowerCase();
-  if (song.exercise) return "cwicz";
+  if (song.style) return song.style;
+  if (song.exercise || /ćwiczenie trenera/i.test(song.artist || "") || /ćwiczenie/i.test(song.title)) return "cwicz";
+  if (/jazz|bossa|standard|swing/.test(t)) return "jazz";
   if (/blues/.test(t)) return "blues";
   if (song.pd) return "ludowe";
   if (song.beats === 3 || song.beats === 6 || songPattern(song).pick || /ballad/.test(t)) return "ballady";
   return "poprock";
 }
-const SONG_STYLES = [{ value: "all", label: "Wszystkie style" }, { value: "poprock", label: "Pop i rock" }, { value: "ballady", label: "Ballady" }, { value: "ludowe", label: "Ludowe i tradycyjne" }, { value: "blues", label: "Blues" }, { value: "cwicz", label: "Ćwiczenia" }];
+const SONG_STYLES = [{ value: "all", label: "Wszystkie style" }, { value: "poprock", label: "Pop i rock" }, { value: "ballady", label: "Ballady" }, { value: "ludowe", label: "Ludowe i tradycyjne" }, { value: "blues", label: "Blues" }, { value: "jazz", label: "Jazz i latin" }, { value: "rock", label: "Rock i metal" }, { value: "cwicz", label: "Ćwiczenia" }];
 function quickPlay(id) { openSong(id); const sg = songById(id); if (sg) playWithSong(sg); }
 function songRow(song, st, L) {
   const sp = songState(st, song.id); const unl = songUnlocked(song, st);
@@ -3750,10 +4171,11 @@ function openStage(song, pa, mode) {
     if (cells[i]) { cells[i].classList.add("on"); const x = cells[i].offsetLeft - strip.clientWidth / 2 + cells[i].offsetWidth / 2; strip.scrollTo({ left: Math.max(0, x), behavior: "smooth" }); }
   }
   function setBeats(inBar, frac) { Array.from(dots.children).forEach((d, i) => { d.className = i === inBar ? "on" + (i === 0 ? " acc" : "") : i < inBar ? "past" : ""; }); prog.firstChild.style.width = Math.round(clamp(frac, 0, 1) * 100) + "%"; }
+  let ended = false;
   function onEv(e) {
     if (!STAGE) return;
-    if (e.stopped) { if (!yt) setPlayBtn(false); return; }
-    if (e.end) { barInfo.textContent = "Koniec utworu 🎉"; setChords(null, null); return; }
+    if (e.stopped) { if (!yt) { setPlayBtn(false); if (!ended) idle(); } ended = false; return; }
+    if (e.end) { ended = true; barInfo.textContent = "Koniec utworu 🎉"; setChords(null, null); return; }
     if (e.waiting) { barInfo.textContent = "Czekam na pierwszy akord…"; return; }
     if (!yt) setPlayBtn(true);
     if (e.count != null) {
@@ -3982,8 +4404,8 @@ let toastTimer = 0;
 function toast(msg) {
   const el = document.getElementById("toast");
   el.replaceChildren(h("span", { style: "font-size:20px" }, "🎸"), h("span", null, msg));
-  el.classList.add("show"); clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove("show"), 4200);
+  el.classList.add("show"); clearTimeout(toastTimer); el.onclick = () => { clearTimeout(toastTimer); el.classList.remove("show"); };
+  toastTimer = setTimeout(() => el.classList.remove("show"), Math.min(4200, 1800 + String(msg).length * 30));
 }
 
 /* ============================== DIAGRAM AKORDU ============================== */
@@ -4012,7 +4434,15 @@ function chordDiagram(chord, playable, nameOverride) {
   if (playable) el.addEventListener("click", () => { playChord(chord); el.classList.remove("ring"); void el.offsetWidth; el.classList.add("ring"); });
   return el;
 }
-function tabView(text) { return h("pre", { class: "tab" }, text); }
+function tabWrap(text, W) {
+  const ls = String(text).split("\n"); if (ls.length < 2 || !/^.\|/.test(ls[0])) return text;
+  const n = Math.min(...ls.map((l) => l.length)); if (n <= W || ls.some((l) => l.length !== n)) return text;
+  const lab = ls.map((l) => l.slice(0, 2)), body = ls.map((l) => l.slice(2, -1)); const cl = body[0].length; const per = Math.max(12, W - 3);
+  const safe = (c) => body.every((b) => b[c] === "-"); const out = []; let a = 0;
+  while (a < cl) { let e = Math.min(cl, a + per); if (e < cl) { let k = e; while (k > a + 4 && !safe(k)) k--; e = k > a + 4 ? k + 1 : e; } out.push(body.map((b, i) => lab[i] + b.slice(a, e) + "|").join("\n")); a = e; }
+  return out.join("\n\n");
+}
+function tabView(text) { const W = Math.max(24, Math.floor((Math.min(window.innerWidth || 390, 760) - 96) / 7.6)); return h("pre", { class: "tab" }, tabWrap(text, W)); }
 function patternGrid(p) {
   const counts8 = ["1", "i", "2", "i", "3", "i", "4", "i"];
   const counts16 = ["1", "·", "i", "·", "2", "·", "i", "·", "3", "·", "i", "·", "4", "·", "i", "·"];
@@ -4872,7 +5302,7 @@ function placement(retest, onDone, onCancel) {
     if (tq.asked.length >= 7 || !pool.length) return null;
     return pool.sort((a, b) => Math.abs(a.q.lv - tq.est) - Math.abs(b.q.lv - tq.est))[0];
   }
-  function draw() {
+  function draw() { setTimeout(() => { const pc = document.getElementById("place-code"); if (pc) pc.hidden = step > 0; }, 0);
     const kids = []; const sid = PL_STEPS[step];
     if (sid === "intro") {
       kids.push(h("div", { class: "hero section" },
@@ -5089,8 +5519,8 @@ function trCircle() {
 }
 const TH_TRAINERS = [["note", "🗺 Dźwięki na gryfie", trNoteFinder], ["ear", "👂 Interwały ze słuchu", trEarInterval], ["fretiv", "↔️ Interwały na gryfie", trFretInterval], ["key", "🔑 Tonacje i akordy", trKeyQuiz], ["circle", "⭕ Koło kwintowe", trCircle]];
 /* ---------- widok kursu ---------- */
-function thSaveQuiz(chId, sc) { const s = clone(S); s.theory = s.theory || {}; s.theory.ch = s.theory.ch || {}; const c = s.theory.ch[chId] || { best: 0, tries: 0 }; c.best = Math.max(c.best, Math.round(sc * 100)); c.tries++; if (sc >= TH_PASS && !c.passed) { c.passed = todayStr(); domNudge(s, "teoria", "easy"); } s.theory.ch[chId] = c; commit(s, { silent: true }); }
-function thMarkRead(lid) { if (thState(S).read[lid]) return; const s = clone(S); s.theory = s.theory || {}; s.theory.read = Object.assign({}, s.theory.read, { [lid]: todayStr() }); commit(s, { silent: true }); }
+function thSaveQuiz(chId, sc) { const s = ensureSnap(clone(S), S); s.theory = s.theory || {}; s.theory.ch = s.theory.ch || {}; const c = s.theory.ch[chId] || { best: 0, tries: 0 }; c.best = Math.max(c.best, Math.round(sc * 100)); c.tries++; if (sc >= TH_PASS && !c.passed) { c.passed = todayStr(); domNudge(s, "teoria", "easy"); } s.theory.ch[chId] = c; commit(s, { silent: true }); }
+function thMarkRead(lid) { if (thState(S).read[lid]) return; const s = ensureSnap(clone(S), S); s.theory = s.theory || {}; s.theory.read = Object.assign({}, s.theory.read, { [lid]: todayStr() }); commit(s, { silent: true }); }
 function theoryCourse() {
   const t = thState(S); const done = THEORY_CH.filter((c) => (t.ch[c.id] || {}).passed).length; const cur = thCurrent(S);
   if (ui.thCh) { const c = TH_BY[ui.thCh]; const i = c.idx; const cs = t.ch[c.id] || {};
@@ -5099,7 +5529,7 @@ function theoryCourse() {
       ...c.lessons.map((l, j) => { const d = h("details", { class: "card th-les", open: !t.read[l.id] && c.lessons.findIndex((x) => !t.read[x.id]) === j ? "open" : null }, h("summary", null, h("span", { class: "th-num" + (t.read[l.id] ? " on" : "") }, t.read[l.id] ? "✓" : String(j + 1)), h("b", null, l.t)), thLessonView(l), h("button", { class: "btn tinted th-read", onclick: (e) => { thMarkRead(l.id); e.target.textContent = "✓ Przeczytane"; d.open = false; const n = d.querySelector(".th-num"); n.textContent = "✓"; n.classList.add("on"); } }, t.read[l.id] ? "✓ Przeczytane" : "Rozumiem ✓")); return d; }),
       h("div", { class: "card stack th-quizcard" }, h("b", null, "📝 Quiz rozdziału (zalicza 80%)"), h("div", { class: "th-quiz-host" }, h("button", { class: "btn primary th-start-quiz", onclick: (e) => { thRC(e.target.parentNode, thQuizView(c.id, (sc) => thSaveQuiz(c.id, sc))); } }, "Rozpocznij quiz")))];
   }
-  return [h("div", { class: "card th-prog" }, h("div", { class: "row", style: "justify-content:space-between" }, h("b", null, "Kurs teorii"), h("span", { class: "chip tint", id: "th-done" }, done + "/14")), h("div", { class: "progress-line", style: "margin-top:8px" }, h("i", { style: "width:" + (done / 14 * 100) + "%" })), h("div", { class: "small", style: "margin-top:6px" }, "Teraz: " + cur.t + ". Codzienna lekcja ma blok teorii z tego rozdziału.")),
+  return [h("div", { class: "card th-prog" }, h("div", { class: "row", style: "justify-content:space-between" }, h("b", null, "Kurs teorii"), h("span", { class: "chip tint", id: "th-done" }, done + "/" + THEORY_CH.length)), h("div", { class: "progress-line", style: "margin-top:8px" }, h("i", { style: "width:" + (done / THEORY_CH.length * 100) + "%" })), h("div", { class: "small", style: "margin-top:6px" }, "Teraz: " + cur.t + ". Codzienna lekcja ma blok teorii z tego rozdziału.")),
     h("div", { class: "list th-chs" }, THEORY_CH.map((c, i) => { const cs = t.ch[c.id] || {}; const open = thUnlocked(S, i); const nr = c.lessons.filter((l) => t.read[l.id]).length;
       return h("button", { class: "li th-ch" + (open ? "" : " locked"), "data-ch": c.id, disabled: open ? null : true, onclick: () => { rememberScroll(); ui.thCh = c.id; render(); window.scrollTo(0, 0); } }, h("span", { class: "th-ic" }, open ? c.ic : "🔒"), h("span", { class: "grow" }, h("b", null, (i + 1) + ". " + c.t), h("div", { class: "small" }, cs.passed ? "Zaliczony ✓ " + cs.best + "%" : open ? nr + "/" + c.lessons.length + " lekcji" + (cs.best ? " · quiz " + cs.best + "%" : "") : "Zalicz poprzedni rozdział")), h("span", { class: "chev" }, open ? "›" : "")); }))];
 }
@@ -5195,7 +5625,8 @@ function blockCard(b, idx, res, open, ctx) {
     if (b.ptest && !res) k.push(h("details", { class: "pt-practice" }, h("summary", null, "🎯 Sprawdź się z metronomem (pomiar w ms)"), ptAny(b.ptest, { startLv: domOf(S, b.focus || PT_DEFS[b.ptest].dom), onResult: (r) => { if (r.lvl > domOf(S, r.dom)) ctx.applyTest(r, { src: "ćwiczenie", silent: true }); } })));
     if (b.cat === "song" && !song && b.prog) { k.push(h("div", { class: "prog" }, b.prog.chords.map((c) => h("span", null, c)), h("span", null, "𝄇"))); if (b.pattern) k.push(patternGrid(b.pattern)); }
     if (!concept && ex.tab) k.push(tabView(ex.tab));
-    if (!concept && b.cat !== "chords" && ex.chords && !song) k.push(h("div", { class: "diagrams" }, ex.chords.map((nm) => chordDiagram(ch(nm), true))));
+    { const showCh = pair.length === 2 && (b.cat === "chords" || isChg); const dl = (ex.chords || []).filter((nm, i, a) => a.indexOf(nm) === i && !(showCh && pair.includes(nm)));
+      if (!concept && b.cat !== "chords" && dl.length && !song) k.push(h("div", { class: "diagrams" }, dl.map((nm) => chordDiagram(ch(nm), true)))); }
     if (pair.length === 2 && (b.cat === "chords" || isChg)) k.push(changeChallenge(pair, S.changes[pair.join("–")], (n) => { ctx.saveChange(pair, n); resultInput.value = String(n); }));
     if (b.changeTarget) k.push(h("div", { class: "small" }, "Cel poziomu: " + b.changeTarget + " czystych zmian w minutę."));
     k.push(h("div", { class: "divider" }), h("div", { class: "small", style: "font-weight:600" }, "Czas bloku"), timer(b.minutes, (s) => { secs = s; }));
@@ -5384,7 +5815,7 @@ function viewPlacement() {
     }
     window.scrollTo(0, 0);
   }, ui.retest ? () => { ui.retest = false; render(); } : null));
-  if (!ui.retest) kids.push(section("Masz kod postępów?", "Kod 5 znaków z „Przenieś na inne urządzenie” albo długi kod kopii zapasowej (TG1.…).", [transferReceiveButton("tinted"), h("details", { class: "small" }, h("summary", null, "Długi kod kopii zapasowej"), restoreBox())]));
+  if (!ui.retest) kids.push(h("div", { id: "place-code" }, section("Długi kod kopii zapasowej?", "Masz kod TG1.… z „Kopia zapasowa”? Wklej go tutaj. Krótki kod 5 znaków wpiszesz przyciskiem „🔑 Mam kod” powyżej.", [h("details", { class: "small" }, h("summary", null, "Długi kod kopii zapasowej"), restoreBox())])));
   return kids;
 }
 
@@ -5402,6 +5833,10 @@ function viewToday(d) {
   const dateLabel = new Date().toLocaleDateString("pl-PL", { weekday: "long", day: "numeric", month: "long" });
   kids.push(largeTitle("Dzisiaj", dateLabel, [h("span", { class: "chip tint", id: "today-level" }, "🎸 " + levelName(st.level)), h("span", { class: "chip" }, "🔥 " + d.str + (d.str === 1 ? " dzień" : " dni"))]));
   const minToday = Math.round(st.days[d.today] || 0);
+  { const nx = d.lesson.findIndex((b) => !d.done[b.id]); const go = () => { const b = d.lesson[nx]; ui.openId = b.id; render(); setTimeout(() => { const el = document.querySelectorAll("#lesson > *")[nx]; if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 30); };
+    if (!d.saved && nx >= 0) kids.push(h("section", { class: "section" }, h("div", { class: "card today-cta" }, h("div", { class: "small" }, d.doneCount ? "Lekcja w toku · " + d.doneCount + "/" + d.lesson.length + " bloków" : "Twoja lekcja na dziś · " + d.totalMin + " min · " + d.lesson.length + " bloków"),
+      h("div", { style: "font-weight:700;font-size:17px;margin:4px 0 10px" }, (CAT_ICON[d.lesson[nx].cat] || "▶") + " " + d.lesson[nx].ex.title),
+      h("button", { class: "btn primary big", id: "today-cta", onclick: go }, d.doneCount ? "Kontynuuj — blok " + (nx + 1) + " z " + d.lesson.length : "Zacznij lekcję ▶")))); }
   kids.push(h("section", { class: "section" }, h("div", { class: "card rings-card" }, activityRings(minToday / st.goal, d.doneCount / d.lesson.length, d.str / 7),
     h("div", { class: "legend" },
       h("div", null, h("div", { class: "k", style: "color:var(--pink)" }, "Ćwiczenie"), h("div", { class: "v", id: "ring-min" }, minToday + "/" + st.goal, h("small", null, " min"))),
@@ -5414,7 +5849,6 @@ function viewToday(d) {
     h("div", { class: "row", style: "margin-top:10px" }, h("button", { class: "btn primary sm", onclick: () => { ui.retest = true; render(); } }, "Zrób test"))));
   if (d.struggling) kids.push(callout("orange", "🤝", "Może trochę zwolnić?", "Ostatnie 3 lekcje były głównie za trudne. Ćwiczenia już łagodnieją automatycznie, ale możesz też wrócić poziom niżej.",
     h("div", { class: "row", style: "margin-top:10px" }, h("button", { class: "btn sm orange tinted", onclick: () => actions.changeLevel(st.level - 1) }, "Wróć na: " + levelName(st.level - 1)))));
-  if (!d.promoReady) kids.push(h("section", { class: "section" }, levelGoalsCard(st)));
   const blocks = h("div", { class: "stack", style: "gap:12px", id: "lesson" }, d.lesson.map((b, i) => blockCard(b, i, d.done[b.id], d.activeId === b.id, actions)));
   kids.push(h("section", { class: "section" },
     h("h2", { class: "sec-title" }, "Lekcja na dziś"),
@@ -5424,6 +5858,7 @@ function viewToday(d) {
       !d.saved ? h("button", { class: "btn primary big", id: "finish-lesson", disabled: d.doneCount === 0, onclick: actions.finishLesson }, d.doneCount === d.lesson.length ? "Zakończ lekcję 🎉" : "Zakończ lekcję (" + d.doneCount + "/" + d.lesson.length + ")") : null,
       d.saved ? h("div", { class: "card", style: "text-align:center" }, h("div", { style: "font-size:34px" }, "🎉"), h("div", { class: "ok-text" }, "Dzisiejsza lekcja zapisana ✓"), h("div", { class: "small" }, "Kolejna jutro — możesz dalej ćwiczyć dowolny blok.")) : null,
       d.retestDue ? h("button", { class: "btn big", onclick: () => { ui.retest = true; render(); } }, "Test kontrolny") : null)));
+  if (!d.promoReady) kids.push(h("section", { class: "section" }, levelGoalsCard(st)));
   return kids;
 }
 
@@ -5446,9 +5881,11 @@ function challengeTool() {
 }
 
 const CHORD_FILTERS = {
-  "Otwarte": (c) => c.form === "otwarty" && c.q !== "5",
+  "Otwarte": (c) => c.form === "otwarty" && c.q !== "5" && !c.bass,
   "Barré E": (c) => c.form === "barré E",
   "Barré A": (c) => c.form === "barré A",
+  "Forma D": (c) => c.form === "forma D",
+  "Przewroty": (c) => !!c.bass,
   "Septymowe": (c) => /7/.test(c.q) && !/9|11|13/.test(c.q),
   "Sus / add": (c) => /sus|add/.test(c.q),
   "Jazz": (c) => /9|11|13|dim|aug|6|m7b5|maj7/.test(c.q),
@@ -5460,7 +5897,7 @@ function viewKnow() {
   const seg = h("div", { class: "section know-seg" }, segmented([{ value: "teoria", label: "📘 Teoria" }, { value: "akordy", label: "🎸 Akordy" }], k, (v) => { ui.know = v; ui.thCh = null; render(); }));
   if (k === "akordy") { const v = viewChords(); return [v[0], seg].concat(v.slice(1)); }
   const t = thState(S); const done = THEORY_CH.filter((c) => (t.ch[c.id] || {}).passed).length;
-  return [largeTitle("Teoria", "Kurs · 14 rozdziałów · " + done + " zaliczonych"), seg].concat(viewTheory());
+  return [largeTitle("Teoria", "Kurs · " + THEORY_CH.length + " rozdziałów · " + done + " zaliczonych"), seg].concat(viewTheory());
 }
 function viewChords() {
   const grid = h("div", { class: "chords" }); const cnt = h("span", { class: "small", id: "chord-count" });
@@ -5538,7 +5975,7 @@ function viewProgress(d) {
 }
 
 function viewProfile(d) {
-  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.1.1")])];
+  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.2")])];
   kids.push(h("section", { class: "section" }, h("div", { class: "level-card" },
     h("div", { class: "small", style: "font-weight:700;text-transform:uppercase;letter-spacing:.04em" }, "Twój poziom"),
     h("div", { class: "lv", id: "level-name" }, levelName(st.level)),
@@ -5569,7 +6006,7 @@ function viewProfile(d) {
     : [h("div", { style: "text-align:center;font-weight:600" }, "Na pewno? Tego nie da się cofnąć."), h("div", { style: "display:grid;grid-template-columns:1fr 1fr;gap:10px" }, h("button", { class: "btn danger primary", onclick: () => { ui.confirmReset = false; ui.tab = "dzis"; commit(null); } }, "Tak, usuń"), h("button", { class: "btn", onclick: () => { ui.confirmReset = false; drawReset(); } }, "Anuluj"))]));
   drawReset();
   kids.push(section("Zacznij od nowa", null, [resetBox], { delay: 120 }));
-  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.1.1 · działa offline · dane na Twoim urządzeniu"));
+  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.2 · działa offline · dane na Twoim urządzeniu"));
   return kids;
 }
 
