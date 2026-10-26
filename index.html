@@ -13,6 +13,7 @@
 <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem("trener-gitara-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}</script>
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FF2D55'/%3E%3Cstop offset='1' stop-color='%23AF52DE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle'%3E%F0%9F%8E%B8%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -20,7 +21,7 @@
 <style>
 :root{
   color-scheme:light dark;
-  --bg:#F2F2F7;--bg-elev:#FFFFFF;--card:rgba(255,255,255,.74);--card-strong:rgba(255,255,255,.9);
+  --bg:#F2F2F7;--bg-elev:#FFFFFF;--card:#FFFFFF;--card-strong:#FFFFFF;--glass:rgba(255,255,255,.72);
   --line:rgba(60,60,67,.13);--line2:rgba(60,60,67,.32);
   --text:#000;--text2:rgba(60,60,67,.64);--text3:rgba(60,60,67,.38);
   --fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.2);--thumb:#fff;
@@ -28,24 +29,34 @@
   --accent:var(--blue);
   --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(17,24,39,.07);
   --shadow-lg:0 20px 50px rgba(17,24,39,.16);
-  --blob1:rgba(255,45,85,.20);--blob2:rgba(0,122,255,.18);--blob3:rgba(175,82,222,.16);
+  --blob1:rgba(255,45,85,.10);--blob2:rgba(0,122,255,.09);--blob3:rgba(175,82,222,.08);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
   --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);--sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#000;--bg-elev:#1C1C1E;--card:rgba(30,30,32,.72);--card-strong:rgba(44,44,46,.92);
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark;
+  --bg:#000;--bg-elev:#1C1C1E;--card:#1C1C1E;--card-strong:#2C2C2E;--glass:rgba(30,30,32,.72);
   --line:rgba(84,84,88,.42);--line2:rgba(120,120,128,.6);
   --text:#fff;--text2:rgba(235,235,245,.64);--text3:rgba(235,235,245,.34);
   --fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--thumb:#636366;
   --blue:#0A84FF;--green:#30D158;--orange:#FF9F0A;--red:#FF453A;--pink:#FF375F;--purple:#BF5AF2;--teal:#40C8E0;--indigo:#5E5CE6;--yellow:#FFD60A;--mint:#63E6E2;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);--shadow-lg:0 20px 50px rgba(0,0,0,.6);
-  --blob1:rgba(255,55,95,.22);--blob2:rgba(10,132,255,.20);--blob3:rgba(191,90,242,.20);
+  --blob1:rgba(255,55,95,.12);--blob2:rgba(10,132,255,.10);--blob3:rgba(191,90,242,.10);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#000;--bg-elev:#1C1C1E;--card:#1C1C1E;--card-strong:#2C2C2E;--glass:rgba(30,30,32,.72);
+  --line:rgba(84,84,88,.42);--line2:rgba(120,120,128,.6);
+  --text:#fff;--text2:rgba(235,235,245,.64);--text3:rgba(235,235,245,.34);
+  --fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--thumb:#636366;
+  --blue:#0A84FF;--green:#30D158;--orange:#FF9F0A;--red:#FF453A;--pink:#FF375F;--purple:#BF5AF2;--teal:#40C8E0;--indigo:#5E5CE6;--yellow:#FFD60A;--mint:#63E6E2;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);--shadow-lg:0 20px 50px rgba(0,0,0,.6);
+  --blob1:rgba(255,55,95,.12);--blob2:rgba(10,132,255,.10);--blob3:rgba(191,90,242,.10);
 }}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 html{background:var(--bg)}
-body{font-family:var(--font);color:var(--text);background:var(--bg);font-size:17px;line-height:1.35;-webkit-font-smoothing:antialiased;min-height:100vh;letter-spacing:-.01em;overflow-x:hidden}
+body{font-family:var(--font);color:var(--text);background:var(--bg);font-size:17px;line-height:1.35;-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;letter-spacing:-.01em;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:-20vh -20vw;z-index:-1;pointer-events:none;
   background:radial-gradient(40vmax 40vmax at 10% 0%,var(--blob1),transparent 60%),radial-gradient(45vmax 45vmax at 100% 25%,var(--blob2),transparent 60%),radial-gradient(40vmax 40vmax at 30% 100%,var(--blob3),transparent 60%)}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -58,7 +69,7 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 .navbar.show{opacity:1;transform:none}
 .navbar b{font-size:17px;font-weight:600}
 .large{padding-top:calc(var(--sat) + 22px);padding-bottom:6px}
-.large .eyebrow{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;color:var(--text2)}
+.large .eyebrow{font-size:15px;font-weight:600;color:var(--text2)}
 .large h1{font-size:34px;line-height:41px;font-weight:700;letter-spacing:.012em;margin:2px 0 0}
 .large .sub{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px;color:var(--text2);font-size:15px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:var(--fill);font-size:13px;font-weight:600;color:var(--text)}
@@ -67,7 +78,7 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 .section{margin-top:26px;animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
 .sec-title{font-size:22px;font-weight:700;letter-spacing:.01em;margin:0 4px 4px}
 .sec-cap{font-size:14px;color:var(--text2);margin:0 4px 10px}
-.card{background:var(--card);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);border:.5px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+.card{background:var(--card);border:.5px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
 .card + .card{margin-top:12px}
 .stack{display:flex;flex-direction:column;gap:14px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -138,7 +149,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:28px}
 .rings{width:132px;height:132px;flex:0 0 132px}
 .rings circle.prog{transition:stroke-dashoffset 1.2s cubic-bezier(.3,.8,.2,1)}
 .legend{display:flex;flex-direction:column;gap:10px;min-width:0}
-.legend .k{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.02em}
+.legend .k{font-size:14px;font-weight:600}
 .legend .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
 .legend .v small{font-size:14px;color:var(--text2);font-weight:600}
 /* hero */
@@ -156,7 +167,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:28px}
 .block-h{display:flex;gap:12px;align-items:center;padding:14px 16px;cursor:pointer;width:100%;border:0;background:transparent;text-align:left}
 .bicon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;box-shadow:0 4px 10px color-mix(in srgb,var(--c) 40%,transparent);background:linear-gradient(145deg,color-mix(in srgb,var(--c) 80%,#fff),var(--c))}
 .bicon.done{animation:pop .45s both}
-.block-h .meta{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--c)}
+.block-h .meta{font-size:13px;font-weight:600;color:var(--c)}
 .block-h .ttl{font-size:16px;font-weight:600;line-height:1.25;margin-top:1px}
 .chev{width:20px;height:20px;color:var(--text3);transition:transform .3s}
 .block.open .chev{transform:rotate(90deg)}
@@ -280,7 +291,7 @@ pre.tab{font-family:var(--mono);font-size:12.5px;line-height:1.38;background:var
 /* ---------- Utwory ---------- */
 .song-hero{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background:linear-gradient(135deg,#30D158 0%,#00B3A4 45%,#0A84FF 100%);box-shadow:0 10px 30px rgba(10,132,255,.28)}
 .song-hero::after{content:"🎵";position:absolute;right:-6px;top:-10px;font-size:96px;opacity:.16;transform:rotate(12deg);pointer-events:none}
-.song-hero .eyebrow2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.9}
+.song-hero .eyebrow2{font-size:13px;font-weight:700;opacity:.9}
 .song-hero .hero-t{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:4px;line-height:1.15}
 .song-hero .hero-s{font-size:14px;opacity:.92}
 .hero-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -330,7 +341,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-conten
 .pa-now .nx b{font-family:var(--mono)}
 .pa-chart{position:relative;max-height:236px;overflow-y:auto;border-radius:16px;background:var(--fill);padding:4px 10px 10px;-webkit-overflow-scrolling:touch}
 .pa-chart.compact{max-height:170px}
-.pa-sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);margin:10px 2px 6px}
+.pa-sec{font-size:13px;font-weight:700;color:var(--text2);margin:10px 2px 6px}
 .pa-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .pa-cell{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border-radius:11px;background:var(--card-strong);font-family:var(--mono);font-weight:700;font-size:16px;transition:background .15s,color .15s,transform .15s,opacity .2s}
 .pa-cell.multi{font-size:13px}
@@ -352,7 +363,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-conten
 .concept-intro{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;background:color-mix(in srgb,var(--c,var(--blue)) 7%,var(--fill))}
 .ci-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.ci-title{font-size:17px;flex:1;min-width:140px}
 .ci-new{background:var(--pink);color:#fff}
-.ci-sec .ci-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);margin-bottom:4px}
+.ci-sec .ci-h{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:4px}
 .ci-sec p{margin:0;line-height:1.4}.ci-sec ul,.ci-sec ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;line-height:1.38}
 .ci-mist li::marker{content:"⚠︎ "}.ci-check{font-weight:600}
 .ci-drill{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:var(--card-strong)}
@@ -405,7 +416,7 @@ body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .stg-top{display:flex;align-items:center;gap:8px}
 .stg-close{font-size:22px;min-width:44px;min-height:44px}
 .stg-title{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px}
-.stg-sec{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--purple);padding:5px 11px;border-radius:999px;white-space:nowrap}
+.stg-sec{font-size:14px;font-weight:700;color:#fff;background:var(--purple);padding:5px 11px;border-radius:999px;white-space:nowrap}
 .stg-main{flex:1;display:flex;flex-direction:column;gap:8px;min-height:0}
 .stg-video{width:100%;aspect-ratio:16/9;max-height:30vh;border-radius:14px;background:#000}
 .stg-play-area{flex:1;display:flex;flex-direction:column;gap:8px;min-height:0}
@@ -429,7 +440,7 @@ body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .stg-strip{display:flex;gap:6px;overflow-x:auto;padding:16px 2px 4px;-webkit-overflow-scrolling:touch}
 .stg-cell{flex:0 0 auto;min-width:58px;padding:7px 9px;border-radius:11px;background:var(--fill);text-align:center;font-family:var(--mono);font-size:16px;position:relative}
 .stg-cell.sec-start{box-shadow:inset 3px 0 0 var(--purple)}
-.stg-cell-sec{position:absolute;top:-15px;left:0;font-size:10px;font-weight:700;color:var(--text2);white-space:nowrap;text-transform:uppercase;font-family:inherit}
+.stg-cell-sec{position:absolute;top:-15px;left:0;font-size:10px;font-weight:700;color:var(--text2);white-space:nowrap;font-family:inherit}
 .stg-cell.on{background:var(--accent);color:#fff;transform:scale(1.08)}.stg-cell.past{opacity:.45}
 .stg-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .stg-play{flex:1 1 100%;min-height:56px;font-size:19px}.stg-play.on{--accent:var(--red)}
@@ -440,7 +451,7 @@ body.stage-open{overflow:hidden}body.stage-open #tabbar{display:none}
 .yt-frame.docked{position:fixed;z-index:95;border-radius:14px;overflow:hidden;margin:0}
 .stg-wizard{position:absolute;left:0;right:0;bottom:0;z-index:96;background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.3);padding:18px 18px calc(18px + var(--sab));display:flex;flex-direction:column;gap:10px;text-align:center}
 .stg-wizard[hidden]{display:none}
-.wz-step{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}.wz-t{font-size:21px}.stg-wizard p{margin:0}
+.wz-step{font-size:13px;font-weight:700;color:var(--text2)}.wz-t{font-size:21px}.stg-wizard p{margin:0}
 .wz-tap{min-height:110px;font-size:30px;--accent:var(--orange);background:var(--orange);color:#fff}
 .wz-row{gap:8px;justify-content:center;flex-wrap:wrap}
 @media (orientation:landscape) and (max-height:560px){
@@ -554,6 +565,84 @@ body.sub .app{padding-top:calc(44px + var(--sat))}
 body.sub .large{padding-top:10px}
 body.sub .song-head{margin-top:8px}
 body.stage-open .navbar{display:none}
+/* ===== v2.3: telefon + komputer ===== */
+.dm-scroll{position:relative}
+@media (pointer:coarse){.dm-cell{width:44px;height:44px}.dm-lab{width:62px;flex-basis:62px}}
+@media (pointer:fine){.dm-cell{width:30px;height:34px}}
+/* toast: dół ekranu, nad paskiem kart — nie zasłania tytułu */
+.toast{top:auto;bottom:calc(66px + var(--sab));width:max-content;max-width:min(calc(100vw - 24px),520px);transform:translate(-50%,calc(100% + 120px));
+  background:var(--glass);transition:transform .4s cubic-bezier(.2,.9,.2,1.05)}
+.toast.show{transform:translate(-50%,0)}
+body.stage-open .toast,body:not(:has(#tabbar .tab)) .toast{bottom:calc(16px + var(--sab))}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.toast,.navbar,.tabbar{background:var(--bg-elev)}}
+/* fokus z klawiatury */
+:focus:not(:focus-visible){outline:none}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 75%,transparent);outline-offset:2px}
+.input:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 75%,transparent)}
+.tabbar .tab:focus-visible{outline-offset:-3px;border-radius:12px}
+.th-ck:focus-visible{outline:none}.th-ck:focus-visible circle:first-of-type{stroke:var(--blue);stroke-width:3}
+kbd{font:600 12px var(--mono);padding:2px 6px;border-radius:6px;background:var(--fill);border:.5px solid var(--line2);color:var(--text)}
+.side-brand,.side-help,.tab-kbd{display:none}
+.kbd-list{display:grid;gap:8px;text-align:left;margin:6px 0}
+.kbd-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;font-size:15px}
+.kbd-row kbd{justify-self:start}
+.pp-card{background:var(--bg-elev)}
+/* hover tylko tam, gdzie jest kursor */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{filter:brightness(1.06)}
+  .btn:not(.primary):hover{background:var(--fill2)}
+  .pill:not(.on):hover{background:var(--fill2)}
+  .li:hover,.th-chs .th-ch:hover{background:var(--fill)}
+  .seg button:not(.on):hover{color:var(--text)}
+  .tabbar .tab:not(.on):hover{color:var(--text)}
+  .th-ck:hover circle:first-of-type{filter:brightness(1.1)}
+  .dm-cell:hover{box-shadow:inset 0 0 0 2px var(--line2)}
+}
+/* komputer / tablet poziomo: boczny pasek nawigacji */
+@media (min-width:1024px){
+  :root{--side:248px}
+  body{padding-left:var(--side)}
+  body:not(:has(#tabbar .tab)){padding-left:0}
+  .app{max-width:1180px;padding:0 40px 64px}
+  .navbar{left:var(--side)}
+  body:not(:has(#tabbar .tab)) .navbar{left:0}
+  .large{padding-top:calc(var(--sat) + 36px)}
+  .large h1{font-size:40px;line-height:46px}
+  .tabbar{top:0;right:auto;bottom:0;width:var(--side);display:flex;flex-direction:column;gap:2px;padding:calc(18px + var(--sat)) 12px 16px;border-top:0;border-right:.5px solid var(--line);overflow-y:auto}
+  .tabbar .side-brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;padding:6px 10px 18px}
+  .side-logo{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--pink),var(--purple));font-size:19px}
+  .tabbar .tab{flex-direction:row;justify-content:flex-start;gap:12px;padding:0 12px;min-height:44px;border-radius:12px;font-size:15px;font-weight:600;color:var(--text2);position:relative}
+  .tabbar .tab svg{width:22px;height:22px}
+  .tabbar .tab.on{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+  .tabbar .tab.on svg{transform:none}
+  .tabbar .tab .badge{position:static;margin-left:4px}
+  .tabbar .tab-kbd{display:inline-block;margin-left:auto;opacity:.0;transition:opacity .2s}
+  .tabbar:hover .tab-kbd,.tabbar:focus-within .tab-kbd{opacity:.8}
+  .tabbar .side-help{display:flex;align-items:center;gap:8px;margin-top:auto;min-height:44px;border:0;background:transparent;color:var(--text2);font-size:14px;padding:0 12px;border-radius:12px}
+  .toast{left:auto;right:28px;bottom:28px;transform:translateY(calc(100% + 60px))}
+  .toast.show{transform:none}
+  .pp-sheet{align-items:center}
+  .pp-card{max-width:440px;border-radius:22px}
+  body.sub .app{padding-top:52px}
+  /* listy: dwie kolumny */
+  #song-list{display:grid;grid-template-columns:1fr 1fr}
+  #song-list > .li::before{left:14px}
+  .th-chs{display:grid;grid-template-columns:1fr 1fr;column-gap:0}
+  .chords{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+  .stage{padding-left:max(24px,calc((100vw - 1100px)/2));padding-right:max(24px,calc((100vw - 1100px)/2))}
+}
+@media (min-width:1200px){
+  .dcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:start}
+  .dcols.side{grid-template-columns:minmax(0,1fr) 360px}
+  .dcol{min-width:0}
+  .dcols.side .dcol-side{position:sticky;top:56px}
+  .app[data-view=postepy],.app[data-view=profil]{columns:2;column-gap:28px}
+  .app[data-view=postepy] > *,.app[data-view=profil] > *{break-inside:avoid}
+  .app[data-view=postepy] > .large,.app[data-view=profil] > .large,.app > .wide,.app > .footer-note{column-span:all}
+  .app[data-view=postepy] > .section,.app[data-view=profil] > .section{margin-top:0;padding-top:26px}
+  .app[data-view=postepy] > .large + .section{column-span:all}
+}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 </head>
 <body>
@@ -4355,6 +4444,7 @@ function h(tag, props, ...kids) {
     else if (k === "html") el.innerHTML = v;
     else el.setAttribute(k, v === true ? "" : v);
   }
+  if (tag === "button" && / ?pill\b/.test(el.className) && !el.hasAttribute("aria-pressed") && !el.hasAttribute("role")) el.setAttribute("aria-pressed", /\bon\b/.test(el.className) ? "true" : "false");
   add(el, kids); return el;
 }
 function sv(tag, attrs, ...kids) {
@@ -4391,7 +4481,7 @@ function toggle(checked, onChange, label) {
 function section(title, caption, kids, opts) {
   const o = opts || {};
   const body = o.plain ? kids : h("div", { class: "card stack" }, kids);
-  return h("section", { class: "section", style: o.delay ? { "animation-delay": o.delay + "ms" } : null },
+  return h("section", { class: "section" + (o.cls ? " " + o.cls : ""), style: o.delay ? { "animation-delay": o.delay + "ms" } : null },
     title ? h("h2", { class: "sec-title" }, title) : null,
     caption ? h("p", { class: "sec-cap" }, caption) : null, body);
 }
@@ -4467,7 +4557,7 @@ function timer(minutes, onSecs) {
   const total = minutes * 60; let left = total; let run = false; let elapsed = 0; let id = 0;
   const num = h("div", { class: "tnum" }, fmtTime(left));
   const ring = ringSvg(64, 7, "var(--orange)", 0);
-  const startBtn = h("button", { class: "btn primary sm", onclick: () => { getCtx(); if (left > 0) setRun(!run); } }, "Start");
+  const startBtn = h("button", { class: "btn primary sm", "data-kbd": "play", onclick: () => { getCtx(); if (left > 0) setRun(!run); } }, "Start");
   const resetBtn = h("button", { class: "btn sm", onclick: () => { setRun(false); left = total; draw(); } }, "Od nowa");
   function draw() {
     num.textContent = fmtTime(left); ring.setFrac(total ? 1 - left / total : 0);
@@ -4493,7 +4583,7 @@ function metronome(initialBpm, compact, mopt) {
   const nameEl = h("div", { class: "small", style: "font-weight:600" }, tempoName(bpm));
   const beatsEl = h("div", { class: "beats" });
   const range = h("input", { type: "range", min: 30, max: 260, value: bpm, "aria-label": "Tempo", oninput: (e) => setB(Number(e.target.value)) });
-  const playBtn = h("button", { class: "btn primary", style: "min-width:110px", onclick: () => setOn(!on) }, "▶︎ Start");
+  const playBtn = h("button", { class: "btn primary", style: "min-width:110px", "data-kbd": "play", "aria-keyshortcuts": "Space", onclick: () => setOn(!on) }, "▶︎ Start");
   function drawBeats() {
     beatsEl.replaceChildren(...Array.from({ length: beats }, (_, i) => h("div", { class: "beat" + (cur === i ? " on" : "") + (i === 0 && accent ? " acc" : "") })));
   }
@@ -4756,7 +4846,7 @@ function drumMachine() {
   const P = drumPrefs(); let g = grooveById(P.sel, S); let on = false; let tid = 0; let tos = []; let curStep = -1; const dmId = AUDIO.id("drums");
   const dialN = h("div", { class: "n" }, String(P.bpm)); const dial = h("div", { class: "bpm-dial dm-dial" }, dialN, h("div", { class: "u" }, "BPM"));
   const nameEl = h("div", { class: "dm-name" }); const metaEl = h("div", { class: "small" });
-  const playBtn = h("button", { class: "btn primary", id: "dm-play", style: "min-width:120px", onclick: () => (on ? stop() : start()) }, "▶︎ Start");
+  const playBtn = h("button", { class: "btn primary", id: "dm-play", "data-kbd": "play", "aria-keyshortcuts": "Space", style: "min-width:120px", onclick: () => (on ? stop() : start()) }, "▶︎ Start");
   const range = h("input", { type: "range", min: 40, max: 240, value: P.bpm, "aria-label": "Tempo perkusji", oninput: (e) => setBpm(+e.target.value) });
   const swingVal = h("b", null, ""); const swingIn = h("input", { type: "range", min: 50, max: 75, value: P.swing, "aria-label": "Swing", id: "dm-swing", oninput: (e) => { P.swing = +e.target.value; drawMeta(); persist(); } });
   const grid = h("div", { class: "dm-grid", id: "dm-grid", "data-dense": "1" }); const listHolder = h("div"); const editBar = h("div", { class: "row", style: "gap:8px;flex-wrap:wrap" });
@@ -4830,6 +4920,8 @@ function drumMachine() {
   function highlight(i) {
     curStep = i; grid.querySelectorAll(".dm-cell.ph").forEach((c) => c.classList.remove("ph"));
     if (i >= 0) grid.querySelectorAll('.dm-cell[data-i="' + i + '"]').forEach((c) => c.classList.add("ph"));
+    if (i >= 0 && i % g.spb === 0) { const sc = grid.parentElement; const c = grid.querySelector('.dm-cell[data-i="' + i + '"]'); const lab = grid.querySelector(".dm-lab");
+      if (sc && c && sc.scrollWidth > sc.clientWidth + 2) { const lw = lab ? lab.offsetWidth : 0; const x = c.offsetLeft - lw; if (x < sc.scrollLeft || c.offsetLeft + c.offsetWidth > sc.scrollLeft + sc.clientWidth) sc.scrollTo({ left: Math.max(0, x - 8), behavior: "smooth" }); } }
   }
   function start() {
     const ctx = getCtx(); if (!ctx) { toast("Ta przeglądarka nie obsługuje dźwięku."); return; }
@@ -5413,10 +5505,12 @@ function thCircle(sel, onPick) {
   const W = 300, C = 150, R1 = 128, R2 = 86; const p = [];
   KEYS.forEach((k, i) => { const a = (i / 12) * Math.PI * 2 - Math.PI / 2; const on = sel === i; const nb = sel != null && (i === (sel + 1) % 12 || i === (sel + 11) % 12);
     const x1 = C + Math.cos(a) * R1, y1 = C + Math.sin(a) * R1, x2 = C + Math.cos(a) * R2, y2 = C + Math.sin(a) * R2;
-    p.push('<g class="th-ck" data-k="' + i + '" style="cursor:pointer"><circle cx="' + x1 + '" cy="' + y1 + '" r="20" fill="' + (on ? "var(--orange)" : nb ? "var(--blue)" : "var(--fill2)") + '"/><text x="' + x1 + '" y="' + (y1 + 5) + '" text-anchor="middle" font-size="14" font-weight="800" fill="' + (on || nb ? "#fff" : "currentColor") + '">' + (i === 6 ? "Fis" : keyName(k)) + '</text><circle cx="' + x2 + '" cy="' + y2 + '" r="16" fill="' + (on ? "var(--orange)" : nb ? "var(--blue)" : "var(--fill)") + '" fill-opacity="' + (on || nb ? 0.55 : 1) + '"/><text x="' + x2 + '" y="' + (y2 + 4) + '" text-anchor="middle" font-size="11" font-weight="600" fill="currentColor">' + keyMinor(k) + "</text></g>");
+    const a0 = a - Math.PI / 12, a1 = a + Math.PI / 12, ro = 150, ri = 62; const wedge = "M" + (C + Math.cos(a0) * ri) + " " + (C + Math.sin(a0) * ri) + "L" + (C + Math.cos(a0) * ro) + " " + (C + Math.sin(a0) * ro) + "A" + ro + " " + ro + " 0 0 1 " + (C + Math.cos(a1) * ro) + " " + (C + Math.sin(a1) * ro) + "L" + (C + Math.cos(a1) * ri) + " " + (C + Math.sin(a1) * ri) + "A" + ri + " " + ri + " 0 0 0 " + (C + Math.cos(a0) * ri) + " " + (C + Math.sin(a0) * ri) + "Z";
+    p.push('<g class="th-ck" data-k="' + i + '" role="button" tabindex="0" aria-label="' + keyName(k) + '" style="cursor:pointer"><path d="' + wedge + '" fill="transparent"/><circle cx="' + x1 + '" cy="' + y1 + '" r="20" fill="' + (on ? "var(--orange)" : nb ? "var(--blue)" : "var(--fill2)") + '"/><text x="' + x1 + '" y="' + (y1 + 5) + '" text-anchor="middle" font-size="14" font-weight="800" fill="' + (on || nb ? "#fff" : "currentColor") + '">' + (i === 6 ? "Fis" : keyName(k)) + '</text><circle cx="' + x2 + '" cy="' + y2 + '" r="16" fill="' + (on ? "var(--orange)" : nb ? "var(--blue)" : "var(--fill)") + '" fill-opacity="' + (on || nb ? 0.55 : 1) + '"/><text x="' + x2 + '" y="' + (y2 + 4) + '" text-anchor="middle" font-size="11" font-weight="600" fill="currentColor">' + keyMinor(k) + "</text></g>");
     const x3 = C + Math.cos(a) * 54, y3 = C + Math.sin(a) * 54; p.push('<text x="' + x3 + '" y="' + (y3 + 3) + '" text-anchor="middle" font-size="9" fill="currentColor" fill-opacity=".55">' + (k[2] === 0 ? "0" : k[2] > 0 ? k[2] + "♯" : -k[2] + "♭") + "</text>"); });
   const el = h("div", { class: "th-circle" }); el.innerHTML = '<svg viewBox="0 0 ' + W + " " + W + '" width="100%">' + p.join("") + "</svg>";
   if (onPick) el.addEventListener("click", (e) => { const g = e.target.closest(".th-ck"); if (g) onPick(+g.getAttribute("data-k")); });
+  if (onPick) el.addEventListener("keydown", (e) => { if (e.key !== "Enter" && e.key !== " ") return; const g = e.target.closest && e.target.closest(".th-ck"); if (g) { e.preventDefault(); e.stopPropagation(); onPick(+g.getAttribute("data-k")); } });
   return el;
 }
 function thScaleRow(k, minor) {
@@ -5694,6 +5788,96 @@ function heatmap(days) {
     h("div", { class: "row small", style: "justify-content:flex-end;gap:4px" }, "mniej", [0, 1, 2, 3, 4].map((l) => h("span", { class: "heat", style: "display:inline-block" }, h("i", { class: l ? "l" + l : "", style: "width:12px;height:12px" }))), "więcej"));
 }
 
+/* ---------- v2.3: komputer + telefon — motyw, układ szeroki, skróty klawiszowe ---------- */
+const THEME_KEY = "trener-gitara-theme"; // osobny klucz — nie rusza danych "trener-gitara-v1"
+function themeGet() { try { const t = localStorage.getItem(THEME_KEY); return t === "light" || t === "dark" ? t : "auto"; } catch (e) { return "auto"; } }
+function themeApply(t) {
+  const root = document.documentElement;
+  if (t === "light" || t === "dark") root.setAttribute("data-theme", t); else root.removeAttribute("data-theme");
+  const dark = t === "dark" || (t !== "light" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.setAttribute("content", dark ? "#000000" : "#F2F2F7"); if (t !== "auto") m.removeAttribute("media"); });
+}
+function themeSet(t) { try { if (t === "auto") localStorage.removeItem(THEME_KEY); else localStorage.setItem(THEME_KEY, t); } catch (e) { /* tryb prywatny */ } themeApply(t); }
+function themeSection() {
+  return section("Wygląd", "Motyw działa od razu i zostaje na tym urządzeniu.", [segmented([{ value: "auto", label: "Jak system" }, { value: "light", label: "Jasny" }, { value: "dark", label: "Ciemny" }], themeGet(), themeSet, { label: "Motyw" })], { delay: 30 });
+}
+themeApply(themeGet());
+/* układ szeroki (komputer): dwie kolumny od 1200 px */
+function isWide() { return !!(window.matchMedia && matchMedia("(min-width: 1200px)").matches); }
+function dcols(main, side, cls) {
+  const f = (a) => a.filter(Boolean);
+  return h("div", { class: "dcols" + (cls ? " " + cls : "") }, h("div", { class: "dcol" }, ...f(main)), h("div", { class: "dcol dcol-side" }, ...f(side)));
+}
+if (window.matchMedia) { const mq = matchMedia("(min-width: 1200px)"); const re = () => { if (S && !document.body.classList.contains("stage-open")) { const y = scrollY; render(); scrollTo(0, y); } }; if (mq.addEventListener) mq.addEventListener("change", re); else if (mq.addListener) mq.addListener(re); }
+
+/* skróty klawiszowe */
+const KBD_HELP = [["Spacja", "start / stop: metronom, perkusja, tryb gry"], ["↑ / ↓", "tempo ±1 BPM (z Shift ±5)"], ["← / →", "poprzednia / następna zakładka"], ["1–6", "przejdź do zakładki"], ["Esc", "zamknij / wróć"], ["?", "ta pomoc"]];
+let kbdLast = null;
+document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-kbd=play]"); if (b) kbdLast = b; }, true);
+function kbdVisible(el) { if (!el || !el.isConnected) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight; }
+function kbdPlayTarget() {
+  const all = [...document.querySelectorAll("#app [data-kbd=play]")].filter((b) => b.isConnected && b.getClientRects().length);
+  const running = all.find((b) => /Stop|Pauza/.test(b.textContent));
+  if (running) return running;
+  if (kbdLast && all.includes(kbdLast)) return kbdLast;
+  return all.find(kbdVisible) || null;
+}
+function kbdHelp() {
+  const old = document.getElementById("kbd-help"); if (old) { old.remove(); return; }
+  const close = () => sheet.remove();
+  const sheet = h("div", { class: "pp-sheet kbd-sheet", id: "kbd-help", role: "dialog", "aria-modal": "true", "aria-label": "Skróty klawiszowe", onclick: (e) => { if (e.target === sheet) close(); } },
+    h("div", { class: "pp-card" }, h("b", { style: "font-size:19px" }, "Skróty klawiszowe"),
+      h("div", { class: "kbd-list" }, KBD_HELP.map(([k, v]) => h("div", { class: "kbd-row" }, h("kbd", null, k), h("span", null, v)))),
+      h("button", { class: "btn plain", id: "kbd-close", onclick: close }, "Zamknij")));
+  document.body.appendChild(sheet); setTimeout(() => { const b = document.getElementById("kbd-close"); if (b) b.focus(); }, 30);
+}
+function kbdGoTab(i) {
+  if (!S || ui.retest || document.body.classList.contains("stage-open")) return false;
+  const t = TABS[(i + TABS.length) % TABS.length]; if (!t) return false;
+  const btn = document.querySelector('#tabbar .tab[data-tab="' + t.id + '"]'); if (btn) { btn.click(); return true; } return false;
+}
+document.addEventListener("keydown", (e) => {
+  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+  const t = e.target; const tag = t && t.tagName;
+  const typing = tag === "INPUT" && !/^(range|checkbox|radio|button)$/i.test(t.type) || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable);
+  if (e.key === "Escape") {
+    if (typing) { t.blur(); return; }
+    const hp = document.getElementById("kbd-help"); if (hp) { hp.remove(); e.preventDefault(); return; }
+    const pp = document.getElementById("pp-skip"); if (pp) { pp.click(); e.preventDefault(); return; }
+    const wz = document.getElementById("stage-wizard"); if (wz && !wz.hidden) { const c = wz.querySelector("#wz-cancel, .wz-cancel"); if (c) { c.click(); e.preventDefault(); return; } }
+    if (document.getElementById("stage")) { const c = document.getElementById("stage-close"); if (c) c.click(); e.preventDefault(); return; }
+    if (subPage()) { navGoBack(); e.preventDefault(); return; }
+    return;
+  }
+  if (typing) return;
+  const stage = document.getElementById("stage");
+  if (e.key === " " || e.code === "Space") {
+    if (tag === "BUTTON" || tag === "SUMMARY" || tag === "A" || (t && t.getAttribute && t.getAttribute("role") === "tab")) return; // natywna aktywacja przycisku
+    let b = null;
+    if (stage) { const wt = document.getElementById("wz-tap"); b = wt && kbdVisible(wt) ? wt : document.getElementById("stage-play"); }
+    else b = kbdPlayTarget();
+    if (b) { e.preventDefault(); b.click(); }
+    return;
+  }
+  if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+    if (tag === "INPUT") return; // suwak obsługuje strzałki sam
+    const pb = stage ? null : kbdPlayTarget(); const box = stage || (pb && (pb.closest(".card") || pb.parentElement));
+    if (!box || (!stage && !/Stop|Pauza/.test(pb.textContent) && !kbdVisible(pb))) return;
+    const d = (e.key === "ArrowUp" ? "+" : "−") + (e.shiftKey ? 5 : 1);
+    const btn = [...box.querySelectorAll("button")].find((x) => x.textContent.trim() === d);
+    if (btn) { e.preventDefault(); btn.click(); }
+    return;
+  }
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    if (tag === "INPUT" || stage) return;
+    const i = TABS.findIndex((x) => x.id === ui.tab);
+    if (kbdGoTab(i + (e.key === "ArrowRight" ? 1 : -1))) { e.preventDefault(); scrollTo(0, 0); }
+    return;
+  }
+  if (/^[1-6]$/.test(e.key) && !stage) { if (kbdGoTab(+e.key - 1)) e.preventDefault(); return; }
+  if (e.key === "?" || (e.key === "/" && e.shiftKey)) { e.preventDefault(); kbdHelp(); }
+});
+
 /* ============================== APLIKACJA ============================== */
 let S = loadState();
 const ui = { tab: "dzis", retest: false, openId: null, chordFilter: "Otwarte", bpmKey: "spider", confirmReset: false, songId: null, songLv: null, songStatus: "all", songSec: -1 };
@@ -5859,10 +6043,15 @@ function viewToday(d) {
       d.saved ? h("div", { class: "card", style: "text-align:center" }, h("div", { style: "font-size:34px" }, "🎉"), h("div", { class: "ok-text" }, "Dzisiejsza lekcja zapisana ✓"), h("div", { class: "small" }, "Kolejna jutro — możesz dalej ćwiczyć dowolny blok.")) : null,
       d.retestDue ? h("button", { class: "btn big", onclick: () => { ui.retest = true; render(); } }, "Test kontrolny") : null)));
   if (!d.promoReady) kids.push(h("section", { class: "section" }, levelGoalsCard(st)));
+  if (isWide()) { const isSide = (k) => k && k.querySelector && !!k.querySelector(".today-cta, .rings-card, .goals-card");
+    return [kids[0], dcols(kids.slice(1).filter((k) => !isSide(k)), kids.slice(1).filter(isSide), "side")]; }
   return kids;
 }
 
 function viewTools() {
+  const k = viewToolsList(); return isWide() ? [k[0], dcols([k[1], k[3], k[4]], [k[2]])] : k;
+}
+function viewToolsList() {
   return [largeTitle("Narzędzia", "Ćwicz z nami"),
     section("Metronom", null, [metronome(S.bpm.strum || 80, false, { drums: { beats: 4, hint: "" } })]),
     section("Automat perkusyjny", "Syntezowane bębny (bez sampli): style, swing, przejścia, odliczanie i własne wzory 16-krokowe.", [drumMachine()], { delay: 30 }),
@@ -5949,7 +6138,7 @@ function viewProgress(d) {
     h("p", { class: "sec-cap", style: "margin-top:10px" }, weakDomain(st) ? "Najsłabszy obszar: " + DOM_BY[weakDomain(st)].label.toLowerCase() + " — lekcje celują tutaj (blok 🎯)." : "Obszary są wyrównane — lekcje rozwijają wszystko po równo.")));
   kids.push(domainSection(st));
   kids.push(h("section", { class: "section" }, levelGoalsCard(st)));
-  kids.push(section("Ścieżka nauki", "Każda nowa rzecz ma wprowadzenie: co to jest, jak czytać diagram, rola rąk, kroki, błędy i jak sprawdzić, że umiesz. Dotknij, aby otworzyć.", [conceptPath(st)], { delay: 30 }));
+  kids.push(section("Ścieżka nauki", "Każda nowa rzecz ma wprowadzenie: co to jest, jak czytać diagram, rola rąk, kroki, błędy i jak sprawdzić, że umiesz. Dotknij, aby otworzyć.", [conceptPath(st)], { delay: 30, cls: "wide" }));
   kids.push(section("Umiejętności szczegółowe", "Skala 0–100 — rośnie z ocenami bloków i testami.", [skillBars(st.skills, true)], { delay: 40 }));
   kids.push(songProgressSection(st));
   kids.push(section("Dni ćwiczeń", "Ostatnie 15 tygodni · minuty dziennie.", [heatmap(st.days)], { delay: 80 }));
@@ -5975,9 +6164,9 @@ function viewProgress(d) {
 }
 
 function viewProfile(d) {
-  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.2")])];
+  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.3")])];
   kids.push(h("section", { class: "section" }, h("div", { class: "level-card" },
-    h("div", { class: "small", style: "font-weight:700;text-transform:uppercase;letter-spacing:.04em" }, "Twój poziom"),
+    h("div", { class: "small", style: "font-weight:700" }, "Twój poziom"),
     h("div", { class: "lv", id: "level-name" }, levelName(st.level)),
     h("div", { style: "font-size:15px;opacity:.95" }, TIERS[tierOf(st.level)].desc),
     h("div", { class: "lv-track" }, TIERS.map((t, i) => h("i", { class: i < tierOf(st.level) ? "full" : i === tierOf(st.level) ? "cur" : "", style: i === tierOf(st.level) ? { "--p": ((st.level % 20) + 1) * 5 + "%" } : null }))),
@@ -5988,6 +6177,7 @@ function viewProfile(d) {
   kids.push(section("Długość lekcji", "Domyślnie 75 min: rozgrzewka, technika, akordy i rytm, nowy element, utwór, teoria — każdy blok z własnym timerem.", [segmented(GOAL_OPTIONS.map((v) => ({ value: v, label: v + "" })), st.goal, (v) => {
     setTimeout(() => commit(Object.assign({}, S, { goal: Number(v), rev: (S.rev || 0) + 1, today: S.today ? Object.assign({}, S.today, { snap: undefined }) : null })), 280);
   }, { label: "Długość lekcji (min)" })], { delay: 40 }));
+  kids.push(themeSection());
   kids.push(section("Przenieś na inne urządzenie", "Krótki kod (5 znaków) zamiast długiego. Dane są szyfrowane na telefonie — serwer przechowuje tylko szyfrogram, maks. " + TRANSFER_TTL_H + " h.", [transferSendCard(), h("div", { class: "divider" }), transferReceiveButton("tinted")], { delay: 60 }));
   const code = (() => { try { return encodeState(st); } catch (e) { return ""; } })();
   const ta = h("textarea", { class: "input", readOnly: true, value: code, "aria-label": "Kod postępów", onfocus: (e) => e.target.select() });
@@ -6006,7 +6196,7 @@ function viewProfile(d) {
     : [h("div", { style: "text-align:center;font-weight:600" }, "Na pewno? Tego nie da się cofnąć."), h("div", { style: "display:grid;grid-template-columns:1fr 1fr;gap:10px" }, h("button", { class: "btn danger primary", onclick: () => { ui.confirmReset = false; ui.tab = "dzis"; commit(null); } }, "Tak, usuń"), h("button", { class: "btn", onclick: () => { ui.confirmReset = false; drawReset(); } }, "Anuluj"))]));
   drawReset();
   kids.push(section("Zacznij od nowa", null, [resetBox], { delay: 120 }));
-  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.2 · działa offline · dane na Twoim urządzeniu"));
+  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.3 · działa offline · dane na Twoim urządzeniu"));
   return kids;
 }
 
@@ -6042,10 +6232,11 @@ function refreshTabbar() {
   const bar = document.getElementById("tabbar");
   if (!S || ui.retest) { bar.style.display = "none"; return; }
   bar.style.display = "";
-  bar.replaceChildren(...TABS.map((t) => h("button", { class: "tab" + (ui.tab === t.id ? " on" : ""), "data-tab": t.id, "aria-current": ui.tab === t.id ? "page" : null, onclick: () => {
+  bar.replaceChildren(h("div", { class: "side-brand", "aria-hidden": "true" }, h("span", { class: "side-logo" }, "🎸"), h("span", null, "Trener Gitara")), ...TABS.map((t, ti) => h("button", { class: "tab" + (ui.tab === t.id ? " on" : ""), "data-tab": t.id, "aria-current": ui.tab === t.id ? "page" : null, "aria-keyshortcuts": String(ti + 1), title: t.label + " (" + (ti + 1) + ")", onclick: () => {
     if (ui.tab === t.id) { if (t.id === "utwory" && ui.songId) { ui.songId = null; render(); window.scrollTo(0, 0); return; } window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     ui.tab = t.id; ui.confirmReset = false; render(); window.scrollTo(0, 0);
-  } }, svgIcon(t.icon), h("span", null, t.label))));
+  } }, svgIcon(t.icon), h("span", null, t.label), h("kbd", { class: "tab-kbd", "aria-hidden": "true" }, String(ti + 1)))),
+  h("button", { class: "side-help", type: "button", onclick: () => kbdHelp() }, h("kbd", null, "?"), " Skróty klawiszowe"));
 }
 
 function render() {
@@ -6061,6 +6252,7 @@ function render() {
     document.getElementById("navtitle").textContent = openS ? openS.title : openCh ? openCh.t : TABS.find((t) => t.id === ui.tab).title;
   }
   app.replaceChildren(...kids);
+  app.setAttribute("data-view", !S || ui.retest ? "start" : ui.tab + (subPage() ? "-sub" : ""));
   refreshTabbar();
   syncNav();
   onScroll();
