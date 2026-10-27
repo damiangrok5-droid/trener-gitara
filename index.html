@@ -23,7 +23,7 @@
   color-scheme:light dark;
   --bg:#F2F2F7;--bg-elev:#FFFFFF;--card:#FFFFFF;--card-strong:#FFFFFF;--glass:rgba(255,255,255,.72);
   --line:rgba(60,60,67,.13);--line2:rgba(60,60,67,.32);
-  --text:#000;--text2:rgba(60,60,67,.64);--text3:rgba(60,60,67,.38);
+  --text:#000;--text2:rgba(60,60,67,.8);--ink-mix:78%;--text3:rgba(60,60,67,.38);
   --fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.2);--thumb:#fff;
   --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;--pink:#FF2D55;--purple:#AF52DE;--teal:#30B0C7;--indigo:#5856D6;--yellow:#FFCC00;--mint:#00C7BE;
   --accent:var(--blue);
@@ -38,7 +38,7 @@
 :root[data-theme=dark]{color-scheme:dark;
   --bg:#000;--bg-elev:#1C1C1E;--card:#1C1C1E;--card-strong:#2C2C2E;--glass:rgba(30,30,32,.72);
   --line:rgba(84,84,88,.42);--line2:rgba(120,120,128,.6);
-  --text:#fff;--text2:rgba(235,235,245,.64);--text3:rgba(235,235,245,.34);
+  --text:#fff;--text2:rgba(235,235,245,.64);--ink-mix:100%;--text3:rgba(235,235,245,.34);
   --fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--thumb:#636366;
   --blue:#0A84FF;--green:#30D158;--orange:#FF9F0A;--red:#FF453A;--pink:#FF375F;--purple:#BF5AF2;--teal:#40C8E0;--indigo:#5E5CE6;--yellow:#FFD60A;--mint:#63E6E2;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);--shadow-lg:0 20px 50px rgba(0,0,0,.6);
@@ -47,7 +47,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){
   --bg:#000;--bg-elev:#1C1C1E;--card:#1C1C1E;--card-strong:#2C2C2E;--glass:rgba(30,30,32,.72);
   --line:rgba(84,84,88,.42);--line2:rgba(120,120,128,.6);
-  --text:#fff;--text2:rgba(235,235,245,.64);--text3:rgba(235,235,245,.34);
+  --text:#fff;--text2:rgba(235,235,245,.64);--ink-mix:100%;--text3:rgba(235,235,245,.34);
   --fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--thumb:#636366;
   --blue:#0A84FF;--green:#30D158;--orange:#FF9F0A;--red:#FF453A;--pink:#FF375F;--purple:#BF5AF2;--teal:#40C8E0;--indigo:#5E5CE6;--yellow:#FFD60A;--mint:#63E6E2;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);--shadow-lg:0 20px 50px rgba(0,0,0,.6);
@@ -65,7 +65,8 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 /* nawigacja górna */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:var(--sat);height:calc(44px + var(--sat));display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb,var(--bg) 72%,transparent);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:.5px solid var(--line);opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s;pointer-events:none}
+  border-bottom:.5px solid var(--line);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s,visibility 0s linear .25s;pointer-events:none}
+.navbar.show,body.sub .navbar{visibility:visible;transition:opacity .25s,transform .25s,visibility 0s}
 .navbar.show{opacity:1;transform:none}
 .navbar b{font-size:17px;font-weight:600}
 .large{padding-top:calc(var(--sat) + 22px);padding-bottom:6px}
@@ -93,7 +94,7 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 .btn:active{transform:scale(.96);opacity:.85}
 .btn:disabled{opacity:.4;pointer-events:none}
 .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 35%,transparent)}
-.btn.tinted{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+.btn.tinted{background:color-mix(in srgb,var(--accent) 15%,transparent);color:color-mix(in srgb,var(--accent) var(--ink-mix,100%),#000)}
 .btn.plain{background:transparent;padding:8px 10px;min-height:36px}
 .btn.big{width:100%;min-height:52px;font-size:17px;border-radius:16px}
 .btn.danger{color:var(--red)}
@@ -153,13 +154,13 @@ input[type=range]{width:100%;accent-color:var(--accent);height:28px}
 .legend .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
 .legend .v small{font-size:14px;color:var(--text2);font-weight:600}
 /* hero */
-.hero{border-radius:26px;padding:22px;color:#fff;background:linear-gradient(135deg,#FF2D55 0%,#AF52DE 55%,#5856D6 100%);box-shadow:0 18px 40px rgba(175,82,222,.35);position:relative;overflow:hidden}
+.hero{border-radius:26px;padding:22px;color:#fff;background-color:#8E3FC4;background-image:linear-gradient(135deg,#FF2D55 0%,#AF52DE 55%,#5856D6 100%);box-shadow:0 18px 40px rgba(175,82,222,.35);position:relative;overflow:hidden}
 .hero::after{content:"🎸";position:absolute;right:-6px;bottom:-18px;font-size:120px;opacity:.22;transform:rotate(-18deg)}
 .hero h2{margin:0 0 6px;font-size:26px;line-height:1.15}
 .hero p{margin:0;opacity:.92;font-size:15px}
 .hero .btn{background:rgba(255,255,255,.95);color:#5E2BD8;box-shadow:none}
-.hero .btn.ghost{background:rgba(255,255,255,.2);color:#fff}
-.level-card{border-radius:24px;padding:20px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--indigo) 60%,var(--purple));box-shadow:0 14px 34px rgba(88,86,214,.32)}
+.hero .btn.ghost{background:rgba(40,0,70,.26);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.level-card{border-radius:24px;padding:20px;color:#fff;background-color:#4B48C8;background-image:linear-gradient(135deg,var(--blue),var(--indigo) 60%,var(--purple));box-shadow:0 14px 34px rgba(88,86,214,.32)}
 .level-card .lv{font-size:28px;font-weight:800;line-height:1.1;margin:4px 0 6px}
 .level-card .small{color:rgba(255,255,255,.85)}
 /* bloki lekcji */
@@ -289,7 +290,7 @@ pre.tab{font-family:var(--mono);font-size:12.5px;line-height:1.38;background:var
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ---------- Utwory ---------- */
-.song-hero{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background:linear-gradient(135deg,#30D158 0%,#00B3A4 45%,#0A84FF 100%);box-shadow:0 10px 30px rgba(10,132,255,.28)}
+.song-hero{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background-color:#007A72;background-image:linear-gradient(135deg,#30D158 0%,#00B3A4 45%,#0A84FF 100%);box-shadow:0 10px 30px rgba(10,132,255,.28)}
 .song-hero::after{content:"🎵";position:absolute;right:-6px;top:-10px;font-size:96px;opacity:.16;transform:rotate(12deg);pointer-events:none}
 .song-hero .eyebrow2{font-size:13px;font-weight:700;opacity:.9}
 .song-hero .hero-t{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:4px;line-height:1.15}
@@ -641,6 +642,42 @@ kbd{font:600 12px var(--mono);padding:2px 6px;border-radius:6px;background:var(-
   .app[data-view=postepy] > .large,.app[data-view=profil] > .large,.app > .wide,.app > .footer-note{column-span:all}
   .app[data-view=postepy] > .section,.app[data-view=profil] > .section{margin-top:0;padding-top:26px}
   .app[data-view=postepy] > .large + .section{column-span:all}
+}
+/* ---------- v2.4: scena na PC, karaoke, przewijanie taktów, karta utworu w 2 kolumnach ---------- */
+.stg-cell{cursor:pointer}
+@media (pointer:coarse){.stg-cell{min-height:44px;display:flex;align-items:center;justify-content:center}}
+.stage:focus{outline:none}
+.stg-kar{display:none}
+.song-l-h{font-size:20px;margin:0 0 2px}
+.song-layout{display:flex;flex-direction:column;gap:12px}
+.song-layout ul{margin:6px 0 0;padding-left:20px}
+@media (min-width:1024px) and (min-height:640px){
+  .stg-curbox{flex-direction:row;flex-wrap:wrap;align-content:center;gap:6px 44px}
+  .stg-curbox .stg-lbl{flex:1 1 100%}
+  .stg-cur{font-size:clamp(96px,15vh,160px)}
+  .stg-nx{font-size:clamp(44px,7vh,76px)}
+  .stg-dia,.stg-dia.sm,.stage.yt .stg-dia,.stage.yt .stg-dia.sm{width:auto;max-width:none}
+  .stg-dia svg,.stg-dia .chord svg{width:min(30vh,272px);max-width:none;height:auto;max-height:none}
+  .stg-dia.sm svg,.stg-dia.sm .chord svg{width:min(17vh,160px)}
+  .stage.yt .stg-dia svg,.stage.yt .stg-dia .chord svg{width:16vh;max-height:none}.stage.yt .stg-dia.sm svg,.stage.yt .stg-dia.sm .chord svg{width:10vh}
+  .stg-dia .nm{font-size:15px}
+  .stg-kar{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--fill);border-radius:18px;padding:10px 18px;min-height:96px;justify-content:center}
+  .stg-kar .ly-line{justify-content:center}
+  .stg-kar .ly-line.on{font-size:24px;font-weight:600}.stg-kar .ly-line.on .ly-seg b{font-size:17px}
+  .stg-kar .ly-line.nx{font-size:18px;color:var(--text2)}.stg-kar .ly-line.nx .ly-seg b{font-size:13px;color:var(--text2)}
+  .stg-kar-none{font-size:15px}
+  .stg-cell{min-width:76px;font-size:19px;padding:10px 12px}
+  .stg-strip{padding-top:18px}
+  .stg-ctl{flex-wrap:nowrap}.stg-play{flex:1 1 auto;min-width:220px}.stg-clock{flex:0 1 320px}.stg-addrec{flex:0 0 auto}.stg-loop{flex:0 1 240px}
+}
+.pl-sum{background:var(--fill);border-radius:16px;padding:12px 14px}
+.pl-sum-row{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:16px}.pl-sum-row span{color:var(--text2)}
+.pt-howto{background:var(--fill);border-radius:14px;padding:10px 12px;color:var(--text)}
+.pt-cheer{margin-top:4px}
+@media (hover:hover) and (pointer:fine){.stg-cell:hover{background:color-mix(in srgb,var(--accent) 22%,var(--fill))}.stg-cell.on:hover{background:var(--accent)}}
+@media (min-width:1200px){
+  .dcols.song2{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+  .dcols.song2 .dcol > .section:first-child{margin-top:0}
 }
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
@@ -3567,6 +3604,70 @@ const SONGS = [
   S("nim-wstanie-dzien", "Nim wstanie dzień", "Krzysztof Komeda / Agnieszka Osiecka", false, 9, "a-moll", "4/4", [80, 96], "p_folk", ["moll", "ognisko"], "Ogniskowy klasyk: Am – Dm – G – C – F – Dm – E – Am.",
     [sec("Zwrotka", "Am | Dm | G | C | F | Dm | E | Am", 4)], ["E → Am: dominanta w molu — zagraj E mocno.", "F możesz grać jako Fmaj7."]);
 })();
+/* ============================== UTWORY: DANE (część 4, v2.4) ==============================
+   Polskie przeboje lat 80–00 (chronione: tylko akordy, układ, bicie, tempo, kapodaster — BEZ tekstu)
+   oraz autorskie etiudy Trenera z tabulaturą. */
+(function () {
+  const CP = "Tekst i melodia są chronione prawem autorskim — tu tylko akordy i układ; śpiewaj z nagrania.";
+  const TMP = "Tempo orientacyjne — w trybie „z nagraniem” kalibracja dopasuje je do oryginału.";
+  function S(id, title, artist, pd, step, key, meter, bpm, strum, tags, info, sections, tips, o) {
+    o = o || {}; const beats = /^3\//.test(meter) ? 3 : /^6\//.test(meter) ? 6 : /^2\//.test(meter) ? 2 : 4;
+    SONGS.push(Object.assign({ id, title, artist, pd, lv: tierOf(step), step, key, capo: o.capo || 0, meter, beats, bpm, strum, tags, info, sections, tips: pd ? tips : tips.concat([TMP, CP]) },
+      o.style ? { style: o.style } : {}, o.riff ? { riff: o.riff } : {}, o.ex ? { exercise: true } : {}));
+  }
+  const sec = (n, bars, x) => Object.assign({ n, bars }, x ? { x } : {});
+  const EX = "Ćwiczenie Trenera";
+  /* ---------- POLSKIE 80–00 ---------- */
+  S("baska", "Baśka", "Wilki", false, 8, "G-dur", "4/4", [126, 136], "p_8", ["zmiany", "rytm", "polskie"], "Cztery akordy: G – Am – C – G, refren C – G – Am – Em.",
+    [sec("Wstęp", "C | G | G | Am", 2), sec("Zwrotka", "G | Am | C | G", 4), sec("Refren", "C | G | Am | Em", 4), sec("Przejście", "G | Am | C | G", 2)],
+    ["Ósemki w dół z akcentem na 2 i 4 — energicznie, ale luźny nadgarstek.", "Am → C: palec 1 i 2 zostają prawie w miejscu, przesuwasz tylko 3."]);
+  S("dlugosc-dzwieku", "Długość dźwięku samotności", "Myslovitz", false, 14, "F-dur (chwyty z C, kapodaster 5)", "4/4", [104, 112], "p_8", ["zmiany", "kapodaster", "polskie"], "Kapodaster na 5. progu i chwyty C – Am – Em – D; zwrotka F – C – Am – G.",
+    [sec("Wstęp", "C | Am | Em | D", 2), sec("Zwrotka", "F | C | Am | G", 4), sec("Refren", "C | Am | Em | D", 4)],
+    ["F z kapodasterem gra się łatwiej — możesz użyć Fmaj7 (bez barré).", "Wszystkie chwyty liczone od kapodastera: „C” brzmi jak F."], { capo: 5 });
+  S("zanim-pojde", "Zanim pójdę", "Happysad", false, 6, "a-moll", "4/4", [140, 150], "p_8", ["zmiany", "moll", "polskie"], "Am – Dm – Em przez całą piosenkę, w refrenie dochodzą G, C i F.",
+    [sec("Zwrotka", "Am | Dm Em", 8), sec("Refren", "Am | Dm Em | Am | Dm Em | Am | Dm G | C | F", 2)],
+    ["Dm → Em to skok — ćwicz go osobno w ciszy, potem z metronomem.", "Szybkie ósemki: ręka chodzi cały czas, nawet gdy nie trafia w struny."]);
+  S("whisky", "Whisky", "Dżem", false, 12, "G-dur", "4/4", [72, 80], "pick8", ["palce", "zmiany", "polskie"], "G – Cadd9 kołysane w kółko, mostek D – C – Em – Am.",
+    [sec("Wstęp", "G Cadd9 | G Cadd9", 2), sec("Zwrotka", "G Cadd9 | G Cadd9 | G Cadd9 | G Cadd9", 2), sec("Mostek", "D | D | C Em | Am D | C Em | Am D | G Cadd9 | G Cadd9", 1), sec("Zakończenie", "F | C | G | G", 1)],
+    ["G (320033) → Cadd9 (x32033): palce 3 i 4 zostają na H i e — ruszasz tylko dwa palce.", "Graj kostką lub palcami, luźno — to bluesowa ballada."], { style: "blues" });
+  S("autobiografia", "Autobiografia", "Perfect", false, 22, "e-moll", "4/4", [122, 130], "p_8", ["zmiany", "barre", "polskie"], "Zwrotka Em – Am7 – D, refren C – D – G – C – Hm – Am – F – C.",
+    [sec("Zwrotka", "Em | Em | Am7 | D | Em | Em | Am7 | D | Em | Em | Am | Em", 2), sec("Refren", "C | D | G | C | Hm | Am | F | C", 2)],
+    ["Hm i F w refrenie — barré. Na start: Hm jako x2443x bez basu, F jako Fmaj7.", "Zwrotka opowiada — graj ciszej, refren mocno."]);
+  S("teksanski", "Teksański", "Hey", false, 10, "D-dur", "4/4", [84, 92], "p_pop", ["zmiany", "polskie"], "Trzy akordy: D – G – A. Prosto, ale z nerwem.",
+    [sec("Zwrotka", "D | G A", 8), sec("Refren", "G | A | D | D", 4)],
+    ["G → A: w obu chwytach palec 3 może zostać blisko — szukaj najkrótszej drogi.", "Bicie D – D G – G D G, mocny akcent na „raz”."]);
+  S("przezyj-to-sam", "Przeżyj to sam", "Lombard", false, 12, "C-dur", "4/4", [100, 112], "p_pop", ["zmiany", "polskie"], "C – E – Am – Dm – G: dominanta E w durze dodaje dramatyzmu.",
+    [sec("Zwrotka", "C | E | Am | Am | Dm | Dm | G | G", 2), sec("Refren", "C | E | Am | Am | Dm | F | G | G", 2)],
+    ["E w tonacji C-dur to „pożyczony” akord (V stopień a-moll) — prowadzi do Am.", "Wersja trudniejsza: zamiast E graj Hm (x2443x) jak w niektórych śpiewnikach."]);
+  S("chcialbym-umrzec", "Chciałbym umrzeć z miłości", "Myslovitz", false, 20, "e-moll", "4/4", [80, 88], "pick8", ["palce", "zmiany", "polskie"], "Em7 – Cadd9 – G – Dsus4: dźwięczne akordy z pustymi strunami.",
+    [sec("Zwrotka", "Em7 | Cadd9 | G | Dsus4", 4), sec("Refren", "Am | Cadd9 | G | Dsus4", 2), sec("Zakończenie", "Am | C | G | D", 2)],
+    ["Palce 3 i 4 trzymaj na H3 i e3 we wszystkich czterech chwytach — to „kotwica”.", "Arpeggio: bas, potem struny G-H-e. Zobacz etiudę „Arpeggio z kotwicą”."]);
+  S("sen-o-victorii", "Sen o Victorii", "Dżem", false, 16, "C-dur", "4/4", [72, 80], "pick8", ["palce", "zmiany", "polskie"], "C – Em – F – Fmaj7, w refrenie Dm i solo na F – C.",
+    [sec("Zwrotka", "C | Em | F | Fmaj7 | C | Em | Fmaj7 | Dm F", 2), sec("Refren", "C | Em | F | Fmaj7 | C | Em | Fmaj7 | Fmaj7 | Dm | F | C | C", 1), sec("Solo", "F | C | F | C | F | C | Dm | G", 1)],
+    ["F → Fmaj7: zdejmij palec 1 z e — tylko jedna zmiana.", "Ballada — arpeggio palcami, w refrenie możesz przejść na bicie."], { style: "blues" });
+  S("czerwony-jak-cegla", "Czerwony jak cegła", "Dżem", false, 22, "E-dur", "4/4", [112, 124], "p_shuffle", ["blues", "rytm", "polskie"], "Bluesowy rock w E: E – A – E – H7, refren A – E – D i Cism.",
+    [sec("Zwrotka", "E | A | E | H7", 4), sec("Refren", "A | A | E D | E H7 | Cism | A | E D | E H7", 2)],
+    ["H7 (x21202) to klucz bluesa w E — ćwicz E ↔ H7.", "Cism to barré na 4. progu (forma Am) — na start sam akord na 3 cienkich strunach."], { style: "blues" });
+  S("kocham-cie-kochanie", "Kocham cię, kochanie moje", "Maanam", false, 28, "h-moll", "4/4", [96, 104], "p_8", ["barre", "zmiany", "polskie"], "Hm – Fism – Em – D – A – G: tonacja z barré, refren aż do Fis-dur.",
+    [sec("Zwrotka", "Hm | Fism | Hm | Fism | Em | Hm | D A | G", 2), sec("Refren", "D | A | G | D | Hm | Fism | D | A | G | D | Hm | E | Fis | G | A | A", 1), sec("Solo", "Hm | Fism | Em | A", 2)],
+    ["Hm (forma Am, 2. próg) i Fism (forma Em, 2. próg) — dwa barré obok siebie.", "Refren kończy się wznoszącym E – Fis – G – A: każdy akord mocniej."]);
+  S("co-ty-tutaj-robisz", "Co ty tutaj robisz", "Elektryczne Gitary", false, 30, "C → D → E (modulacje)", "4/4", [132, 142], "p_8", ["zmiany", "transpozycja", "polskie"], "Ten sam układ trzy razy — za każdym razem cały ton wyżej (C, D, E).",
+    [sec("Zwrotka (C)", "C | Em | F | C G", 2), sec("Refren (C)", "Dm F | G | Dm F | G | C | Em | F | G", 1), sec("Zwrotka (D)", "D | Fism | G | D A", 2), sec("Refren (D)", "Em G | A | Em G | A | D | Fism | G | A", 1), sec("Zwrotka (E)", "E | Gism | A | E H", 2), sec("Refren (E)", "Fism A | H | Fism A | H | E | Gism | A | H", 1)],
+    ["Modulacja o cały ton: każdy akord przesuwasz o 2 progi — świetna lekcja transpozycji.", "Wersja „na skróty”: zagraj całość w C z kapodasterem przestawianym na 2. i 4. próg."]);
+  /* ---------- ETIUDY Z TABULATURĄ (autorskie) ---------- */
+  S("ex-etiuda-arpeggio-kotwica", "Etiuda: arpeggio z kotwicą (Em7 – Cadd9 – G – Dsus4)", EX, true, 16, "e-moll", "4/4", [60, 90], "pick8", ["palce", "arpeggio"], "Palce 3 i 4 stoją na H3 i e3, zmienia się tylko bas — brzmienie rockowej ballady.",
+    [sec("Cykl", "Em7 | Cadd9 | G | Dsus4", 4)], ["Kostka lub palce: bas – D – G – H – e – H – G – D (ósemki).", "Nie odrywaj palców 3 i 4 przy zmianach — to cały sekret."],
+    { ex: true, riff: T("E0 D2 G0 H3 e3 H3 G0 D2 A3 D2 G0 H3 e3 H3 G0 D2") });
+  S("ex-etiuda-gama-c", "Etiuda: gama C-dur w pierwszej pozycji", EX, true, 18, "C-dur", "4/4", [60, 100], "p_q", ["skale", "kostkowanie"], "Twoja pierwsza gama: C – D – E – F – G – A – H – C na pustych strunach i 1–3 progu.",
+    [sec("Akompaniament", "C | G | Am | F", 4)], ["Palec = próg: 1. próg palec 1, 2. próg palec 2, 3. próg palec 3.", "Kostkowanie naprzemienne: dół – góra – dół – góra, równo z metronomem."],
+    { ex: true, riff: T("A3 D0 D2 D3 G0 G2 H0 H1 H1 H0 G2 G0 D3 D2 D0 A3") });
+  S("ex-etiuda-penta-am", "Etiuda: pentatonika a-moll (pozycja V)", EX, true, 20, "a-moll", "4/4", [60, 110], "p_8", ["skale", "pentatonika", "solo"], "Pierwszy „box” pentatoniki — z niego zbudowana jest większość rockowych solówek.",
+    [sec("Podkład", "Am | Am | Dm | Dm | Am | Am | Em | Am", 2)], ["Palce: 1 na 5. progu, 3 lub 4 na 7./8. progu — ręka stoi w jednej pozycji.", "Najpierw w górę i w dół z metronomem 60, potem improwizuj na podkładzie."],
+    { ex: true, riff: T("E5 E8 A5 A7 D5 D7 G5 G7 H5 H8 e5 e8 e5 H8 H5 G7 G5 D7 D5 A7 A5 E8 E5") });
+  S("ex-etiuda-struny", "Etiuda: przeskoki strun (kostkowanie)", EX, true, 26, "G-dur", "4/4", [70, 120], "p_16", ["kostkowanie", "technika"], "Naprzemienne kostkowanie z przeskokiem przez strunę — kontrola prawej ręki.",
+    [sec("Podkład", "G | Em | C | D", 4)], ["Kostka: dół na niższej strunie, góra na wyższej — nie zgubisz kierunku.", "Wycisz pomijaną strunę lewą dłonią lub wewnętrzną stroną prawej."],
+    { ex: true, riff: T("E3 D0 A2 G0 D0 H0 G0 e3 D2 H0 A2 G0 A3 H1 D2 e0") });
+})();
 
 /* ============================== UTWORY: LOGIKA ============================== */
 const SONG_STATUS = { todo: "Do nauki", wip: "W trakcie", done: "Opanowany" };
@@ -3702,7 +3803,9 @@ function songStyle(song) {
   if (song.beats === 3 || song.beats === 6 || songPattern(song).pick || /ballad/.test(t)) return "ballady";
   return "poprock";
 }
-const SONG_STYLES = [{ value: "all", label: "Wszystkie style" }, { value: "poprock", label: "Pop i rock" }, { value: "ballady", label: "Ballady" }, { value: "ludowe", label: "Ludowe i tradycyjne" }, { value: "blues", label: "Blues" }, { value: "jazz", label: "Jazz i latin" }, { value: "rock", label: "Rock i metal" }, { value: "cwicz", label: "Ćwiczenia" }];
+const PL_ART = /^(Dżem|Perfect|Lady Pank|Stare Dobre Małżeństwo|Budka Suflera|Czesław Niemen|Zbigniew Wodecki|Obywatel G\.C\.|Marek Grechuta|Edyta Bartosiewicz|Chłopcy z Placu Broni|Krzysztof Komeda.*|Kolęda (polska|tradycyjna)|Pieśń (ludowa|góralska|harcerska.*)|Piosenka ludowa|Michał Bałucki.*|Franciszek Karpiński.*|Tradycyjna \(polsko-ukraińska\)|Wilki|Myslovitz|Happysad|Hey|Lombard|Maanam|Elektryczne Gitary)$/;
+function isPolishSong(sg) { return (sg.tags || []).includes("polskie") || PL_ART.test(sg.artist || ""); }
+const SONG_STYLES = [{ value: "all", label: "Wszystkie style" }, { value: "pl", label: "Polskie" }, { value: "poprock", label: "Pop i rock" }, { value: "ballady", label: "Ballady" }, { value: "ludowe", label: "Ludowe i tradycyjne" }, { value: "blues", label: "Blues" }, { value: "jazz", label: "Jazz i latin" }, { value: "rock", label: "Rock i metal" }, { value: "cwicz", label: "Ćwiczenia" }];
 function quickPlay(id) { openSong(id); const sg = songById(id); if (sg) playWithSong(sg); }
 function songRow(song, st, L) {
   const sp = songState(st, song.id); const unl = songUnlocked(song, st);
@@ -3743,7 +3846,7 @@ function viewSongs(d) {
     const lv = ui.songLv == null ? L : ui.songLv; const f = ui.songStatus || "all"; const sty = ui.songStyle || "all";
     const q = (ui.songQ || "").trim().toLowerCase();
     const norm = (x) => x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l");
-    const items = SONGS.filter((sg) => (lv === -1 || sg.lv === lv) && (f === "all" || songState(st, sg.id).status === f) && (sty === "all" || songStyle(sg) === sty)
+    const items = SONGS.filter((sg) => (lv === -1 || sg.lv === lv) && (f === "all" || songState(st, sg.id).status === f) && (sty === "all" || (sty === "pl" ? isPolishSong(sg) : songStyle(sg) === sty))
       && (!q || norm(sg.title + " " + sg.artist + " " + songChords(sg).join(" ")).includes(norm(q))))
       .sort((a, b) => a.step - b.step || a.title.localeCompare(b.title, "pl"));
     heroBox.hidden = !!q || f !== "all" || sty !== "all";
@@ -3794,7 +3897,7 @@ function playAlong(song, o) {
   let secSel = o.sec == null ? -1 : o.sec; let bpm = clamp(o.bpm || song.bpm[0], 30, 240);
   let loop = secSel >= 0; let countIn = true; let backing = true; let trainer = false; let drumG = null; const cs = clockSwitch(B, songGrooveHint(song), song.bpm[0], () => { drumG = cs.get(); }); drumG = cs.get();
   const subs = new Set(); const emit = (e) => subs.forEach((f) => { try { f(e); } catch (er) { console.warn(er); } });
-  let seq = []; let cells = []; let timerId = 0; let tos = []; let on = false; let startAt = 0; let played = 0; let passes = 0; let lastOn = null;
+  let seq = []; let cells = []; let timerId = 0; let tos = []; let on = false; let startAt = 0; let played = 0; let passes = 0; let lastOn = null; let startBar = 0;
   const chart = h("div", { class: "pa-chart" + (o.compact ? " compact" : "") });
   const curEl = h("div", { class: "cur" }, "—"); const nxEl = h("div", { class: "nx" }, "");
   const barEl = h("div", { class: "small" }, "");
@@ -3843,10 +3946,10 @@ function playAlong(song, o) {
   function start() {
     const ctx = getCtx(); if (!ctx) { toast("Ta przeglądarka nie obsługuje dźwięku."); return; }
     AUDIO.claim(paId, () => stop(), { label: "gra z akordami" });
-    clearTimers(); on = true; passes = 0; playBtn.textContent = "■ Stop"; playBtn.classList.add("on");
-    cells.forEach((c) => c.classList.remove("on", "past")); lastOn = null; chart.scrollTo({ top: 0 });
-    startAt = performance.now();
-    let next = ctx.currentTime + 0.12; let beat = countIn ? -B : 0; let sub = 0;
+    const resumed = on; clearTimers(); if (!resumed) startAt = performance.now(); on = true; passes = 0; playBtn.textContent = "■ Stop"; playBtn.classList.add("on");
+    const sb = clamp(startBar, 0, Math.max(0, seq.length - 1)); startBar = 0;
+    cells.forEach((c, j) => { c.classList.remove("on"); c.classList.toggle("past", j < sb); }); lastOn = null; if (!sb) chart.scrollTo({ top: 0 });
+    let next = ctx.currentTime + 0.12; let beat = sb > 0 ? sb * B : (countIn && !resumed ? -B : 0); let sub = 0;
     timerId = setInterval(() => {
       while (next < ctx.currentTime + 0.12) {
         if (sub === 0) {
@@ -3909,6 +4012,9 @@ function playAlong(song, o) {
     played: () => played + (on ? (performance.now() - startAt) / 1000 : 0),
     info: () => ({ seq, secs, B, bpm, loop, song }),
     start: () => { if (!on) start(); },
+    /* przeskok do taktu (strzałki ←/→ w trybie gry); w trakcie gry — bez odliczania, po zatrzymaniu — start od tego taktu */
+    seek(i) { if (!seq.length) return 0; i = clamp(i, 0, seq.length - 1); startBar = i; if (on) start(); else { const it = seq[i]; emit({ idx: i, inBar: 0, ci: 0, mode: "metro", seek: true }); void it; } return i; },
+    pos: () => (lastOn == null ? -1 : lastOn),
     setFullSong() { api.setFull(); },
     setDrums: (v) => { cs.set(v); drumG = cs.get(); },
     drumsOn: () => !!cs.get(),
@@ -3957,9 +4063,27 @@ function viewSong(song) {
   if (!unl) kids.push(callout("orange", "🔒", "Utwór z wyższego poziomu", "Możesz go zagrać, ale do lekcji wejdzie po awansie albo gdy opanujesz: " + songNewChords(song, st).map(chordLabel).join(", ") + "."));
   const nw = songNewChords(song, st);
   kids.push(h("section", { class: "section song-chords" }, h("div", { class: "small", style: "margin:0 4px 6px" }, "Akordy" + (nw.length ? " · nowe: " + nw.map(chordLabel).join(", ") : "") + " · stuknij, by usłyszeć"), songDiagrams(song, st)));
-  kids.push(playWithSongButton(song));
   let paApi = null;
   const pa = playAlong(song, { sec: ui.songSec == null ? -1 : ui.songSec, bpm: paBpm, apiRef: (a) => { paApi = a; PA_CTL = a; }, onBpm: (b) => { paBpm = b; }, onSecs: (x) => { paSecs += x; } });
+  const wide = isWide();
+  const layout = h("div", { class: "stack" }, secs.map((s) => h("div", { class: "song-sec" },
+      h("div", { class: "row", style: "justify-content:space-between" }, h("b", null, s.n), s.x > 1 ? h("span", { class: "chip" }, "× " + s.x) : null, h("span", { class: "small" }, s.bars.length + " t.")),
+      h("div", { class: "barrow" }, s.bars.map((b) => h("span", null, b.map(chordLabel).join(" ")))),
+      song.pd && s.lyrics ? lyricsView(s) : null)));
+  const extras = [song.riff ? h("div", null, h("b", null, song.exercise ? "Riff / wzór" : "Tabulatura (domena publiczna)"), tabView(song.riff)) : null,
+    h("div", null, h("b", null, "Wskazówki"), h("ul", null, song.tips.map((t) => h("li", null, t)))),
+    h("p", { class: "small", style: "margin:0" }, song.info),
+    !song.pd ? h("p", { class: "small", style: "margin:0" }, "© Utwór chroniony — bez tekstu i tabulatur; tylko akordy, układ, rytm i tempo.") : null];
+  if (wide) {
+    // PC: dwie kolumny — po lewej akordy, układ, tab i wskazówki (zawsze widoczne), po prawej narzędzia do ćwiczenia
+    const left = [...kids.slice(1), playWithSongButton(song),
+      h("section", { class: "section card song-layout", id: "song-layout" }, h("h2", { class: "song-l-h" }, "Układ utworu"), layout, ...extras.filter(Boolean))];
+    const right = [fold("fold-learn", "🎯 Nauka części", "Sekcja w pętli, wolniejsze tempo", [pa], true),
+      fold("fold-rec", "🎧 Ustawienia nagrania", yt && yt.id ? (yt.offset == null ? "Nagranie dodane · kalibracja przy pierwszym graniu" : "Nagranie dodane i skalibrowane ✓") : "Dodaj link z YouTube, by grać z zespołem", [ytSection(song, () => paApi)]),
+      fold("fold-strum", "🥁 Bicie", songPattern(song).name, [songPatternView(song)])];
+    return [kids[0], dcols(left, right, "song2")];
+  }
+  kids.push(playWithSongButton(song));
   kids.push(fold("fold-learn", "🎯 Nauka części", "Sekcja w pętli, wolniejsze tempo, tekst i wskazówki", [
     pa,
     h("div", { class: "stack" }, secs.map((s) => h("div", { class: "song-sec" },
@@ -4216,7 +4340,7 @@ function stageEvents(seq, B) {
 }
 function closeStage(fromPop) {
   if (!STAGE) return; const s = STAGE; STAGE = null;
-  if (fromPop !== true) { try { if (history.state && history.state.ov === "stage") { ignorePops++; history.back(); } } catch (e) { /* ignoruj */ } }
+  if (fromPop !== true) { try { if (history.state && history.state.ov === "stage") { ignorePops++; ignoreAt = Date.now(); history.back(); } } catch (e) { /* ignoruj */ } }
   try { s.cleanup(); } catch (e) { /* ignoruj */ }
   AUDIO.stopAll(); s.el.remove(); document.body.classList.remove("stage-open");
   try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) { /* ignoruj */ }
@@ -4240,16 +4364,32 @@ function openStage(song, pa, mode) {
   const barInfo = h("div", { class: "small stg-bar", id: "stage-bar" });
   const strip = h("div", { class: "stg-strip", id: "stage-strip" });
   const videoPh = yt ? h("div", { class: "stg-video", id: "stage-video" }) : null;
+  // karaoke (tylko utwory z domeny publicznej z tekstem; widoczne na dużych ekranach): bieżąca i następna linijka
+  const hasLy = song.pd && secs.some((x) => x.lyrics && x.lyrics.length);
+  const kar = hasLy ? h("div", { class: "stg-kar", id: "stage-lyrics", "aria-live": "off" }) : null; let shownLy = "";
+  function lyLine(line, cls) {
+    const parts = []; const re = /\[([^\]]+)\]/g; let last = 0; let chord = ""; let m;
+    while ((m = re.exec(line))) { if (m.index > last || chord) parts.push([chord, line.slice(last, m.index)]); chord = m[1]; last = re.lastIndex; }
+    parts.push([chord, line.slice(last)]);
+    return h("div", { class: "ly-line " + cls }, parts.filter((q) => q[0] || q[1]).map((q) => h("span", { class: "ly-seg" }, h("b", null, q[0] ? chordLabel(q[0]) : "\u00a0"), h("span", null, q[1] || "\u00a0"))));
+  }
+  function setLyrics(idx) {
+    if (!kar) return; const it = seq[idx]; let key = "-"; let cur = null, nx = null;
+    if (it) { const L = secs[it.sec].lyrics; if (L && L.length) { let b0 = idx; while (b0 > 0 && seq[b0 - 1].sec === it.sec && seq[b0 - 1].rep === it.rep) b0--; const nb = secs[it.sec].bars.length; const li = Math.min(L.length - 1, Math.floor(((idx - b0) % nb) * L.length / nb)); key = it.sec + ":" + li; cur = L[li]; nx = L[li + 1] || null; } }
+    if (key === shownLy) return; shownLy = key;
+    kar.replaceChildren(...(cur ? [lyLine(cur, "on")].concat(nx ? [lyLine(nx, "nx")] : []) : [h("div", { class: "small stg-kar-none" }, it ? "♪ bez tekstu w tej części" : "")]));
+  }
   let shownCur = null, shownNx = null, shownBar = -1;
   function rebuild() {
     seq = pa.info().seq; ev = stageEvents(seq, B); cells = []; strip.replaceChildren(); let lastSec = -1;
     seq.forEach((it, i) => {
-      const c = h("div", { class: "stg-cell" + (it.sec !== lastSec ? " sec-start" : ""), "data-bar": String(i) },
+      const lbl = "Takt " + (i + 1) + ": " + it.chords.map(chordLabel).join(" ");
+      const c = h("div", yt ? { class: "stg-cell" + (it.sec !== lastSec ? " sec-start" : ""), "data-bar": String(i) } : { class: "stg-cell" + (it.sec !== lastSec ? " sec-start" : ""), "data-bar": String(i), role: "button", tabindex: "0", "aria-label": lbl, onclick: () => seekTo(i), onkeydown: (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); seekTo(i); } } },
         it.sec !== lastSec ? h("span", { class: "stg-cell-sec" }, secs[it.sec].n) : null, h("b", null, it.chords.map(chordLabel).join(" "))); lastSec = it.sec; cells.push(c); add(strip, [c]);
     });
     shownBar = -1; shownCur = null; shownNx = null; idle();
   }
-  function idle() { setChords(ev[0] && ev[0].name, ev[1] && ev[1].name); nxIn.textContent = "stuknij Start"; setBeats(-1, 0); barInfo.textContent = "Takt 0/" + seq.length; if (seq[0]) secEl.textContent = secs[seq[0].sec].n; strip.scrollTo({ left: 0 }); cells.forEach((c) => c.classList.remove("on", "past")); shownBar = -1; }
+  function idle() { setChords(ev[0] && ev[0].name, ev[1] && ev[1].name); nxIn.textContent = "stuknij Start"; setBeats(-1, 0); barInfo.textContent = "Takt 0/" + seq.length + (yt ? "" : " · ← → przewijanie"); setLyrics(0); if (seq[0]) secEl.textContent = secs[seq[0].sec].n; strip.scrollTo({ left: 0 }); cells.forEach((c) => c.classList.remove("on", "past")); shownBar = -1; }
   function setChords(cur, nx) {
     if (cur !== shownCur) { shownCur = cur; curName.textContent = cur ? chordLabel(cur) : "—"; curDia.replaceChildren(...(cur ? [dia(cur)] : [])); curName.classList.remove("pop"); void curName.offsetWidth; curName.classList.add("pop"); }
     if (nx !== shownNx) { shownNx = nx; nxName.textContent = nx ? chordLabel(nx) : "koniec"; nxDia.replaceChildren(...(nx ? [dia(nx)] : [])); }
@@ -4266,7 +4406,7 @@ function openStage(song, pa, mode) {
     if (e.stopped) { if (!yt) { setPlayBtn(false); if (!ended) idle(); } ended = false; return; }
     if (e.end) { ended = true; barInfo.textContent = "Koniec utworu 🎉"; setChords(null, null); return; }
     if (e.waiting) { barInfo.textContent = "Czekam na pierwszy akord…"; return; }
-    if (!yt) setPlayBtn(true);
+    if (!yt && !e.seek) setPlayBtn(true);
     if (e.count != null) {
       setChords(ev[0] && ev[0].name, ev[1] && ev[1].name); curName.textContent = String(e.count); curName.classList.add("count"); shownCur = "#count"; curDia.replaceChildren(...(ev[0] ? [dia(ev[0].name)] : []));
       nxName.textContent = ev[0] ? chordLabel(ev[0].name) : ""; shownNx = "#count"; nxIn.textContent = "start za " + e.count; nxIn.classList.toggle("soon", e.count === 1);
@@ -4283,7 +4423,19 @@ function openStage(song, pa, mode) {
     nxIn.classList.toggle("soon", left === 1);
     setBeats(e.inBar, e.frac != null ? e.frac : (e.inBar + 1) / B); setBar(e.idx);
     secEl.textContent = secs[it.sec].n + (it.reps > 1 ? " " + (it.rep + 1) + "/" + it.reps : "");
-    barInfo.textContent = "Takt " + (e.idx + 1) + "/" + seq.length;
+    barInfo.textContent = "Takt " + (e.idx + 1) + "/" + seq.length; setLyrics(e.idx);
+    if (e.seek) { nxIn.textContent = "Start — od tego taktu"; setBeats(-1, 0); }
+  }
+  // --- przewijanie po taktach (← / → na klawiaturze, stuknięcie w takt na pasku) ---
+  function seekTo(i) { if (yt || !pa.seek) { if (yt) toast("Z nagraniem przewijaj film w odtwarzaczu."); return; } pa.seek(i); }
+  function seekBy(d, bySec) {
+    if (yt || !seq.length) return seekTo(0);
+    if (!bySec) return seekTo(clamp((shownBar >= 0 ? shownBar : -1) + d, 0, seq.length - 1)); // z „Takt 0” → pierwszy takt
+    const cur = shownBar >= 0 ? shownBar : 0;
+    const key = (x) => x.sec + ":" + x.rep; let i = cur;
+    if (d > 0) { const k = key(seq[cur]); while (i < seq.length - 1 && key(seq[i]) === k) i++; }
+    else { const k0 = key(seq[cur]); while (i > 0 && key(seq[i - 1]) === k0) i--; if (i === cur && i > 0) { i--; const k1 = key(seq[i]); while (i > 0 && key(seq[i - 1]) === k1) i--; } }
+    seekTo(i);
   }
   // --- sterowanie (minimum) ---
   const playBtn = h("button", { class: "btn primary stg-play", id: "stage-play", onclick: () => {
@@ -4347,8 +4499,9 @@ function openStage(song, pa, mode) {
   const ctlRow = h("div", { class: "stg-ctl" }, playBtn, tempoCtl, loopSel, yt ? null : clock,
     yt ? null : h("button", { class: "btn sm plain stg-addrec", id: "stage-addrec", onclick: () => { closeStage(); const f = document.getElementById("fold-rec"); if (f) { f.open = true; const y = f.getBoundingClientRect().top + window.scrollY - 70; window.scrollTo({ top: y }); const i = document.getElementById("yt-url"); if (i) setTimeout(() => i.focus(), 300); } } }, "🎧 Graj z nagraniem…"));
   const el = h("div", { class: "stage" + (yt ? " yt" : ""), id: "stage", role: "dialog", "aria-label": "Tryb gry — " + song.title },
-    top, h("div", { class: "stg-main" }, videoPh, h("div", { class: "stg-play-area" }, now, h("div", { class: "stg-timeline" }, dots, prog, strip, barInfo))), ctlRow, wiz);
+    top, h("div", { class: "stg-main" }, videoPh, h("div", { class: "stg-play-area" }, now, kar, h("div", { class: "stg-timeline" }, dots, prog, strip, barInfo))), ctlRow, wiz);
   document.body.appendChild(el); document.body.classList.add("stage-open");
+  const prevFocus = document.activeElement; el.tabIndex = -1; try { el.focus({ preventScroll: true }); } catch (e) { /* ignoruj */ } // v2.4: Spacja nie „klika” przycisku pod sceną
   try { const hs = history.state || {}; if (hs.ov === "stage") history.replaceState(hs, ""); else history.pushState({ tg: hs.tg || null, ov: "stage" }, ""); } catch (e) { /* ignoruj */ } // gest wstecz zamyka tryb gry
   // --- dokowanie odtwarzacza YouTube nad sceną (bez przenoszenia iframe — nie przeładowuje się) ---
   let frameEl = null; let fold = null; let dockT = 0;
@@ -4361,8 +4514,8 @@ function openStage(song, pa, mode) {
   const unsub = pa.subscribe(onEv);
   const t0 = performance.now(); const ytHeard0 = yt && YT_CTL ? YT_CTL.heard() : 0; const paPlayed0 = pa.played();
   const poll = yt ? setInterval(() => { if (!YT_CTL) return; setPlayBtn(YT_CTL.isPlaying()); if (YT_CTL.isCalibrating() && wiz.hidden) wizard(2); }, 250) : 0;
-  STAGE = { el, mode,
-    cleanup() { unsub(); clearInterval(poll); clearInterval(dockT); window.removeEventListener("resize", dock); if (frameEl) { frameEl.classList.remove("docked"); frameEl.removeAttribute("style"); } if (fold && !fold.dataset.keep) fold.open = false; },
+  STAGE = { el, mode, seekBy,
+    cleanup() { try { if (prevFocus && prevFocus.isConnected && prevFocus.focus) prevFocus.focus({ preventScroll: true }); } catch (e) { /* ignoruj */ } unsub(); clearInterval(poll); clearInterval(dockT); window.removeEventListener("resize", dock); if (frameEl) { frameEl.classList.remove("docked"); frameEl.removeAttribute("style"); } if (fold && !fold.dataset.keep) fold.open = false; },
     after() { const secsPlayed = yt ? (YT_CTL ? YT_CTL.heard() - ytHeard0 : 0) : pa.played() - paPlayed0; void t0; songPostPlay(song, yt ? (YT_CTL ? Math.round(YT_CTL.getBpm() * YT_CTL.getRate()) : 0) : pa.getBpm(), Math.round(secsPlayed)); } };
   rebuild(); showTempo(); loopSel.value = String(pa.getSec());
   try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(() => {}); } catch (e) { /* ignoruj */ }
@@ -4649,7 +4802,7 @@ function tuner() {
   const meterI = h("i"); const meter = h("div", { class: "tuner-meter", id: "tuner-meter", "aria-label": "Poziom sygnału" }, meterI);
   const diagEl = h("div", { class: "small tuner-diag", id: "tuner-diag" }, "Diagnostyka: mikrofon wyłączony");
   const stateEl = h("div", { id: "tuner-state", style: "font-size:14px" });
-  const btn = h("button", { class: "btn primary big", id: "tuner-btn", onclick: onTap }, "🎙️ Włącz mikrofon");
+  const btn = h("button", { class: "btn primary big", id: "tuner-btn", "data-kbd": "play", "aria-keyshortcuts": "Space", onclick: onTap }, "🎙️ Włącz mikrofon");
   const strBtns = STR_LABELS.map((s, i) => h("button", { class: "btn", onclick: () => playString(i), "aria-label": "Struna " + s }, s, h("small", null, Math.round(OPEN_FREQ[i]) + " Hz")));
   function unwire() { try { [src, hp, lp, pre, an, sink].forEach((n) => { if (n) n.disconnect(); }); } catch (e) { /* ignoruj */ } }
   function teardown() {
@@ -5211,7 +5364,12 @@ function ptCells(stage) {
 }
 function ptResLine(st, r) {
   if (!r) return null;
-  const txt = r.self ? (r.pass ? "✓ równo (samoocena)" : "✗ z błędami (samoocena)") : r.err ? r.err : r.m === 0 ? "✗ nic nie usłyszałem — graj głośniej / bliżej telefonu" : (r.pass ? "✓ " : "✗ ") + "±" + r.sd + " ms · trafione " + Math.round(r.hit * 100) + "%" + (r.extra > 0 ? " · " + r.extra + " nadmiar." : "") + (r.silentMad != null ? " · w ciszy ±" + r.silentMad + " ms" : "") + (r.real != null && Math.abs(r.real) >= 20 ? (r.real > 0 ? " · spóźniasz ~" : " · śpieszysz ~") + Math.abs(r.real) + " ms" : "");
+  const ms = r.sd != null ? "±" + r.sd + " ms" : ""; const hit = r.hit != null ? Math.round(r.hit * 100) : 0;
+  const drift = r.real != null && Math.abs(r.real) >= 20 ? (r.real > 0 ? " Lekko się spóźniasz (~" : " Lekko się śpieszysz (~") + Math.abs(r.real) + " ms) — słuchaj kliknięcia." : "";
+  const txt = r.self ? (r.pass ? "✓ Równo — super (samoocena)" : "Z błędami — to normalne przy wyższym tempie (samoocena)") : r.err ? r.err
+    : r.m === 0 ? "Nic nie usłyszałem — przysuń telefon bliżej gitary albo wybierz „stukanie”."
+    : r.pass ? "✓ Równo! " + ms + " · trafione " + hit + "%" + (r.silentMad != null ? " · w ciszy " + "±" + r.silentMad + " ms" : "") + drift
+    : "Prawie — " + ms + " · trafione " + hit + "%" + (r.extra > 0 ? " · " + r.extra + " dodatkowych uderzeń" : "") + (r.silentMad != null ? " · w ciszy ±" + r.silentMad + " ms" : "") + "." + (drift || " Spróbuj spokojniej — test sam dobierze tempo.");
   return h("div", { class: "pt-line " + (r.pass ? "ok" : "bad") }, h("b", null, st.n + " · " + st.bpm + " BPM"), h("span", null, txt));
 }
 /* cały test z drabinką etapów. o: { startLv, onResult(r), compact, practice } */
@@ -5266,6 +5424,7 @@ function ptTest(key, o) {
     if (!running && !done && modes.length > 1) kids.push(segmented(modes.map((m) => ({ value: m, label: PT_MODE_LABEL[m] })), mode, (v) => { mode = v; draw(); }, { label: "Sposób pomiaru" }));
     if (mode === "mic" && !done) kids.push(h("div", { class: "small" }, "Telefon 30–50 cm od gitary, metronom z głośnika telefonu (bez słuchawek BT). W odliczaniu nie graj — kalibruję szum."));
     if (err) kids.push(h("div", { class: "small", style: "color:var(--red)" }, err));
+    if (!running && !done && !order.length) kids.push(h("div", { class: "pt-howto small" }, "Jak to działa: 4 kliknięcia odliczania, potem " + (mode === "tap" ? "stukasz" : "grasz") + " razem z metronomem ok. 12 s. Etap nie wyszedł? Nic nie szkodzi — test sam dobierze łatwiejszy, a wynik tylko ustawia start lekcji."));
     if (idx < 0) idx = startIdx;
     const st = def.stages[idx];
     if (!done) {
@@ -5283,7 +5442,8 @@ function ptTest(key, o) {
     }
     if (order.length) kids.push(h("div", { class: "pt-lines" }, order.map((i) => ptResLine(def.stages[i], res[i]))));
     if (done) {
-      kids.push(h("div", { class: "pt-result" }, h("div", { class: "small" }, DOM_BY[def.dom].short + " — wynik testu"), h("div", { class: "pt-big" }, levelShort(done.lvl)), done.ms != null ? h("div", { class: "small" }, "Najlepsza równość: ±" + done.ms + " ms" + (done.bpm ? " · tempo docelowe " + Math.round(done.bpm * 0.9) + " BPM" : "")) : null));
+      kids.push(h("div", { class: "pt-result" }, h("div", { class: "small" }, DOM_BY[def.dom].short + " — wynik testu"), h("div", { class: "pt-big" }, levelShort(done.lvl)), done.ms != null ? h("div", { class: "small" }, "Najlepsza równość: ±" + done.ms + " ms" + (done.bpm ? " · tempo docelowe " + Math.round(done.bpm * 0.9) + " BPM" : "")) : null,
+        h("div", { class: "small pt-cheer" }, done.pass ? "Dobra robota! Lekcje zaczną się trochę poniżej tego tempa i będą je podnosić." : "Bez stresu — zaczniemy od spokojnego tempa i szybko pójdzie w górę.")));
       if (!o.noRepeat) kids.push(h("button", { class: "btn tinted pt-again", onclick: () => { res.length = 0; order.length = 0; done = null; idx = startIdx; draw(); } }, "Powtórz test"));
     }
     root.replaceChildren(...kids);
@@ -5364,6 +5524,15 @@ function earQuestions(seed) {
 function earPlay(q) {
   const ctx = getCtx(); if (!ctx) return; AUDIO.oneshot(); let t = ctx.currentTime + 0.08;
   q.play.forEach((g) => { g.forEach((f, i) => pluck(ctx, f, t + (q.strum ? i * 0.035 : 0), 0.55, 1.6)); t += q.strum ? 1.0 : 0.9; });
+}
+/* krótkie podsumowanie wyniku: mocna strona + obszar do pracy (szczegóły w rozwijanej sekcji) */
+function plSummary(c, L, weak) {
+  const core = DOMAINS.filter((d) => !c.domNew[d.key]); const best = core.slice().sort((a, b) => (c.dom[b.key] || 0) - (c.dom[a.key] || 0))[0];
+  const wk = weak ? DOMAINS.find((d) => d.key === weak) : null; const nw = DOMAINS.filter((d) => c.domNew[d.key]);
+  return h("div", { class: "pl-sum stack", id: "pl-summary", style: "gap:6px" },
+    best ? h("div", { class: "pl-sum-row" }, h("span", null, "💪 Najmocniej:"), h("b", null, best.icon + " " + best.short + " · " + levelShort(c.dom[best.key] || 0))) : null,
+    h("div", { class: "pl-sum-row" }, h("span", null, "🎯 Lekcje celują w:"), h("b", null, wk ? wk.icon + " " + wk.short + " · " + levelShort(c.dom[wk.key] || 0) : "wszystkie obszary po równo")),
+    nw.length ? h("div", { class: "pl-sum-row" }, h("span", null, "🌱 Od podstaw:"), h("b", null, nw.map((d) => d.short).join(", "))) : null);
 }
 function levelFromSeq(seq) { let got = 0, L = 0; seq.forEach((x, i) => { if (x.ok) { got++; if (got / (i + 1) >= 0.6) L = Math.max(L, x.lv + 2); } }); return L; }
 function placement(retest, onDone, onCancel) {
@@ -5463,9 +5632,7 @@ function placement(retest, onDone, onCancel) {
       kids.push(section("Wynik testu", null, [
         h("div", { class: "result-lv", id: "result-level", style: { color: "var(--" + t.color + ")" } }, levelName(L)),
         h("div", { class: "muted", style: "color:var(--text)" }, t.desc),
-        domRadar(c.dom, c.domNew),
-        domBars(c.dom, c.domNew, L, weak),
-        h("div", { class: "small" }, "Poziom ogólny liczą rytm, prawa ręka, akordy i lewa ręka. Skale, teoria i słuch mogą go tylko lekko podnieść." + (Object.keys(c.domNew).length ? " Obszary „nowe” zaczniesz od podstaw, bez obniżania poziomu." : "")),
+        plSummary(c, L, weak),
         h("div", { class: "row", style: "gap:8px;justify-content:center" }, h("button", { class: "btn sm tinted", id: "fine-down", onclick: () => { P.fine -= 1; draw(); } }, "− Za trudno"), h("span", { class: "small" }, P.fine ? (P.fine > 0 ? "+" : "") + P.fine : "korekta"), h("button", { class: "btn sm tinted", id: "fine-up", onclick: () => { P.fine += 1; draw(); } }, "+ Za łatwo")),
         h("button", { class: "btn primary big", id: "finish-test", onclick: () => {
           const bpm = {}; const tk = P.tests.kostka, tl = P.tests.lewa, tb = P.tests.bicie;
@@ -5475,7 +5642,10 @@ function placement(retest, onDone, onCancel) {
           const chg = P.tests.zmiany;
           onDone({ level: L, dom, domNew: c.domNew, checks: Array.from(P.checks), tests, bpm, quiz: tq.asked.filter((a) => a.ok).length, changes: chg ? { pair: chg.pair, n: chg.n } : null });
         } }, retest ? "Zapisz wynik testu" : "Zaczynamy pierwszą lekcję 🎸"),
-        h("button", { class: "btn big", onclick: () => { P.checks.clear(); P.none = {}; P.tests = {}; P.tq = P.eq = null; P.fine = 0; tq.est = null; tq.asked = []; tq.cur = null; tq.stepSz = 8; eq.i = 0; eq.seq = []; eq.miss = 0; go(1); } }, "Powtórz test"),
+        h("details", { class: "fold pl-details", id: "pl-details" }, h("summary", null, h("span", { class: "grow" }, h("b", null, "📊 Szczegóły wyniku"), h("div", { class: "small" }, "Wykres i wszystkie 7 obszarów")), h("span", { class: "fold-chev" }, "›")),
+          h("div", { class: "fold-body stack" }, domRadar(c.dom, c.domNew), domBars(c.dom, c.domNew, L, weak),
+            h("div", { class: "small" }, "Poziom ogólny liczą rytm, prawa ręka, akordy i lewa ręka. Skale, teoria i słuch mogą go tylko lekko podnieść." + (Object.keys(c.domNew).length ? " Obszary „nowe” zaczniesz od podstaw, bez obniżania poziomu." : "")))),
+        h("button", { class: "btn plain", id: "pl-again", onclick: () => { P.checks.clear(); P.none = {}; P.tests = {}; P.tq = P.eq = null; P.fine = 0; tq.est = null; tq.asked = []; tq.cur = null; tq.stepSz = 8; eq.i = 0; eq.seq = []; eq.miss = 0; go(1); } }, "Powtórz test"),
       ]));
     }
     if (retest && onCancel) kids.push(h("div", { class: "section" }, h("button", { class: "btn big danger", onclick: () => { AUDIO.stopAll(); onCancel(); } }, "Anuluj test")));
@@ -5811,7 +5981,13 @@ function dcols(main, side, cls) {
 if (window.matchMedia) { const mq = matchMedia("(min-width: 1200px)"); const re = () => { if (S && !document.body.classList.contains("stage-open")) { const y = scrollY; render(); scrollTo(0, y); } }; if (mq.addEventListener) mq.addEventListener("change", re); else if (mq.addListener) mq.addListener(re); }
 
 /* skróty klawiszowe */
-const KBD_HELP = [["Spacja", "start / stop: metronom, perkusja, tryb gry"], ["↑ / ↓", "tempo ±1 BPM (z Shift ±5)"], ["← / →", "poprzednia / następna zakładka"], ["1–6", "przejdź do zakładki"], ["Esc", "zamknij / wróć"], ["?", "ta pomoc"]];
+const KBD_HELP = [["Spacja", "start / stop: metronom, perkusja, stroik, tryb gry"], ["↑ / ↓", "tempo ±1 BPM (z Shift ±5)"], ["← / →", "poprzednia / następna zakładka"], ["← / → w trybie gry", "poprzedni / następny takt (z Shift — sekcja)"], ["1–6", "zakładka; w quizie i trenażerze — wybór odpowiedzi"], ["Enter", "dalej (quiz, trenażer, test)"], ["R", "odtwórz dźwięk ponownie (trenażery słuchu)"], ["Esc", "zamknij / wróć"], ["?", "ta pomoc"]];
+const KBD_HINT_KEY = "trener-gitara-kbdhint"; // osobny klucz — nie dotyka zapisu postępów
+function kbdFirstHint() {
+  try { if (localStorage.getItem(KBD_HINT_KEY)) return; localStorage.setItem(KBD_HINT_KEY, "1"); } catch (e) { return; }
+  if (typeof toast === "function") toast("⌨️ Masz klawiaturę? Naciśnij ?, by zobaczyć skróty.");
+}
+function kbdFirst(sel) { return [...document.querySelectorAll(sel)].find((b) => !b.disabled && kbdVisible(b)) || null; }
 let kbdLast = null;
 document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-kbd=play]"); if (b) kbdLast = b; }, true);
 function kbdVisible(el) { if (!el || !el.isConnected) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight; }
@@ -5851,6 +6027,7 @@ document.addEventListener("keydown", (e) => {
   }
   if (typing) return;
   const stage = document.getElementById("stage");
+  if (!/^(Shift|Control|Alt|Meta|Tab|CapsLock|\?)$/.test(e.key) && !(e.key === "/" && e.shiftKey)) kbdFirstHint();
   if (e.key === " " || e.code === "Space") {
     if (tag === "BUTTON" || tag === "SUMMARY" || tag === "A" || (t && t.getAttribute && t.getAttribute("role") === "tab")) return; // natywna aktywacja przycisku
     let b = null;
@@ -5869,12 +6046,23 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-    if (tag === "INPUT" || stage) return;
+    if (tag === "INPUT") return;
+    if (stage) { if (STAGE && STAGE.seekBy && !document.getElementById("kbd-help")) { e.preventDefault(); STAGE.seekBy(e.key === "ArrowRight" ? 1 : -1, e.shiftKey); } return; }
     const i = TABS.findIndex((x) => x.id === ui.tab);
     if (kbdGoTab(i + (e.key === "ArrowRight" ? 1 : -1))) { e.preventDefault(); scrollTo(0, 0); }
     return;
   }
-  if (/^[1-6]$/.test(e.key) && !stage) { if (kbdGoTab(+e.key - 1)) e.preventDefault(); return; }
+  if (/^[1-9]$/.test(e.key) && !stage) {
+    const opts = [...document.querySelectorAll("#app .tr-opt, #app .quiz-opt, #app .th-opt")].filter((b) => !b.disabled && kbdVisible(b));
+    if (opts.length && !opts.some((b) => /right|wrong/.test(b.className))) { const b = opts[+e.key - 1]; if (b) { e.preventDefault(); b.click(); } return; }
+    if (+e.key <= 6 && kbdGoTab(+e.key - 1)) e.preventDefault(); return;
+  }
+  if (e.key === "Enter" && !/^(BUTTON|A|SUMMARY|SELECT)$/.test(tag || "")) {
+    const b = kbdFirst("#th-next, #app .tr-next, #quiz-next, #pl-next, #show-result"); if (b) { e.preventDefault(); b.click(); } return;
+  }
+  if ((e.key === "r" || e.key === "R") && !stage) {
+    const b = [...document.querySelectorAll("#app .th-tr button, #app .ear button, #app [data-kbd=replay]")].find((x) => /Odtwórz|Posłuchaj|Zagraj ponownie|🔊/.test(x.textContent) && kbdVisible(x)); if (b) { e.preventDefault(); b.click(); } return;
+  }
   if (e.key === "?" || (e.key === "/" && e.shiftKey)) { e.preventDefault(); kbdHelp(); }
 });
 
@@ -6006,7 +6194,7 @@ function viewPlacement() {
 function restoreBox() {
   const ta = h("textarea", { class: "input", placeholder: "Wklej tutaj kod postępów (TG1.…)", "aria-label": "Kod postępów" });
   const msg = h("span", { class: "small" });
-  return h("div", { class: "stack", style: "gap:8px" }, ta, h("div", { class: "row" }, h("button", { class: "btn tinted sm", onclick: () => {
+  return h("div", { class: "stack", style: "gap:8px" }, ta, h("div", { class: "row" }, h("button", { class: "btn tinted sm", "aria-label": "Wczytaj postępy", onclick: () => {
     if (!ta.value.trim()) { msg.textContent = "Najpierw wklej kod."; return; }
     const s = decodeState(ta.value); if (s) { importState(s); } else msg.textContent = "To nie jest poprawny kod postępów — sprawdź, czy skopiowałeś całość.";
   } }, "Wczytaj postępy"), msg));
@@ -6164,7 +6352,7 @@ function viewProgress(d) {
 }
 
 function viewProfile(d) {
-  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.3")])];
+  const st = S; const kids = [largeTitle("Profil", "Ustawienia i zapis", [h("span", { class: "chip tint", id: "app-version" }, "v2.4")])];
   kids.push(h("section", { class: "section" }, h("div", { class: "level-card" },
     h("div", { class: "small", style: "font-weight:700" }, "Twój poziom"),
     h("div", { class: "lv", id: "level-name" }, levelName(st.level)),
@@ -6196,7 +6384,7 @@ function viewProfile(d) {
     : [h("div", { style: "text-align:center;font-weight:600" }, "Na pewno? Tego nie da się cofnąć."), h("div", { style: "display:grid;grid-template-columns:1fr 1fr;gap:10px" }, h("button", { class: "btn danger primary", onclick: () => { ui.confirmReset = false; ui.tab = "dzis"; commit(null); } }, "Tak, usuń"), h("button", { class: "btn", onclick: () => { ui.confirmReset = false; drawReset(); } }, "Anuluj"))]));
   drawReset();
   kids.push(section("Zacznij od nowa", null, [resetBox], { delay: 120 }));
-  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.3 · działa offline · dane na Twoim urządzeniu"));
+  kids.push(h("div", { class: "footer-note" }, "Trener Gitara v2.4 · działa offline · dane na Twoim urządzeniu"));
   return kids;
 }
 
@@ -6258,7 +6446,7 @@ function render() {
   onScroll();
 }
 /* ---------- v2.1.1: podstrony — pasek „‹ Wstecz”, historia (gest wstecz iOS), przesunięcie od krawędzi ---------- */
-let navKey = null, ignorePops = 0, lastPop = 0; const navScroll = {};
+let navKey = null, ignorePops = 0, ignoreAt = 0, lastPop = 0; const navScroll = {};
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 function subPage() {
   if (!S) return null;
@@ -6274,7 +6462,7 @@ function syncNav() {
   const st = history.state || {};
   try {
     if (key) { if (st.tg) history.replaceState({ tg: key }, ""); else history.pushState({ tg: key }, ""); }
-    else if (st.tg) { ignorePops++; history.back(); }
+    else if (st.tg) { ignorePops++; ignoreAt = Date.now(); history.back(); }
   } catch (e) { /* np. sandbox bez historii */ }
   navKey = key;
 }
@@ -6284,12 +6472,12 @@ function navGoBack() {
   const sp = subPage(); if (!sp) return;
   const st = history.state || {};
   if (st.tg === sp.key && !st.ov) { history.back(); return; } // popstate zamknie podstronę
-  if (st.tg) { ignorePops++; history.back(); navKey = null; }
+  if (st.tg) { ignorePops++; ignoreAt = Date.now(); history.back(); navKey = null; }
   leaveSub(sp);
 }
 window.addEventListener("popstate", (e) => {
   lastPop = Date.now();
-  if (ignorePops > 0) { ignorePops--; return; }
+  if (ignorePops > 0) { ignorePops--; if (Date.now() - ignoreAt < 1500) return; } // v2.4: stary „ignoruj” (iOS zgubił zdarzenie) nie blokuje prawdziwego gestu wstecz
   const st = e.state || {}; const sheet = document.getElementById("post-play");
   if (sheet || (typeof STAGE !== "undefined" && STAGE)) {
     if (sheet) sheet.remove();
@@ -6314,6 +6502,19 @@ function onScroll() { document.getElementById("navbar").classList.toggle("show",
 window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("storage", (e) => { if (e.key === STORE_KEY) { S = loadState(); render(); } });
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden" && S) persist(); });
+/* v2.4: odporność iPhone / PWA — powrót z bfcache, wybudzenie z tła */
+window.addEventListener("pageshow", (e) => {
+  if (!e.persisted) return;
+  try { AUDIO.stopAll(); } catch (er) { /* ignoruj */ }
+  if (typeof STAGE !== "undefined" && STAGE) closeStage(true);
+  const pp = document.getElementById("post-play"); if (pp) pp.remove();
+  ignorePops = 0; navKey = null; S = loadState(); render();
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState !== "visible") return;
+  ignorePops = 0;
+  try { if (audioCtx && (audioCtx.state === "suspended" || audioCtx.state === "interrupted")) { const r = audioCtx.resume(); if (r && r.catch) r.catch(() => {}); } } catch (er) { /* ignoruj */ }
+});
 let lastDay = todayStr();
 setInterval(() => { const t = todayStr(); if (t !== lastDay) { lastDay = t; if (S) render(); } }, 60000);
 render();
